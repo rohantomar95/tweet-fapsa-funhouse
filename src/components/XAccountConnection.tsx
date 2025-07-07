@@ -90,7 +90,7 @@ export const XAccountConnection = () => {
             alt="Profile"
             className="w-12 h-12 rounded-full"
           />
-          <div className="pr-24">
+          <div className="pr-16">
             <p className="font-semibold text-faps-primary">{userProfile.username}</p>
             <div className="flex items-center gap-2 mt-1">
               <span className="text-sm text-muted-foreground">Twitter Score:</span>
@@ -112,10 +112,9 @@ export const XAccountConnection = () => {
             variant="outline"
             size="sm"
             onClick={handleDisconnect}
-            className="absolute top-2 right-2 flex items-center gap-1 px-2 h-auto py-1"
+            className="absolute top-2 right-2 text-xs px-2 py-1 h-auto"
           >
-            <X className="w-3 h-3" />
-            <span className="text-xs">Disconnect</span>
+            Disconnect
           </Button>
         </div>
       </div>
