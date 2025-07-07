@@ -122,7 +122,8 @@ All colors MUST be HSL.
 
   body {
     @apply text-foreground;
-    background: var(--gradient-background);
+    background: radial-gradient(ellipse at top, hsl(220 13% 8%) 0%, hsl(220 13% 6%) 50%, hsl(220 13% 4%) 100%);
+    background-attachment: fixed;
     min-height: 100vh;
   }
 }
