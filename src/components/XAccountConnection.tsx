@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { Info } from "lucide-react";
+import { Info, X } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 const TwitterIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
@@ -57,7 +57,7 @@ export const XAccountConnection = () => {
             onClick={handleConnect}
           >
             <TwitterIcon className="w-4 h-4" />
-            Connect X account
+            Connect <TwitterIcon className="w-4 h-4 inline mx-1" /> account
           </Button>
         </div>
         <p className="text-muted-foreground">
@@ -91,29 +91,31 @@ export const XAccountConnection = () => {
             alt="Profile"
             className="w-12 h-12 rounded-full"
           />
-          <div>
+          <div className="pr-20">
             <p className="font-semibold text-faps-primary">{userProfile.username}</p>
             <div className="flex items-center gap-2 mt-1">
               <span className="text-sm text-muted-foreground">Twitter Score:</span>
               <Badge className="bg-faps-warning/20 text-faps-warning border-faps-warning/50">
                 {userProfile.twitterScore}/1000
               </Badge>
-              <button className="ml-1 p-1 hover:bg-muted rounded-full transition-colors group relative">
-                <Info className="w-3 h-3 text-muted-foreground group-hover:text-foreground" />
-                <div className="absolute z-10 invisible group-hover:visible bg-black/90 text-white p-2 rounded-md shadow-md text-xs max-w-xs -mt-16 -ml-32">
+              <div className="relative group">
+                <button className="p-1 hover:bg-muted rounded-full transition-colors">
+                  <Info className="w-3 h-3 text-muted-foreground group-hover:text-foreground" />
+                </button>
+                <div className="absolute z-50 invisible group-hover:visible bg-popover border border-border text-popover-foreground p-3 rounded-md shadow-md text-xs max-w-xs -mt-20 -ml-32">
                   Twitter score is assigned by Twitterscore.io based on engagement metrics. 
                   FAPS are calculated based on Engagement and Twitter score of the user. Scores range from 1 to 1000.
                 </div>
-              </button>
+              </div>
             </div>
           </div>
           <Button 
             variant="outline"
             size="sm"
             onClick={handleDisconnect}
-            className="absolute top-2 right-2"
+            className="absolute top-2 right-2 p-1 h-6 w-6"
           >
-            Disconnect
+            <X className="w-3 h-3" />
           </Button>
         </div>
       </div>

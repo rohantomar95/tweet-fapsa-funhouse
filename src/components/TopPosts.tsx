@@ -1,7 +1,7 @@
 
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Heart, MessageCircle, Repeat2, MoreHorizontal } from "lucide-react";
+import { Heart, MessageCircle, Repeat2, MoreHorizontal, Bookmark, Share, BarChart3 } from "lucide-react";
 
 const TwitterIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
   <svg viewBox="0 0 24 24" className={className} fill="currentColor">
@@ -14,73 +14,41 @@ export const TopPosts = () => {
     {
       id: 1,
       author: {
-        name: "CryptoKing",
-        username: "@cryptoking2024",
+        name: "Ahmed ElSabahy",
+        username: "@120230Arafa",
         avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face&auto=format",
-        verified: true
+        verified: false
       },
-      content: "Just discovered this amazing DeFi protocol that's changing everything! 🚀 @Fractionai_xyz #DeFi #Crypto",
+      content: "Finally the target hit 100k fractals 🎉🔥\nBut a still not included in top 100 , the next step is top 100 😤\nCan I get congrats @FractionAI_xyz",
+      hasMedia: true,
+      mediaUrl: "/lovable-uploads/7a5722af-0572-4581-a24a-a97514d8a07d.png",
       engagements: {
-        likes: 45,
-        comments: 12,
-        retweets: 8,
-        views: 1200
+        likes: 46,
+        comments: 26,
+        retweets: 1,
+        views: 2100
       },
-      timestamp: '2h',
+      timestamp: 'Jul 3',
       isTop: true
     },
     {
       id: 2,
       author: {
-        name: "BlockchainBoss",
-        username: "@blockchainboss",
+        name: "Rafero",
+        username: "@auguraemal323",
         avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face&auto=format",
         verified: false
       },
-      content: "The future of blockchain is here and I'm all in! Who else is excited about what's coming? 💎 @Fractionai_xyz",
+      content: "A short introduction of @FractionAI_xyz building on @NEARProtocol\n\nFounder is @Oxshah🔥who worked as:\n\n- ML strat analyst at @GoldmanSachs\n- Software engineering intern at @Microsoft\n- Data scientist at @augutan\n- Graduate teaching assistant at @iitdelhi\n- Quantitative\nShow more",
+      hasMedia: true,
+      mediaUrl: "/lovable-uploads/ee4e5e2c-64d4-41d7-8acd-36046f7a2da9.png",
       engagements: {
-        likes: 32,
-        comments: 7,
-        retweets: 15,
-        views: 890
+        likes: 2,
+        comments: 1,
+        retweets: 0,
+        views: 107
       },
-      timestamp: '4h',
-      isTop: false
-    },
-    {
-      id: 3,
-      author: {
-        name: "DeFi Master",
-        username: "@defimaster",
-        avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face&auto=format",
-        verified: true
-      },
-      content: "Morning crypto fam! ☀️ What's everyone watching today? My portfolio is looking spicy 🌶️ @Fractionai_xyz",
-      engagements: {
-        likes: 28,
-        comments: 19,
-        retweets: 3,
-        views: 650
-      },
-      timestamp: '6h',
-      isTop: false
-    },
-    {
-      id: 4,
-      author: {
-        name: "HODL Strong",
-        username: "@hodlstrong",
-        avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=40&h=40&fit=crop&crop=face&auto=format",
-        verified: false
-      },
-      content: "HODL strong! 💪 This dip is just another opportunity to accumulate. @Fractionai_xyz #Bitcoin #Ethereum",
-      engagements: {
-        likes: 21,
-        comments: 5,
-        retweets: 12,
-        views: 480
-      },
-      timestamp: '1d',
+      timestamp: 'Jun 27',
       isTop: false
     }
   ];
@@ -97,11 +65,11 @@ export const TopPosts = () => {
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold">Top Performing Posts</h3>
         <Badge variant="outline" className="text-xs">
-          Last 30 days
+          Last 7 days
         </Badge>
       </div>
       
-      <div className="space-y-0 max-h-96 overflow-y-auto border border-border rounded-lg">
+      <div className="space-y-0 max-h-[600px] overflow-y-auto border border-border rounded-lg">
         {topPosts.map((post, index) => (
           <div 
             key={post.id} 
@@ -119,7 +87,7 @@ export const TopPosts = () => {
                 />
                 <div className="flex-1">
                   <div className="flex items-center gap-1 flex-wrap">
-                    <span className="font-bold text-sm">{post.author.name}</span>
+                    <span className="font-bold text-sm hover:underline cursor-pointer">{post.author.name}</span>
                     {post.author.verified && (
                       <div className="w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
                         <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -127,9 +95,9 @@ export const TopPosts = () => {
                         </svg>
                       </div>
                     )}
-                    <span className="text-muted-foreground text-sm">{post.author.username}</span>
+                    <span className="text-muted-foreground text-sm hover:underline cursor-pointer">{post.author.username}</span>
                     <span className="text-muted-foreground text-sm">·</span>
-                    <span className="text-muted-foreground text-sm">{post.timestamp}</span>
+                    <span className="text-muted-foreground text-sm hover:underline cursor-pointer">{post.timestamp}</span>
                   </div>
                 </div>
               </div>
@@ -139,7 +107,7 @@ export const TopPosts = () => {
                     🏆 #{index + 1}
                   </Badge>
                 )}
-                <button className="p-1 hover:bg-muted rounded-full transition-colors">
+                <button className="p-2 hover:bg-muted rounded-full transition-colors">
                   <MoreHorizontal className="w-4 h-4 text-muted-foreground" />
                 </button>
               </div>
@@ -147,33 +115,57 @@ export const TopPosts = () => {
             
             {/* Post content */}
             <div className="mb-3 ml-13">
-              <p className="text-sm leading-relaxed whitespace-pre-wrap">{post.content}</p>
+              <p className="text-sm leading-relaxed whitespace-pre-wrap mb-3">{post.content}</p>
+              
+              {/* Media attachment */}
+              {post.hasMedia && (
+                <div className="border border-border rounded-2xl overflow-hidden">
+                  <img 
+                    src={post.mediaUrl} 
+                    alt="Post media"
+                    className="w-full h-auto max-h-96 object-cover"
+                  />
+                </div>
+              )}
             </div>
             
-            {/* Engagement metrics */}
-            <div className="flex items-center justify-between ml-13">
-              <div className="flex items-center gap-8">
-                <button className="flex items-center gap-2 text-muted-foreground hover:text-blue-400 transition-colors group">
-                  <div className="p-2 rounded-full group-hover:bg-blue-400/10 transition-colors">
-                    <MessageCircle className="w-4 h-4" />
-                  </div>
-                  <span className="text-sm">{post.engagements.comments}</span>
-                </button>
-                <button className="flex items-center gap-2 text-muted-foreground hover:text-green-400 transition-colors group">
-                  <div className="p-2 rounded-full group-hover:bg-green-400/10 transition-colors">
-                    <Repeat2 className="w-4 h-4" />
-                  </div>
-                  <span className="text-sm">{post.engagements.retweets}</span>
-                </button>
-                <button className="flex items-center gap-2 text-muted-foreground hover:text-red-400 transition-colors group">
-                  <div className="p-2 rounded-full group-hover:bg-red-400/10 transition-colors">
-                    <Heart className="w-4 h-4" />
-                  </div>
-                  <span className="text-sm">{post.engagements.likes}</span>
-                </button>
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <span className="text-sm">{post.engagements.views.toLocaleString()} views</span>
+            {/* Engagement metrics - X/Twitter style */}
+            <div className="flex items-center justify-between ml-13 max-w-md">
+              <button className="flex items-center gap-2 text-muted-foreground hover:text-blue-400 transition-colors group">
+                <div className="p-2 rounded-full group-hover:bg-blue-400/10 transition-colors">
+                  <MessageCircle className="w-4 h-4" />
                 </div>
+                <span className="text-sm">{post.engagements.comments}</span>
+              </button>
+              
+              <button className="flex items-center gap-2 text-muted-foreground hover:text-green-400 transition-colors group">
+                <div className="p-2 rounded-full group-hover:bg-green-400/10 transition-colors">
+                  <Repeat2 className="w-4 h-4" />
+                </div>
+                <span className="text-sm">{post.engagements.retweets}</span>
+              </button>
+              
+              <button className="flex items-center gap-2 text-muted-foreground hover:text-red-400 transition-colors group">
+                <div className="p-2 rounded-full group-hover:bg-red-400/10 transition-colors">
+                  <Heart className="w-4 h-4" />
+                </div>
+                <span className="text-sm">{post.engagements.likes}</span>
+              </button>
+              
+              <button className="flex items-center gap-2 text-muted-foreground hover:text-blue-400 transition-colors group">
+                <div className="p-2 rounded-full group-hover:bg-blue-400/10 transition-colors">
+                  <BarChart3 className="w-4 h-4" />
+                </div>
+                <span className="text-sm">{post.engagements.views.toLocaleString()}</span>
+              </button>
+              
+              <div className="flex items-center gap-1">
+                <button className="p-2 hover:bg-muted rounded-full transition-colors">
+                  <Bookmark className="w-4 h-4 text-muted-foreground" />
+                </button>
+                <button className="p-2 hover:bg-muted rounded-full transition-colors">
+                  <Share className="w-4 h-4 text-muted-foreground" />
+                </button>
               </div>
             </div>
           </div>
