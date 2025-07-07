@@ -19,8 +19,8 @@ All colors MUST be HSL.
     --popover: 220 13% 9%;
     --popover-foreground: 0 0% 95%;
 
-    /* FAPS brand colors - rust and purple theme */
-    --primary: 12 65% 44%;  /* Rust color */
+    /* FAPS brand colors - custom golden brown and purple theme */
+    --primary: 40 36% 49%;  /* Custom golden brown color #A98B4F */
     --primary-foreground: 0 0% 95%;
 
     --secondary: 220 13% 12%;
@@ -37,17 +37,17 @@ All colors MUST be HSL.
 
     --border: 220 13% 15%;
     --input: 220 13% 12%;
-    --ring: 12 65% 44%;
+    --ring: 40 36% 49%;
 
     --radius: 0.75rem;
 
-    /* FAPS specific design tokens - rust colors */
-    --faps-primary: 12 65% 44%;    /* Rust color */
+    /* FAPS specific design tokens - golden brown colors */
+    --faps-primary: 40 36% 49%;    /* Custom golden brown color #A98B4F */
     --faps-secondary: 255 85% 65%; /* Purple accent */
     --faps-accent: 255 85% 65%;    /* Purple for buttons */
     --faps-success: 142 76% 36%;
-    --faps-warning: 12 65% 44%;    /* Rust for consistency */
-    --faps-chart: 12 65% 44%;
+    --faps-warning: 40 36% 49%;    /* Golden brown for consistency */
+    --faps-chart: 40 36% 49%;
     
     /* Enhanced gradients for prominence */
     --gradient-primary: linear-gradient(135deg, hsl(var(--faps-primary)), hsl(var(--faps-secondary)));
@@ -82,7 +82,7 @@ All colors MUST be HSL.
     --popover: 220 13% 9%;
     --popover-foreground: 0 0% 95%;
 
-    --primary: 12 65% 44%;
+    --primary: 40 36% 49%;
     --primary-foreground: 0 0% 95%;
 
     --secondary: 220 13% 12%;
@@ -99,16 +99,16 @@ All colors MUST be HSL.
 
     --border: 220 13% 15%;
     --input: 220 13% 12%;
-    --ring: 12 65% 44%;
+    --ring: 40 36% 49%;
     
     --sidebar-background: 220 13% 9%;
     --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 12 65% 44%;
+    --sidebar-primary: 40 36% 49%;
     --sidebar-primary-foreground: 0 0% 95%;
     --sidebar-accent: 220 13% 12%;
     --sidebar-accent-foreground: 0 0% 95%;
     --sidebar-border: 220 13% 15%;
-    --sidebar-ring: 12 65% 44%;
+    --sidebar-ring: 40 36% 49%;
   }
 }
 
