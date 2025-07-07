@@ -3,8 +3,14 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { X, Info } from "lucide-react";
+import { Info } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+
+const TwitterIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+  </svg>
+);
 
 export const XAccountConnection = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -43,18 +49,19 @@ export const XAccountConnection = () => {
       <Card className="faps-card">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <X className="w-5 h-5 text-foreground" />
+            <TwitterIcon />
             <h3 className="text-lg font-semibold">Engagement Rewards</h3>
           </div>
           <Button 
-            className="bg-faps-primary hover:bg-faps-secondary"
+            className="bg-faps-primary hover:bg-faps-secondary flex items-center gap-2"
             onClick={handleConnect}
           >
-            Connect X Account
+            <TwitterIcon className="w-4 h-4" />
+            Connect X account
           </Button>
         </div>
         <p className="text-muted-foreground">
-          Connect your X account and earn FAPS for every like, comment, retweet, or tag — 
+          Connect your <TwitterIcon className="w-4 h-4 inline mx-1" /> account and earn FAPS for every like, comment, retweet, or tag — 
           including when you mention us in your own posts.
         </p>
       </Card>
@@ -65,26 +72,20 @@ export const XAccountConnection = () => {
     <Card className="faps-card">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <X className="w-5 h-5 text-foreground" />
+          <TwitterIcon />
           <h3 className="text-lg font-semibold">Engagement Rewards</h3>
         </div>
-        <Button 
-          variant="outline"
-          onClick={handleDisconnect}
-        >
-          Disconnect
-        </Button>
       </div>
       
       <div className="flex items-center gap-4">
         <div className="flex-1">
           <p className="text-muted-foreground">
-            Your X account is connected! Earn FAPS for every like, comment, retweet, or tag — 
+            Your <TwitterIcon className="w-4 h-4 inline mx-1" /> account is connected! Earn FAPS for every like, comment, retweet, or tag — 
             including when you mention us in your own posts.
           </p>
         </div>
         
-        <div className="flex items-center gap-4 p-4 bg-faps-primary/10 rounded-lg border border-faps-primary/30 min-w-fit">
+        <div className="flex items-center gap-4 p-4 bg-faps-primary/10 rounded-lg border border-faps-primary/30 min-w-fit relative">
           <img 
             src={userProfile.profilePicture} 
             alt="Profile"
@@ -106,6 +107,14 @@ export const XAccountConnection = () => {
               </button>
             </div>
           </div>
+          <Button 
+            variant="outline"
+            size="sm"
+            onClick={handleDisconnect}
+            className="absolute top-2 right-2"
+          >
+            Disconnect
+          </Button>
         </div>
       </div>
     </Card>

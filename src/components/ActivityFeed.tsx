@@ -56,12 +56,12 @@ export const ActivityFeed = () => {
   ];
 
   return (
-    <Card className="faps-card">
+    <Card className="faps-card h-full flex flex-col">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold">Recent Activity</h3>
       </div>
       
-      <div className="space-y-3 max-h-80 overflow-y-auto">
+      <div className="space-y-3 flex-1 overflow-y-auto">
         {activities.map((activity) => {
           const Icon = activity.icon;
           

@@ -1,6 +1,13 @@
+
 import { Button } from "@/components/ui/button";
-import { Share2, Twitter, Facebook, Link, Download } from "lucide-react";
+import { Share2, Facebook, Link, Download } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+
+const TwitterIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.80l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+  </svg>
+);
 
 interface SocialShareProps {
   achievement: string;
@@ -10,9 +17,10 @@ interface SocialShareProps {
     fapsCount: number;
     username: string;
   };
+  showPostOnX?: boolean;
 }
 
-export const SocialShare = ({ achievement, size = 'default', userStats }: SocialShareProps) => {
+export const SocialShare = ({ achievement, size = 'default', userStats, showPostOnX = false }: SocialShareProps) => {
   const shareUrl = window.location.href;
   const hashtags = 'FAPS,Crypto,Achievement';
 
@@ -78,6 +86,20 @@ Join the FAPS community and earn rewards for your social media engagement!
     }
   };
 
+  if (showPostOnX) {
+    return (
+      <Button
+        onClick={shareToTwitter}
+        variant="outline"
+        size="sm"
+        className="flex items-center gap-2"
+      >
+        <TwitterIcon />
+        Post on X
+      </Button>
+    );
+  }
+
   if (size === 'sm') {
     return (
       <div className="flex items-center gap-1">
@@ -95,16 +117,9 @@ Join the FAPS community and earn rewards for your social media engagement!
             className="social-share-btn"
             title="Share on Twitter"
           >
-            <Twitter className="w-3 h-3" />
+            <TwitterIcon className="w-3 h-3" />
           </button>
         )}
-        <button 
-          onClick={copyToClipboard}
-          className="social-share-btn"
-          title="Copy link"
-        >
-          <Link className="w-3 h-3" />
-        </button>
       </div>
     );
   }
@@ -128,7 +143,7 @@ Join the FAPS community and earn rewards for your social media engagement!
           size="sm"
           className="flex items-center gap-2"
         >
-          <Twitter className="w-4 h-4" />
+          <TwitterIcon />
           Share on X
         </Button>
       )}

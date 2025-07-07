@@ -1,3 +1,4 @@
+
 import { Badge } from "@/components/ui/badge";
 import { Trophy, Flame, Star, Target, Zap, Crown } from "lucide-react";
 import { SocialShare } from "./SocialShare";

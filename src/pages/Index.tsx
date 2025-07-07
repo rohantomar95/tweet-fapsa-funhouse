@@ -64,10 +64,10 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Main Stats Cards */}
+        {/* Main Stats Cards - Equal height */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card className="faps-card">
-            <div className="flex items-center justify-between">
+          <Card className="faps-card h-32">
+            <div className="flex items-center justify-between h-full">
               <div>
                 <p className="text-sm text-muted-foreground">Total Earnings</p>
                 <p className="text-3xl font-bold text-white animate-counter">
@@ -81,8 +81,8 @@ const Index = () => {
             </div>
           </Card>
 
-          <Card className="faps-card">
-            <div className="flex items-center justify-between">
+          <Card className="faps-card h-32">
+            <div className="flex items-center justify-between h-full">
               <div>
                 <p className="text-sm text-muted-foreground">Daily Earnings</p>
                 <p className="text-3xl font-bold">{mockData.dailyEarnings.toFixed(2)} FAPS</p>
@@ -94,8 +94,8 @@ const Index = () => {
             </div>
           </Card>
 
-          <Card className="faps-card">
-            <div className="flex items-center justify-between">
+          <Card className="faps-card h-32">
+            <div className="flex items-center justify-between h-full">
               <div>
                 <p className="text-sm text-muted-foreground">Weekly Earnings</p>
                 <p className="text-3xl font-bold">{mockData.weeklyEarnings.toFixed(2)} FAPS</p>
@@ -114,11 +114,11 @@ const Index = () => {
         {/* Achievement Badges */}
         <AchievementBadges totalEarnings={mockData.totalEarnings} streak={mockData.currentStreak} />
 
-        {/* Main Content Grid */}
+        {/* Main Content Grid - Equal height for chart and activity feed */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Chart Section */}
           <div className="lg:col-span-2">
-            <Card className="faps-card">
+            <Card className="faps-card h-96">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold">Daily Earnings, FAPS (Last 30 days)</h3>
                 <div className="flex gap-2">
@@ -155,8 +155,8 @@ const Index = () => {
             </Card>
           </div>
 
-          {/* Activity Feed */}
-          <div>
+          {/* Activity Feed - Matching height */}
+          <div className="h-96">
             <ActivityFeed />
           </div>
         </div>
@@ -217,7 +217,7 @@ const Index = () => {
                           fapsCount: user.faps,
                           username: user.username
                         }}
-                        size="sm"
+                        showPostOnX={true}
                       />
                     )}
                   </div>
