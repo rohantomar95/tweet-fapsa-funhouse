@@ -9,24 +9,24 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Very dark theme base colors to match screenshot */
+    /* Modern dark theme with gradients */
     --background: 220 13% 6%;
     --foreground: 0 0% 95%;
 
-    --card: 220 13% 9%;
+    --card: 220 13% 8%;
     --card-foreground: 0 0% 95%;
 
     --popover: 220 13% 9%;
     --popover-foreground: 0 0% 95%;
 
-    /* FAPS brand colors - custom golden brown and purple theme */
-    --primary: 40 36% 49%;  /* Custom golden brown color #A98B4F */
+    /* FAPS brand colors - inspired by screenshot */
+    --primary: 40 36% 49%;  /* Golden accent */
     --primary-foreground: 0 0% 95%;
 
-    --secondary: 220 13% 12%;
+    --secondary: 220 13% 11%;
     --secondary-foreground: 0 0% 95%;
 
-    --muted: 220 13% 12%;
+    --muted: 220 13% 11%;
     --muted-foreground: 0 0% 65%;
 
     --accent: 25 65% 45%;  /* Warm amber accent */
@@ -35,30 +35,33 @@ All colors MUST be HSL.
     --destructive: 0 63% 50%;
     --destructive-foreground: 0 0% 95%;
 
-    --border: 220 13% 15%;
-    --input: 220 13% 12%;
+    --border: 220 13% 12%;  /* Much subtler borders */
+    --input: 220 13% 10%;
     --ring: 40 36% 49%;
 
     --radius: 0.75rem;
 
-    /* FAPS specific design tokens - golden brown colors */
-    --faps-primary: 40 36% 49%;    /* Custom golden brown color #A98B4F */
-    --faps-secondary: 25 65% 45%;  /* Warm amber accent */
-    --faps-accent: 25 65% 45%;     /* Warm amber for buttons */
+    /* FAPS specific design tokens */
+    --faps-primary: 40 36% 49%;
+    --faps-secondary: 25 65% 45%;
+    --faps-accent: 25 65% 45%;
     --faps-success: 142 76% 36%;
-    --faps-warning: 40 36% 49%;    /* Golden brown for consistency */
+    --faps-warning: 40 36% 49%;
     --faps-chart: 40 36% 49%;
     
-    /* Enhanced gradients for prominence */
+    /* Beautiful background gradients */
+    --gradient-background: radial-gradient(ellipse at top, hsl(220 13% 8%) 0%, hsl(220 13% 6%) 50%, hsl(220 13% 4%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(220 13% 9%) 0%, hsl(220 13% 7%) 100%);
     --gradient-primary: linear-gradient(135deg, hsl(var(--faps-primary)), hsl(var(--faps-secondary)));
-    --gradient-glow: linear-gradient(135deg, hsl(var(--faps-primary) / 0.4), hsl(var(--faps-secondary) / 0.4));
-    --gradient-border: linear-gradient(135deg, hsl(var(--faps-primary) / 0.8), hsl(var(--faps-secondary) / 0.8));
+    --gradient-glow: linear-gradient(135deg, hsl(var(--faps-primary) / 0.1), hsl(var(--faps-secondary) / 0.1));
+    --gradient-border: linear-gradient(135deg, hsl(var(--faps-primary) / 0.3), hsl(var(--faps-secondary) / 0.3));
     
-    /* Shadows and glows */
-    --shadow-glow: 0 0 20px hsl(var(--faps-primary) / 0.3);
-    --shadow-card: 0 4px 20px hsl(0 0% 0% / 0.5);
+    /* Subtle shadows and glows */
+    --shadow-glow: 0 0 30px hsl(var(--faps-primary) / 0.15);
+    --shadow-card: 0 4px 20px hsl(0 0% 0% / 0.3);
+    --shadow-subtle: 0 2px 10px hsl(0 0% 0% / 0.2);
     
-    /* Animations */
+    /* Smooth animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --pulse-duration: 2s;
 
@@ -118,26 +121,32 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
+    background: var(--gradient-background);
+    min-height: 100vh;
   }
 }
 
 @layer components {
-  /* FAPS Dashboard Component Styles */
+  /* FAPS Dashboard Component Styles - Fluid design inspired by screenshot */
   .faps-card {
-    @apply bg-card border border-border rounded-lg p-6 shadow-[var(--shadow-card)] 
+    background: var(--gradient-card);
+    @apply border border-border/30 rounded-xl p-6 shadow-[var(--shadow-subtle)]
            transition-all duration-300 hover:shadow-[var(--shadow-glow)] 
-           hover:scale-[1.02] hover:border-faps-primary/70;
+           hover:scale-[1.01] backdrop-blur-sm;
+    border: 1px solid hsl(var(--border) / 0.3);
   }
   
   .faps-card-glow {
     @apply relative overflow-hidden;
+    background: var(--gradient-card);
+    border: 1px solid hsl(var(--faps-primary) / 0.2);
   }
   
   .faps-card-glow::before {
     content: '';
-    @apply absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300;
-    background: var(--gradient-border);
+    @apply absolute inset-0 rounded-xl opacity-0 transition-opacity duration-500;
+    background: var(--gradient-glow);
     z-index: -1;
   }
   
