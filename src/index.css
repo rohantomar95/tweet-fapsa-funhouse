@@ -123,22 +123,21 @@ All colors MUST be HSL.
   body {
     @apply text-foreground;
     background: 
-      radial-gradient(ellipse 80% 50% at 50% 0%, hsl(220 15% 12%) 0%, transparent 50%),
-      radial-gradient(ellipse 60% 50% at 50% 100%, hsl(220 13% 8%) 0%, transparent 50%),
-      linear-gradient(135deg, hsl(220 13% 6%) 0%, hsl(220 13% 4%) 50%, hsl(220 13% 3%) 100%);
+      radial-gradient(ellipse 80% 50% at 50% 0%, hsl(40 36% 8%) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 50% at 50% 100%, hsl(25 65% 6%) 0%, transparent 50%),
+      linear-gradient(135deg, hsl(220 13% 6%) 0%, hsl(30 20% 5%) 50%, hsl(35 25% 4%) 100%);
     background-attachment: fixed;
     min-height: 100vh;
   }
 }
 
 @layer components {
-  /* FAPS Dashboard Component Styles - More prominent gradients */
+  /* FAPS Dashboard Component Styles - Golden theme gradients */
   .faps-card {
-    background: linear-gradient(145deg, hsl(220 13% 10% / 0.8), hsl(220 13% 6% / 0.9));
-    @apply border border-border/20 rounded-xl p-6 shadow-lg backdrop-blur-sm
-           transition-all duration-300 hover:shadow-2xl hover:shadow-faps-primary/10
+    background: linear-gradient(145deg, hsl(30 20% 8% / 0.8), hsl(35 25% 6% / 0.9));
+    @apply border border-faps-primary/10 rounded-xl p-6 shadow-lg backdrop-blur-sm
+           transition-all duration-300 hover:shadow-2xl hover:shadow-faps-primary/20
            hover:scale-[1.01] hover:border-faps-primary/30;
-    border: 1px solid hsl(var(--border) / 0.2);
   }
   
   .faps-card-glow {
