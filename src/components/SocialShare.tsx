@@ -38,9 +38,11 @@ export const SocialShare = ({ achievement, size = 'default', userStats }: Social
 💎 ${userStats.fapsCount} FAPS earned
 👤 ${userStats.username}
 
-Join the FAPS community and earn rewards for your social media engagement!`;
+Join the FAPS community and earn rewards for your social media engagement!
 
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterText)}&hashtags=${hashtags}&url=${encodeURIComponent(shareUrl)}`;
+@Fractionai_xyz`;
+
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterText)}`;
     window.open(twitterUrl, '_blank', 'width=550,height=420');
 
     toast({
@@ -50,7 +52,8 @@ Join the FAPS community and earn rewards for your social media engagement!`;
   };
 
   const shareToTwitter = () => {
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(achievement)}&hashtags=${hashtags}&url=${encodeURIComponent(shareUrl)}`;
+    const twitterText = `${achievement} @Fractionai_xyz`;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterText)}`;
     window.open(twitterUrl, '_blank', 'width=550,height=420');
   };
 
@@ -61,10 +64,10 @@ Join the FAPS community and earn rewards for your social media engagement!`;
 
   const copyToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText(`${achievement} ${shareUrl}`);
+      await navigator.clipboard.writeText(`${achievement} @Fractionai_xyz`);
       toast({
         title: "Copied to clipboard!",
-        description: "Achievement link copied successfully.",
+        description: "Achievement text copied successfully.",
       });
     } catch (err) {
       toast({
