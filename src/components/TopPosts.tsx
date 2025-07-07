@@ -34,21 +34,81 @@ export const TopPosts = () => {
     {
       id: 2,
       author: {
+        name: "CryptoWhale",
+        username: "@whale_hunter",
+        avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=40&h=40&fit=crop&crop=face&auto=format",
+        verified: true
+      },
+      content: "",
+      hasMedia: true,
+      mediaUrl: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=400&h=300&fit=crop&auto=format",
+      engagements: {
+        likes: 89,
+        comments: 12,
+        retweets: 24,
+        views: 3420
+      },
+      timestamp: 'Jul 2',
+      isTop: true
+    },
+    {
+      id: 3,
+      author: {
         name: "Rafero",
         username: "@auguraemal323",
         avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face&auto=format",
         verified: false
       },
-      content: "A short introduction of @FractionAI_xyz building on @NEARProtocol\n\nFounder is @Oxshah🔥who worked as:\n\n- ML strat analyst at @GoldmanSachs\n- Software engineering intern at @Microsoft\n- Data scientist at @augutan\n- Graduate teaching assistant at @iitdelhi\n- Quantitative\nShow more",
+      content: "A short introduction of @FractionAI_xyz building on @NEARProtocol\n\nFounder is @Oxshah🔥who worked as:\n\n- ML strat analyst at @GoldmanSachs\n- Software engineering intern at @Microsoft\n- Data scientist at @augutan\n- Graduate teaching assistant at @iitdelhi\n- Quantitative",
       hasMedia: true,
       mediaUrl: "/lovable-uploads/ee4e5e2c-64d4-41d7-8acd-36046f7a2da9.png",
       engagements: {
-        likes: 2,
-        comments: 1,
-        retweets: 0,
-        views: 107
+        likes: 34,
+        comments: 8,
+        retweets: 5,
+        views: 1580
       },
-      timestamp: 'Jun 27',
+      timestamp: 'Jun 30',
+      isTop: true
+    },
+    {
+      id: 4,
+      author: {
+        name: "DeFi_Master",
+        username: "@defi_insights",
+        avatar: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=40&h=40&fit=crop&crop=face&auto=format",
+        verified: false
+      },
+      content: "The future of decentralized finance is here! 🚀 Just discovered this amazing protocol that's revolutionizing yield farming. Early adoption is key! #DeFi #Crypto #YieldFarming",
+      hasMedia: false,
+      mediaUrl: "",
+      engagements: {
+        likes: 23,
+        comments: 7,
+        retweets: 12,
+        views: 945
+      },
+      timestamp: 'Jun 28',
+      isTop: false
+    },
+    {
+      id: 5,
+      author: {
+        name: "BlockchainBuzz",
+        username: "@blockchain_news",
+        avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b8c6?w=40&h=40&fit=crop&crop=face&auto=format",
+        verified: true
+      },
+      content: "Breaking: Major institutional adoption incoming! This could be the catalyst we've all been waiting for. The market is about to shift dramatically. Are you ready? 📈💎",
+      hasMedia: true,
+      mediaUrl: "https://images.unsplash.com/photo-1721322800607-8c38375eef04?w=400&h=300&fit=crop&auto=format",
+      engagements: {
+        likes: 67,
+        comments: 15,
+        retweets: 31,
+        views: 2890
+      },
+      timestamp: 'Jun 26',
       isTop: false
     }
   ];
