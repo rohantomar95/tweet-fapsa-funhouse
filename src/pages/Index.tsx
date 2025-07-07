@@ -209,7 +209,17 @@ const Index = () => {
                   <div className="flex items-center justify-end gap-2">
                     <span className="font-bold">{user.faps}</span>
                     <span className="text-sm text-muted-foreground">FAPS</span>
-                    {user.isCurrentUser && <SocialShare achievement="Ranked #4 in FAPS Leaderboard!" />}
+                    {user.isCurrentUser && (
+                      <SocialShare 
+                        achievement="Ranked #4 in FAPS Leaderboard!" 
+                        userStats={{
+                          rank: user.rank,
+                          fapsCount: user.faps,
+                          username: user.username
+                        }}
+                        size="sm"
+                      />
+                    )}
                   </div>
                 </div>
               </div>
