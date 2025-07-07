@@ -76,34 +76,38 @@ export const XAccountConnection = () => {
         </Button>
       </div>
       
-      <div className="flex items-center gap-4 p-4 bg-faps-primary/10 rounded-lg border border-faps-primary/30">
-        <img 
-          src={userProfile.profilePicture} 
-          alt="Profile"
-          className="w-12 h-12 rounded-full"
-        />
+      <div className="flex items-center gap-4">
         <div className="flex-1">
-          <p className="font-semibold text-faps-primary">{userProfile.username}</p>
-          <div className="flex items-center gap-2 mt-1">
-            <span className="text-sm text-muted-foreground">Twitter Score:</span>
-            <Badge className="bg-faps-warning/20 text-faps-warning border-faps-warning/50">
-              {userProfile.twitterScore}/1000
-            </Badge>
-            <button className="ml-1 p-1 hover:bg-muted rounded-full transition-colors group">
-              <Info className="w-3 h-3 text-muted-foreground group-hover:text-foreground" />
-              <div className="absolute z-10 invisible group-hover:visible bg-popover text-popover-foreground p-2 rounded-md shadow-md text-xs max-w-xs -mt-16 ml-4">
-                Twitter score is assigned by Twitterscore.io based on engagement metrics. 
-                FAPS rewards are calculated according to your Twitter score. Scores range from 1 to 1000.
-              </div>
-            </button>
+          <p className="text-muted-foreground">
+            Your X account is connected! Earn FAPS for every like, comment, retweet, or tag — 
+            including when you mention us in your own posts.
+          </p>
+        </div>
+        
+        <div className="flex items-center gap-4 p-4 bg-faps-primary/10 rounded-lg border border-faps-primary/30 min-w-fit">
+          <img 
+            src={userProfile.profilePicture} 
+            alt="Profile"
+            className="w-12 h-12 rounded-full"
+          />
+          <div>
+            <p className="font-semibold text-faps-primary">{userProfile.username}</p>
+            <div className="flex items-center gap-2 mt-1">
+              <span className="text-sm text-muted-foreground">Twitter Score:</span>
+              <Badge className="bg-faps-warning/20 text-faps-warning border-faps-warning/50">
+                {userProfile.twitterScore}/1000
+              </Badge>
+              <button className="ml-1 p-1 hover:bg-muted rounded-full transition-colors group relative">
+                <Info className="w-3 h-3 text-muted-foreground group-hover:text-foreground" />
+                <div className="absolute z-10 invisible group-hover:visible bg-popover text-popover-foreground p-2 rounded-md shadow-md text-xs max-w-xs -mt-16 -ml-32">
+                  Twitter score is assigned by Twitterscore.io based on engagement metrics. 
+                  FAPS are calculated based on Engagement and Twitter score of the user. Scores range from 1 to 1000.
+                </div>
+              </button>
+            </div>
           </div>
         </div>
       </div>
-      
-      <p className="text-muted-foreground mt-4">
-        Your X account is connected! Earn FAPS for every like, comment, retweet, or tag — 
-        including when you mention us in your own posts.
-      </p>
     </Card>
   );
 };

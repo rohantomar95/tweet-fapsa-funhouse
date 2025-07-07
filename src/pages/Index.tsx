@@ -63,12 +63,9 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Achievement Badges */}
-        <AchievementBadges totalEarnings={mockData.totalEarnings} streak={mockData.currentStreak} />
-
         {/* Main Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card className="faps-card faps-card-glow faps-pulse-glow">
+          <Card className="faps-card faps-card-glow">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Total Earnings</p>
@@ -77,8 +74,8 @@ const Index = () => {
                 </p>
                 <p className="text-sm text-muted-foreground">Your Rank: #{mockData.userRank}</p>
               </div>
-              <div className="sparkline-container">
-                <SparklineChart data={mockData.sparklineData} />
+              <div className="w-16 h-16 bg-faps-primary/20 rounded-full flex items-center justify-center">
+                <TrendingUp className="w-8 h-8 text-faps-primary" />
               </div>
             </div>
           </Card>
@@ -112,6 +109,9 @@ const Index = () => {
 
         {/* Engagement Rewards Section */}
         <XAccountConnection />
+
+        {/* Achievement Badges */}
+        <AchievementBadges totalEarnings={mockData.totalEarnings} streak={mockData.currentStreak} />
 
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
