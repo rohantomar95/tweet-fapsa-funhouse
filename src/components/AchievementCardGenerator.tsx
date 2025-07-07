@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
-import { Copy, Download } from "lucide-react";
+import { Copy } from "lucide-react";
 
 const TwitterIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
   <svg viewBox="0 0 24 24" className={className} fill="currentColor">
@@ -26,42 +26,62 @@ export const AchievementCardGenerator = ({ achievement, userStats, showPostOnX }
     if (!cardRef.current) return;
 
     try {
-      // Use html2canvas to capture the card
-      const html2canvas = (await import('html2canvas')).default;
-      const canvas = await html2canvas(cardRef.current, {
-        backgroundColor: '#0f0f23',
-        scale: 2,
-        width: 800,
-        height: 400
+      // Focus the document first
+      window.focus();
+      
+      // Simple fallback: generate text for sharing instead of image
+      const shareText = `🎉 ${achievement}
+
+💎 FAPS Count: ${userStats.fapsCount}
+${userStats.rank ? `🏆 Rank: #${userStats.rank}
+` : ''}👤 User: ${userStats.username}
+
+#FAPS #Achievement #Crypto`;
+      
+      // Try to copy text to clipboard
+      await navigator.clipboard.writeText(shareText);
+      
+      toast({
+        title: "Achievement text copied!",
+        description: "The achievement text has been copied to your clipboard for sharing on X!",
       });
-
-      // Convert to blob
-      canvas.toBlob((blob) => {
-        if (!blob) return;
-
-        // Copy to clipboard
-        navigator.clipboard.write([
-          new ClipboardItem({
-            'image/png': blob
-          })
-        ]).then(() => {
-          toast({
-            title: "Achievement card copied!",
-            description: "The card has been copied to your clipboard. You can now paste it on X!",
-          });
-        });
-      }, 'image/png');
 
     } catch (error) {
-      // Fallback: generate text for sharing
-      const shareText = `🎉 ${achievement}\n\n💎 FAPS Count: ${userStats.fapsCount}\n${userStats.rank ? `🏆 Rank: #${userStats.rank}\n` : ''}👤 User: ${userStats.username}\n\n#FAPS #Achievement #Crypto`;
+      console.error('Clipboard error:', error);
       
-      navigator.clipboard.writeText(shareText).then(() => {
+      // Manual fallback - create a temporary textarea
+      const textArea = document.createElement('textarea');
+      const shareText = `🎉 ${achievement}
+
+💎 FAPS Count: ${userStats.fapsCount}
+${userStats.rank ? `🏆 Rank: #${userStats.rank}
+` : ''}👤 User: ${userStats.username}
+
+#FAPS #Achievement #Crypto`;
+      
+      textArea.value = shareText;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      textArea.style.top = '-999999px';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      
+      try {
+        document.execCommand('copy');
         toast({
           title: "Achievement text copied!",
-          description: "The achievement text has been copied to your clipboard for sharing on X!",
+          description: "The achievement text has been copied for sharing on X!",
         });
-      });
+      } catch (err) {
+        toast({
+          title: "Copy failed",
+          description: "Please manually copy the text from the share dialog.",
+          variant: "destructive",
+        });
+      }
+      
+      document.body.removeChild(textArea);
     }
   };
 
