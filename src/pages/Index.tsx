@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -34,7 +35,8 @@ const mockData = {
     { date: '30 Jun', earnings: 0 },
     { date: '2 Jul', earnings: 0 },
   ],
-  sparklineData: [0, 170, 95, 0, 0, 0, 250, 0, 300, 0, 0, 0, 0]
+  sparklineData: [0, 170, 95, 0, 0, 0, 250, 0, 300, 0, 0, 0, 0],
+  totalEarningsData: [100, 120, 200, 180, 250, 300, 320]
 };
 
 const Index = () => {
@@ -53,8 +55,7 @@ const Index = () => {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold faps-gradient-text">FAPS Earnings Dashboard</h1>
-            <p className="text-muted-foreground mt-1">Track your engagement rewards and milestones</p>
+            <h1 className="text-3xl font-bold faps-gradient-text">FAPs</h1>
           </div>
           <div className="flex items-center gap-2">
             <Flame className="w-6 h-6 text-faps-warning" />
@@ -65,7 +66,7 @@ const Index = () => {
 
         {/* Main Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card className="faps-card faps-card-glow">
+          <Card className="faps-card">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Total Earnings</p>
@@ -74,13 +75,13 @@ const Index = () => {
                 </p>
                 <p className="text-sm text-muted-foreground">Your Rank: #{mockData.userRank}</p>
               </div>
-              <div className="w-16 h-16 bg-faps-primary/20 rounded-full flex items-center justify-center">
-                <TrendingUp className="w-8 h-8 text-faps-primary" />
+              <div className="sparkline-container">
+                <SparklineChart data={mockData.totalEarningsData} />
               </div>
             </div>
           </Card>
 
-          <Card className="faps-card faps-card-glow">
+          <Card className="faps-card">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Daily Earnings</p>
@@ -93,7 +94,7 @@ const Index = () => {
             </div>
           </Card>
 
-          <Card className="faps-card faps-card-glow">
+          <Card className="faps-card">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Weekly Earnings</p>
