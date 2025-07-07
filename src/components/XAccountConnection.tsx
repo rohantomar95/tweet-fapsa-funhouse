@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { Info, X } from "lucide-react";
+import { Info } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 const TwitterIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
@@ -76,7 +76,7 @@ export const XAccountConnection = () => {
         </div>
       </div>
       
-      <div className="flex items-center gap-4">
+      <div className="flex flex-col lg:flex-row lg:items-center gap-4">
         <div className="flex-1">
           <p className="text-muted-foreground">
             Your <TwitterIcon className="w-4 h-4 inline mx-1" /> account is connected! Earn FAPS for every like, comment, retweet, or tag — 
