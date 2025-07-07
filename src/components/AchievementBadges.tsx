@@ -38,12 +38,12 @@ export const AchievementBadges = ({ totalEarnings, streak }: AchievementBadgesPr
     },
     {
       id: 'content-stud',
-      title: 'Content Stud',
+      title: 'FAPS Factory',
       description: 'Post 30 original tweets',
       icon: Zap,
       unlocked: false,
       progress: 0.6,
-      shareText: 'Content Stud status achieved! Pumping out 30+ original FAPS! 🔥🚀 @Fractionai_xyz'
+      shareText: 'FAPS Factory is ONLINE! Churning out 30+ premium posts daily! The production never stops! 🏭💦 @Fractionai_xyz'
     },
     {
       id: 'viral-beast',
