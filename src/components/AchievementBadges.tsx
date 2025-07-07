@@ -10,58 +10,58 @@ interface AchievementBadgesProps {
 export const AchievementBadges = ({ totalEarnings, streak }: AchievementBadgesProps) => {
   const achievements = [
     {
-      id: 'crypto-genesis',
-      title: 'Crypto Genesis',
+      id: 'first-touch',
+      title: 'First Touch',
       description: 'Earn your first 100 FAPS',
       icon: Trophy,
       unlocked: totalEarnings >= 100,
       progress: Math.min(totalEarnings / 100, 1),
-      shareText: 'Crypto Genesis achieved! First 100 FAPS in the bag! 🚀 @Fractionai_xyz'
+      shareText: 'Just had my First Touch with FAPS! 100 down, infinity to go! 🍑 @Fractionai_xyz'
     },
     {
-      id: 'diamond-hands',
-      title: 'Diamond Hands',
+      id: 'rhythm-keeper',
+      title: 'Rhythm Keeper',
       description: '7-day engagement streak',
       icon: Flame,
       unlocked: streak >= 7,
       progress: Math.min(streak / 7, 1),
-      shareText: 'Diamond Hands activated! 7-day FAPS streak! 💎🙌 @Fractionai_xyz'
+      shareText: 'Got my Rhythm Keeper badge! 7 days of non-stop FAPS action! 🔥💦 @Fractionai_xyz'
     },
     {
-      id: 'network-whale',
-      title: 'Network Whale',
+      id: 'crowd-pleaser',
+      title: 'Crowd Pleaser',
       description: 'Engage with 50 unique users',
       icon: Star,
-      unlocked: false, // This would need real data
-      progress: 0.8, // Mock progress
-      shareText: 'Network Whale status! Connected with 50+ crypto minds! 🐋 @Fractionai_xyz'
+      unlocked: false,
+      progress: 0.8,
+      shareText: 'Crowd Pleaser unlocked! Satisfied 50+ users with my FAPS energy! 🌟😈 @Fractionai_xyz'
     },
     {
-      id: 'alpha-caller',
-      title: 'Alpha Caller',
+      id: 'content-stud',
+      title: 'Content Stud',
       description: 'Post 30 original tweets',
       icon: Zap,
       unlocked: false,
-      progress: 0.6, // Mock progress
-      shareText: 'Alpha Caller unlocked! Dropping 30+ original takes! 📢 @Fractionai_xyz'
+      progress: 0.6,
+      shareText: 'Content Stud status achieved! Pumping out 30+ original FAPS! 🔥🚀 @Fractionai_xyz'
     },
     {
-      id: 'viral-degen',
-      title: 'Viral Degen',
+      id: 'viral-beast',
+      title: 'Viral Beast',
       description: 'Get 500+ total likes',
       icon: Target,
       unlocked: false,
-      progress: 0.4, // Mock progress
-      shareText: 'Viral Degen mode activated! 500+ likes achieved! 🔥 @Fractionai_xyz'
+      progress: 0.4,
+      shareText: 'Viral Beast mode ON! 500+ people loved my FAPS performance! 🦍💥 @Fractionai_xyz'
     },
     {
-      id: 'faps-emperor',
-      title: 'FAPS Emperor',
+      id: 'faps-god',
+      title: 'FAPS God',
       description: 'Earn 10,000+ FAPS',
       icon: Crown,
       unlocked: totalEarnings >= 10000,
       progress: Math.min(totalEarnings / 10000, 1),
-      shareText: 'FAPS Emperor crowned! 10K+ FAPS dominance! 👑 @Fractionai_xyz'
+      shareText: 'FAPS God ascended! 10K+ FAPS of pure domination! Bow down! 👑🔥 @Fractionai_xyz'
     }
   ];
 
