@@ -1,6 +1,7 @@
+
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Heart, MessageCircle, Repeat2, Zap, Clock } from "lucide-react";
+import { Heart, MessageCircle, Repeat2, Zap } from "lucide-react";
 
 export const ActivityFeed = () => {
   const activities = [
@@ -8,7 +9,6 @@ export const ActivityFeed = () => {
       id: 1,
       type: 'like',
       description: 'Liked a crypto tweet',
-      faps: 2.5,
       timestamp: '2 hours ago',
       icon: Heart,
       color: 'text-red-400'
@@ -17,7 +17,6 @@ export const ActivityFeed = () => {
       id: 2,
       type: 'retweet',
       description: 'Retweeted FAPS announcement',
-      faps: 5.0,
       timestamp: '4 hours ago',
       icon: Repeat2,
       color: 'text-green-400'
@@ -26,7 +25,6 @@ export const ActivityFeed = () => {
       id: 3,
       type: 'comment',
       description: 'Commented on DeFi discussion',
-      faps: 10.0,
       timestamp: '6 hours ago',
       icon: MessageCircle,
       color: 'text-blue-400'
@@ -35,7 +33,6 @@ export const ActivityFeed = () => {
       id: 4,
       type: 'mention',
       description: 'Mentioned @FAPS in your post',
-      faps: 15.0,
       timestamp: '1 day ago',
       icon: Zap,
       color: 'text-faps-primary'
@@ -44,7 +41,6 @@ export const ActivityFeed = () => {
       id: 5,
       type: 'like',
       description: 'Liked blockchain news',
-      faps: 2.5,
       timestamp: '1 day ago',
       icon: Heart,
       color: 'text-red-400'
@@ -53,7 +49,6 @@ export const ActivityFeed = () => {
       id: 6,
       type: 'retweet',
       description: 'Retweeted market analysis',
-      faps: 5.0,
       timestamp: '2 days ago',
       icon: Repeat2,
       color: 'text-green-400'
@@ -63,13 +58,7 @@ export const ActivityFeed = () => {
   return (
     <Card className="faps-card">
       <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
-          <Clock className="w-5 h-5 text-faps-primary" />
-          <h3 className="text-lg font-semibold">Recent Activity</h3>
-        </div>
-        <Badge variant="outline" className="text-xs">
-          Live
-        </Badge>
+        <h3 className="text-lg font-semibold">Recent Activity</h3>
       </div>
       
       <div className="space-y-3 max-h-80 overflow-y-auto">
@@ -91,12 +80,6 @@ export const ActivityFeed = () => {
                   </p>
                 </div>
               </div>
-              <div className="text-right">
-                <p className="text-sm font-bold text-faps-success">
-                  +{activity.faps}
-                </p>
-                <p className="text-xs text-muted-foreground">FAPS</p>
-              </div>
             </div>
           );
         })}
@@ -104,8 +87,8 @@ export const ActivityFeed = () => {
       
       <div className="mt-4 pt-4 border-t border-border">
         <div className="flex items-center justify-between">
-          <span className="text-sm text-muted-foreground">Today's Total</span>
-          <span className="font-bold text-faps-primary">+40.0 FAPS</span>
+          <span className="text-sm text-muted-foreground">Activities Today</span>
+          <span className="font-bold text-faps-primary">6 actions</span>
         </div>
       </div>
     </Card>

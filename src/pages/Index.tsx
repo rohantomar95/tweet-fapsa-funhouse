@@ -6,11 +6,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SparklineChart } from "@/components/SparklineChart";
 import { AchievementBadges } from "@/components/AchievementBadges";
 import { ActivityFeed } from "@/components/ActivityFeed";
-
 import { TopPosts } from "@/components/TopPosts";
+import { XAccountConnection } from "@/components/XAccountConnection";
 import { SocialShare } from "@/components/SocialShare";
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from 'recharts';
-import { TrendingUp, Flame, Calendar, Trophy, Users, MessageCircle, Repeat2, Heart } from "lucide-react";
+import { TrendingUp, Flame, Calendar, Users, MessageCircle, Repeat2, Heart } from "lucide-react";
 
 // Mock data for the dashboard
 const mockData = {
@@ -72,7 +72,7 @@ const Index = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Total Earnings</p>
-                <p className="text-3xl font-bold text-faps-primary animate-counter">
+                <p className="text-3xl font-bold text-white animate-counter">
                   {animatedEarnings.toFixed(2)} FAPS
                 </p>
                 <p className="text-sm text-muted-foreground">Your Rank: #{mockData.userRank}</p>
@@ -111,21 +111,7 @@ const Index = () => {
         </div>
 
         {/* Engagement Rewards Section */}
-        <Card className="faps-card">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <MessageCircle className="w-5 h-5 text-faps-primary" />
-              <h3 className="text-lg font-semibold">Engagement Rewards</h3>
-            </div>
-            <Button className="bg-faps-primary hover:bg-faps-secondary">
-              Connect X Account
-            </Button>
-          </div>
-          <p className="text-muted-foreground">
-            Connect your X account and earn FAPS for every like, comment, retweet, or tag — 
-            including when you mention us in your own posts.
-          </p>
-        </Card>
+        <XAccountConnection />
 
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -180,15 +166,20 @@ const Index = () => {
         {/* Leaderboard */}
         <Card className="faps-card">
           <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <Trophy className="w-5 h-5 text-faps-warning" />
-              <h3 className="text-lg font-semibold">Leaderboard</h3>
-            </div>
+            <h3 className="text-lg font-semibold">Leaderboard</h3>
             <div className="flex gap-2">
               <Button variant="outline" size="sm">Weekly</Button>
               <Button variant="outline" size="sm" className="bg-faps-primary/20">All time</Button>
             </div>
           </div>
+          
+          {/* Column Headers */}
+          <div className="grid grid-cols-12 gap-4 p-3 mb-2 text-sm font-medium text-muted-foreground border-b border-border">
+            <div className="col-span-2">Rank</div>
+            <div className="col-span-7">Username</div>
+            <div className="col-span-3 text-right">FAPS Count</div>
+          </div>
+          
           <div className="space-y-3">
             {[
               { rank: 1, username: "CryptoKing", faps: 5420, avatar: "🚀" },
@@ -197,13 +188,15 @@ const Index = () => {
               { rank: 4, username: "FirmOrangutan3828", faps: 2871.70, avatar: "🦍", isCurrentUser: true },
               { rank: 5, username: "TokenTrader", faps: 2156, avatar: "📈" },
             ].map((user) => (
-              <div key={user.rank} className={`flex items-center justify-between p-3 rounded-lg ${
+              <div key={user.rank} className={`grid grid-cols-12 gap-4 items-center p-3 rounded-lg ${
                 user.isCurrentUser ? 'bg-faps-primary/20 border border-faps-primary/50' : 'bg-muted/30'
               }`}>
-                <div className="flex items-center gap-3">
+                <div className="col-span-2">
                   <span className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-sm font-bold">
                     #{user.rank}
                   </span>
+                </div>
+                <div className="col-span-7">
                   <div className="flex items-center gap-2">
                     <span className="text-lg">{user.avatar}</span>
                     <span className={user.isCurrentUser ? 'font-bold text-faps-primary' : ''}>
@@ -211,10 +204,12 @@ const Index = () => {
                     </span>
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="font-bold">{user.faps}</span>
-                  <span className="text-sm text-muted-foreground">FAPS</span>
-                  {user.isCurrentUser && <SocialShare achievement="Ranked #4 in FAPS Leaderboard!" />}
+                <div className="col-span-3 text-right">
+                  <div className="flex items-center justify-end gap-2">
+                    <span className="font-bold">{user.faps}</span>
+                    <span className="text-sm text-muted-foreground">FAPS</span>
+                    {user.isCurrentUser && <SocialShare achievement="Ranked #4 in FAPS Leaderboard!" />}
+                  </div>
                 </div>
               </div>
             ))}
