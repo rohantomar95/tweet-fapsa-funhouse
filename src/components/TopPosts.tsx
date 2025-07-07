@@ -69,104 +69,75 @@ export const TopPosts = () => {
         </Badge>
       </div>
       
-      <div className="space-y-0 max-h-[600px] overflow-y-auto border border-border rounded-lg">
+      <div className="space-y-3 max-h-[500px] overflow-y-auto">
         {topPosts.map((post, index) => (
           <div 
             key={post.id} 
-            className={`p-4 border-b border-border last:border-b-0 hover:bg-muted/30 transition-colors cursor-pointer ${
-              post.isTop ? 'bg-faps-primary/5' : ''
+            className={`p-4 border border-border rounded-lg hover:bg-muted/30 transition-colors cursor-pointer ${
+              post.isTop ? 'bg-faps-primary/5 border-faps-primary/30' : ''
             }`}
           >
-            {/* Post header */}
-            <div className="flex items-start justify-between mb-3">
-              <div className="flex items-start gap-3 flex-1">
+            {/* Compact header with rank badge */}
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-3">
                 <img 
                   src={post.author.avatar} 
                   alt={post.author.name}
-                  className="w-10 h-10 rounded-full"
+                  className="w-8 h-8 rounded-full"
                 />
-                <div className="flex-1">
-                  <div className="flex items-center gap-1 flex-wrap">
-                    <span className="font-bold text-sm hover:underline cursor-pointer">{post.author.name}</span>
-                    {post.author.verified && (
-                      <div className="w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
-                        <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                        </svg>
-                      </div>
-                    )}
-                    <span className="text-muted-foreground text-sm hover:underline cursor-pointer">{post.author.username}</span>
-                    <span className="text-muted-foreground text-sm">·</span>
-                    <span className="text-muted-foreground text-sm hover:underline cursor-pointer">{post.timestamp}</span>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold text-sm">{post.author.name}</span>
+                    <span className="text-muted-foreground text-xs">{post.author.username}</span>
                   </div>
+                  <span className="text-muted-foreground text-xs">{post.timestamp}</span>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
-                {post.isTop && (
-                  <Badge className="bg-faps-warning/20 text-faps-warning border-faps-warning/50 text-xs">
-                    🏆 #{index + 1}
-                  </Badge>
-                )}
-                <button className="p-2 hover:bg-muted rounded-full transition-colors">
-                  <MoreHorizontal className="w-4 h-4 text-muted-foreground" />
-                </button>
-              </div>
-            </div>
-            
-            {/* Post content */}
-            <div className="mb-3 ml-13">
-              <p className="text-sm leading-relaxed whitespace-pre-wrap mb-3">{post.content}</p>
-              
-              {/* Media attachment */}
-              {post.hasMedia && (
-                <div className="border border-border rounded-2xl overflow-hidden">
-                  <img 
-                    src={post.mediaUrl} 
-                    alt="Post media"
-                    className="w-full h-auto max-h-96 object-cover"
-                  />
-                </div>
+              {post.isTop && (
+                <Badge className="bg-faps-warning/20 text-faps-warning border-faps-warning/50 text-xs">
+                  🏆 Top #{index + 1}
+                </Badge>
               )}
             </div>
             
-            {/* Engagement metrics - X/Twitter style */}
-            <div className="flex items-center justify-between ml-13 max-w-md">
-              <button className="flex items-center gap-2 text-muted-foreground hover:text-blue-400 transition-colors group">
-                <div className="p-2 rounded-full group-hover:bg-blue-400/10 transition-colors">
-                  <MessageCircle className="w-4 h-4" />
+            {/* Content and media side by side */}
+            <div className="flex gap-4">
+              <div className="flex-1">
+                <p className="text-sm leading-relaxed line-clamp-3 mb-3">
+                  {post.content.length > 150 ? `${post.content.substring(0, 150)}...` : post.content}
+                </p>
+                
+                {/* Compact engagement metrics */}
+                <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                  <div className="flex items-center gap-1">
+                    <Heart className="w-3 h-3 text-red-400" />
+                    <span>{post.engagements.likes}</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <MessageCircle className="w-3 h-3 text-blue-400" />
+                    <span>{post.engagements.comments}</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Repeat2 className="w-3 h-3 text-green-400" />
+                    <span>{post.engagements.retweets}</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <BarChart3 className="w-3 h-3 text-purple-400" />
+                    <span>{post.engagements.views.toLocaleString()}</span>
+                  </div>
                 </div>
-                <span className="text-sm">{post.engagements.comments}</span>
-              </button>
-              
-              <button className="flex items-center gap-2 text-muted-foreground hover:text-green-400 transition-colors group">
-                <div className="p-2 rounded-full group-hover:bg-green-400/10 transition-colors">
-                  <Repeat2 className="w-4 h-4" />
-                </div>
-                <span className="text-sm">{post.engagements.retweets}</span>
-              </button>
-              
-              <button className="flex items-center gap-2 text-muted-foreground hover:text-red-400 transition-colors group">
-                <div className="p-2 rounded-full group-hover:bg-red-400/10 transition-colors">
-                  <Heart className="w-4 h-4" />
-                </div>
-                <span className="text-sm">{post.engagements.likes}</span>
-              </button>
-              
-              <button className="flex items-center gap-2 text-muted-foreground hover:text-blue-400 transition-colors group">
-                <div className="p-2 rounded-full group-hover:bg-blue-400/10 transition-colors">
-                  <BarChart3 className="w-4 h-4" />
-                </div>
-                <span className="text-sm">{post.engagements.views.toLocaleString()}</span>
-              </button>
-              
-              <div className="flex items-center gap-1">
-                <button className="p-2 hover:bg-muted rounded-full transition-colors">
-                  <Bookmark className="w-4 h-4 text-muted-foreground" />
-                </button>
-                <button className="p-2 hover:bg-muted rounded-full transition-colors">
-                  <Share className="w-4 h-4 text-muted-foreground" />
-                </button>
               </div>
+              
+              {/* Compact media thumbnail */}
+              {post.hasMedia && (
+                <div className="flex-shrink-0">
+                  <img 
+                    src={post.mediaUrl} 
+                    alt="Post media"
+                    className="w-20 h-20 object-cover rounded-lg border border-border"
+                  />
+                </div>
+              )}
             </div>
           </div>
         ))}
