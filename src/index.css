@@ -19,8 +19,8 @@ All colors MUST be HSL.
     --popover: 220 13% 9%;
     --popover-foreground: 0 0% 95%;
 
-    /* FAPS brand colors - chrome/silver and purple theme */
-    --primary: 210 8% 75%;  /* Chrome/silver color */
+    /* FAPS brand colors - custom beige and purple theme */
+    --primary: 31 25% 82%;  /* Custom beige color #DBCFC5 */
     --primary-foreground: 220 13% 6%;
 
     --secondary: 220 13% 12%;
@@ -37,17 +37,17 @@ All colors MUST be HSL.
 
     --border: 220 13% 15%;
     --input: 220 13% 12%;
-    --ring: 210 8% 75%;
+    --ring: 31 25% 82%;
 
     --radius: 0.75rem;
 
-    /* FAPS specific design tokens - chrome/silver colors */
-    --faps-primary: 210 8% 75%;    /* Chrome/silver color */
+    /* FAPS specific design tokens - custom beige colors */
+    --faps-primary: 31 25% 82%;    /* Custom beige color #DBCFC5 */
     --faps-secondary: 255 85% 65%; /* Purple accent */
     --faps-accent: 255 85% 65%;    /* Purple for buttons */
     --faps-success: 142 76% 36%;
-    --faps-warning: 210 8% 75%;    /* Chrome for consistency */
-    --faps-chart: 210 8% 75%;
+    --faps-warning: 31 25% 82%;    /* Beige for consistency */
+    --faps-chart: 31 25% 82%;
     
     /* Enhanced gradients for prominence */
     --gradient-primary: linear-gradient(135deg, hsl(var(--faps-primary)), hsl(var(--faps-secondary)));
@@ -82,7 +82,7 @@ All colors MUST be HSL.
     --popover: 220 13% 9%;
     --popover-foreground: 0 0% 95%;
 
-    --primary: 210 8% 75%;
+    --primary: 31 25% 82%;
     --primary-foreground: 220 13% 6%;
 
     --secondary: 220 13% 12%;
@@ -99,16 +99,16 @@ All colors MUST be HSL.
 
     --border: 220 13% 15%;
     --input: 220 13% 12%;
-    --ring: 210 8% 75%;
+    --ring: 31 25% 82%;
     
     --sidebar-background: 220 13% 9%;
     --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 210 8% 75%;
+    --sidebar-primary: 31 25% 82%;
     --sidebar-primary-foreground: 220 13% 6%;
     --sidebar-accent: 220 13% 12%;
     --sidebar-accent-foreground: 0 0% 95%;
     --sidebar-border: 220 13% 15%;
-    --sidebar-ring: 210 8% 75%;
+    --sidebar-ring: 31 25% 82%;
   }
 }
 
