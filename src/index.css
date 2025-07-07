@@ -40,17 +40,17 @@ All colors MUST be HSL.
 
     --radius: 0.75rem;
 
-    /* FAPS specific design tokens */
-    --faps-primary: 262 83% 58%;
-    --faps-secondary: 258 90% 66%;
+    /* FAPS specific design tokens - matching screenshot colors */
+    --faps-primary: 250 100% 70%;
+    --faps-secondary: 280 100% 80%;
     --faps-success: 142 76% 36%;
     --faps-warning: 48 96% 53%;
-    --faps-chart: 200 100% 50%;
+    --faps-chart: 250 100% 70%;
     
-    /* Gradients */
+    /* Enhanced gradients for prominence */
     --gradient-primary: linear-gradient(135deg, hsl(var(--faps-primary)), hsl(var(--faps-secondary)));
-    --gradient-glow: linear-gradient(135deg, hsl(var(--faps-primary) / 0.2), hsl(var(--faps-secondary) / 0.2));
-    --gradient-border: linear-gradient(135deg, hsl(var(--faps-primary) / 0.5), hsl(var(--faps-secondary) / 0.5));
+    --gradient-glow: linear-gradient(135deg, hsl(var(--faps-primary) / 0.4), hsl(var(--faps-secondary) / 0.4));
+    --gradient-border: linear-gradient(135deg, hsl(var(--faps-primary) / 0.8), hsl(var(--faps-secondary) / 0.8));
     
     /* Shadows and glows */
     --shadow-glow: 0 0 20px hsl(var(--faps-primary) / 0.3);
@@ -131,7 +131,7 @@ All colors MUST be HSL.
   .faps-card {
     @apply bg-card border border-border rounded-lg p-6 shadow-[var(--shadow-card)] 
            transition-all duration-300 hover:shadow-[var(--shadow-glow)] 
-           hover:scale-[1.02] hover:border-primary/50;
+           hover:scale-[1.02] hover:border-faps-primary/70;
   }
   
   .faps-card-glow {

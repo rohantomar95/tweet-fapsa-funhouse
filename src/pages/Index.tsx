@@ -6,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SparklineChart } from "@/components/SparklineChart";
 import { AchievementBadges } from "@/components/AchievementBadges";
 import { ActivityFeed } from "@/components/ActivityFeed";
-import { EngagementHeatmap } from "@/components/EngagementHeatmap";
+
 import { TopPosts } from "@/components/TopPosts";
 import { SocialShare } from "@/components/SocialShare";
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from 'recharts';
@@ -174,14 +174,8 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Secondary Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Engagement Heatmap */}
-          <EngagementHeatmap />
-          
-          {/* Top Performing Posts */}
-          <TopPosts />
-        </div>
+        {/* Top Performing Posts */}
+        <TopPosts />
 
         {/* Leaderboard */}
         <Card className="faps-card">
