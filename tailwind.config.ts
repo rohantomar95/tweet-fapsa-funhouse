@@ -61,6 +61,14 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// FAPS brand colors
+				faps: {
+					primary: 'hsl(var(--faps-primary))',
+					secondary: 'hsl(var(--faps-secondary))',
+					success: 'hsl(var(--faps-success))',
+					warning: 'hsl(var(--faps-warning))',
+					chart: 'hsl(var(--faps-chart))'
 				}
 			},
 			borderRadius: {

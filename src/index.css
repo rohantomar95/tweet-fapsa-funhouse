@@ -2,41 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* FAPS Earnings Dashboard Design System - Dark theme with purple/blue accents
 All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Dark theme base colors */
+    --background: 222 84% 4.9%;
+    --foreground: 210 40% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 227 32% 8%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 227 32% 8%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 222.2 47.4% 11.2%;
+    /* FAPS brand colors - purple/blue theme */
+    --primary: 262 83% 58%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217 32% 17%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 217 32% 17%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 258 90% 66%;
+    --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 217 32% 17%;
+    --input: 217 32% 17%;
+    --ring: 262 83% 58%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* FAPS specific design tokens */
+    --faps-primary: 262 83% 58%;
+    --faps-secondary: 258 90% 66%;
+    --faps-success: 142 76% 36%;
+    --faps-warning: 48 96% 53%;
+    --faps-chart: 200 100% 50%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--faps-primary)), hsl(var(--faps-secondary)));
+    --gradient-glow: linear-gradient(135deg, hsl(var(--faps-primary) / 0.2), hsl(var(--faps-secondary) / 0.2));
+    --gradient-border: linear-gradient(135deg, hsl(var(--faps-primary) / 0.5), hsl(var(--faps-secondary) / 0.5));
+    
+    /* Shadows and glows */
+    --shadow-glow: 0 0 20px hsl(var(--faps-primary) / 0.3);
+    --shadow-card: 0 4px 20px hsl(0 0% 0% / 0.3);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --pulse-duration: 2s;
 
     --sidebar-background: 0 0% 98%;
 
@@ -101,5 +123,104 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  /* FAPS Dashboard Component Styles */
+  .faps-card {
+    @apply bg-card border border-border rounded-lg p-6 shadow-[var(--shadow-card)] 
+           transition-all duration-300 hover:shadow-[var(--shadow-glow)] 
+           hover:scale-[1.02] hover:border-primary/50;
+  }
+  
+  .faps-card-glow {
+    @apply relative overflow-hidden;
+  }
+  
+  .faps-card-glow::before {
+    content: '';
+    @apply absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300;
+    background: var(--gradient-border);
+    z-index: -1;
+  }
+  
+  .faps-card-glow:hover::before {
+    @apply opacity-100;
+  }
+  
+  .faps-gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .faps-pulse-glow {
+    animation: pulse-glow var(--pulse-duration) ease-in-out infinite alternate;
+  }
+  
+  .sparkline-container {
+    @apply h-8 w-16 opacity-60;
+  }
+  
+  .achievement-badge {
+    @apply inline-flex items-center px-2 py-1 rounded-full text-xs font-medium
+           bg-gradient-to-r from-primary/20 to-accent/20 text-primary border border-primary/30;
+  }
+  
+  .activity-item {
+    @apply flex items-center justify-between p-3 rounded-lg bg-muted/30 
+           hover:bg-muted/50 transition-colors duration-200;
+  }
+  
+  .heatmap-cell {
+    @apply w-3 h-3 rounded-sm transition-all duration-200 hover:scale-110;
+  }
+  
+  .social-share-btn {
+    @apply inline-flex items-center justify-center w-8 h-8 rounded-full
+           bg-muted hover:bg-primary hover:text-primary-foreground
+           transition-all duration-200 hover:scale-110;
+  }
+}
+
+@layer utilities {
+  .animate-counter {
+    animation: counter 2s ease-out forwards;
+  }
+  
+  .animate-sparkline {
+    animation: sparkline 1.5s ease-out forwards;
+  }
+}
+
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 5px hsl(var(--faps-primary) / 0.3);
+  }
+  100% {
+    box-shadow: 0 0 25px hsl(var(--faps-primary) / 0.6);
+  }
+}
+
+@keyframes counter {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes sparkline {
+  from {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dashoffset: 0;
   }
 }
