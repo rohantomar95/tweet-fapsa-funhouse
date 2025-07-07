@@ -9,7 +9,7 @@ import {
   Trophy, Star, Target, Zap, Crown, Info, Share2, Facebook, Link, 
   Download, Copy, BarChart3, ExternalLink, MoreHorizontal, Bookmark, Share
 } from "lucide-react";
-import { toast } from "@/hooks/use-toast";
+
 
 // Twitter Icon Component
 const TwitterIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
@@ -108,10 +108,7 @@ const AchievementCardGenerator = ({ achievement, userStats, showPostOnX }: Achie
     if (!cardRef.current) return;
 
     try {
-      toast({
-        title: "Generating card...",
-        description: "Creating your achievement image...",
-      });
+      console.log("Generating card...");
 
       const html2canvas = (await import('html2canvas')).default;
       
@@ -126,10 +123,7 @@ const AchievementCardGenerator = ({ achievement, userStats, showPostOnX }: Achie
 
       await copyImageToClipboard(canvas);
       
-      toast({
-        title: "Achievement card copied!",
-        description: "The visual card has been copied to your clipboard. Paste it on X!",
-      });
+      console.log("Achievement card copied!");
 
     } catch (error) {
       console.error('Error generating/copying card:', error);
@@ -144,16 +138,9 @@ ${userStats.rank ? `🏆 Rank: #${userStats.rank}
       
       try {
         await navigator.clipboard.writeText(shareText);
-        toast({
-          title: "Text copied instead",
-          description: "Achievement text has been copied for sharing on X!",
-        });
+        console.log("Text copied instead");
       } catch (textError) {
-        toast({
-          title: "Copy failed",
-          description: "Please try the 'Post on X' button instead.",
-          variant: "destructive",
-        });
+        console.log("Copy failed");
       }
     }
   };
@@ -253,18 +240,11 @@ const SocialShare = ({ achievement, size = 'default', userStats, showPostOnX = f
 
   const generateAndShareAchievement = async () => {
     if (!userStats) {
-      toast({
-        title: "Cannot generate image",
-        description: "User stats not available.",
-        variant: "destructive",
-      });
+      console.log("Cannot generate image");
       return;
     }
 
-    toast({
-      title: "Generating achievement image...",
-      description: "Creating your personalized achievement card...",
-    });
+    console.log("Generating achievement image...");
 
     const twitterText = `🏆 ${achievement}
 
@@ -279,10 +259,7 @@ Join the FAPS community and earn rewards for your social media engagement!
     const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterText)}`;
     window.open(twitterUrl, '_blank', 'width=550,height=420');
 
-    toast({
-      title: "Tweet opened!",
-      description: "Add your personal touch and hit Tweet to share your achievement!",
-    });
+    console.log("Tweet opened!");
   };
 
   const shareToTwitter = () => {
@@ -299,16 +276,9 @@ Join the FAPS community and earn rewards for your social media engagement!
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(`${achievement} @Fractionai_xyz`);
-      toast({
-        title: "Copied to clipboard!",
-        description: "Achievement text copied successfully.",
-      });
+      console.log("Copied to clipboard!");
     } catch (err) {
-      toast({
-        title: "Failed to copy",
-        description: "Please try again.",
-        variant: "destructive",
-      });
+      console.log("Failed to copy");
     }
   };
 
@@ -897,26 +867,17 @@ const XAccountConnection = () => {
   });
 
   const handleConnect = () => {
-    toast({
-      title: "Connecting to X...",
-      description: "Please wait while we connect your account.",
-    });
+    console.log("Connecting to X...");
     
     setTimeout(() => {
       setIsConnected(true);
-      toast({
-        title: "Successfully connected!",
-        description: "Your X account is now connected to FAPS.",
-      });
+      console.log("Successfully connected!");
     }, 2000);
   };
 
   const handleDisconnect = () => {
     setIsConnected(false);
-    toast({
-      title: "Account disconnected",
-      description: "Your X account has been disconnected from FAPS.",
-    });
+    console.log("Account disconnected");
   };
 
   if (!isConnected) {
