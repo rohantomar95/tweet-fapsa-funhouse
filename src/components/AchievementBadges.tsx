@@ -28,13 +28,13 @@ export const AchievementBadges = ({ totalEarnings, streak }: AchievementBadgesPr
       shareText: 'Got my Rhythm Keeper badge! 7 days of non-stop FAPS action! 🔥💦 @Fractionai_xyz'
     },
     {
-      id: 'crowd-pleaser',
-      title: 'Crowd Pleaser',
-      description: 'Engage with 50 unique users',
+      id: 'money-shot',
+      title: 'Money Shot',
+      description: 'Earn 5,000 FAPS',
       icon: Star,
-      unlocked: false,
-      progress: 0.8,
-      shareText: 'Crowd Pleaser unlocked! Satisfied 50+ users with my FAPS energy! 🌟😈 @Fractionai_xyz'
+      unlocked: totalEarnings >= 5000,
+      progress: Math.min(totalEarnings / 5000, 1),
+      shareText: 'Money Shot achieved! Just hit my 5K FAPS target perfectly! 💰💦 @Fractionai_xyz'
     },
     {
       id: 'content-stud',
