@@ -28,31 +28,31 @@ export const AchievementBadges = ({ totalEarnings, streak }: AchievementBadgesPr
       shareText: 'Got my Rhythm Keeper badge! 7 days of non-stop FAPS action! 🔥💦 @Fractionai_xyz'
     },
     {
-      id: 'money-shot',
-      title: 'Money Shot',
-      description: 'Earn 5,000 FAPS',
-      icon: Star,
-      unlocked: totalEarnings >= 5000,
-      progress: Math.min(totalEarnings / 5000, 1),
-      shareText: 'Money Shot achieved! Just hit my 5K FAPS target perfectly! 💰💦 @Fractionai_xyz'
-    },
-    {
-      id: 'content-stud',
-      title: 'FAPS Factory',
+      id: 'rapid-fire',
+      title: 'Rapid Fire',
       description: 'Post 30 original tweets',
       icon: Zap,
       unlocked: false,
       progress: 0.6,
-      shareText: 'FAPS Factory is ONLINE! Churning out 30+ premium posts daily! The production never stops! 🏭💦 @Fractionai_xyz'
+      shareText: 'Rapid Fire mode ACTIVATED! Shooting off 30+ original tweets non-stop! 🔥💨 @Fractionai_xyz'
     },
     {
-      id: 'viral-beast',
-      title: 'Viral Beast',
+      id: 'almost-there',
+      title: 'Almost There',
+      description: 'Earn 5,000 FAPS',
+      icon: Star,
+      unlocked: totalEarnings >= 5000,
+      progress: Math.min(totalEarnings / 5000, 1),
+      shareText: 'Almost There! Halfway to the top with 5K FAPS! The tease is real! 😈⚡ @Fractionai_xyz'
+    },
+    {
+      id: 'stroke-of-genius',
+      title: 'Stroke of Genius',
       description: 'Get 500+ total likes',
       icon: Target,
       unlocked: false,
       progress: 0.4,
-      shareText: 'Viral Beast mode ON! 500+ people loved my FAPS performance! 🦍💥 @Fractionai_xyz'
+      shareText: 'Stroke of Genius unlocked! 500+ people loved my brilliant performance! 🧠💦 @Fractionai_xyz'
     },
     {
       id: 'faps-god',
