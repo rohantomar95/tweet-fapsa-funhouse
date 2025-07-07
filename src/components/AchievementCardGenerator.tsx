@@ -26,31 +26,75 @@ export const AchievementCardGenerator = ({ achievement, userStats, showPostOnX }
     if (!cardRef.current) return;
 
     try {
-      // Focus the document first
-      window.focus();
-      
-      // Simple fallback: generate text for sharing instead of image
-      const shareText = `🎉 ${achievement}
-
-💎 FAPS Count: ${userStats.fapsCount}
-${userStats.rank ? `🏆 Rank: #${userStats.rank}
-` : ''}👤 User: ${userStats.username}
-
-#FAPS #Achievement #Crypto`;
-      
-      // Try to copy text to clipboard
-      await navigator.clipboard.writeText(shareText);
+      // Import html2canvas dynamically
+      const html2canvas = (await import('html2canvas')).default;
       
       toast({
-        title: "Achievement text copied!",
-        description: "The achievement text has been copied to your clipboard for sharing on X!",
+        title: "Generating card...",
+        description: "Creating your achievement image...",
       });
 
+      // Generate the canvas
+      const canvas = await html2canvas(cardRef.current, {
+        backgroundColor: '#0f0f23',
+        scale: 2,
+        width: 800,
+        height: 400,
+        useCORS: true,
+        allowTaint: true
+      });
+
+      // Convert to blob
+      canvas.toBlob(async (blob) => {
+        if (!blob) {
+          toast({
+            title: "Failed to generate image",
+            description: "Please try again.",
+            variant: "destructive",
+          });
+          return;
+        }
+
+        try {
+          // Try to copy image to clipboard with proper user interaction handling
+          if (navigator.clipboard && navigator.clipboard.write) {
+            await navigator.clipboard.write([
+              new ClipboardItem({
+                'image/png': blob
+              })
+            ]);
+            
+            toast({
+              title: "Achievement card copied!",
+              description: "The visual card has been copied to your clipboard. Paste it on X!",
+            });
+          } else {
+            throw new Error('Clipboard API not supported');
+          }
+        } catch (clipboardError) {
+          console.error('Clipboard error:', clipboardError);
+          
+          // Fallback: Create a download link for the image
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = 'achievement-card.png';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          URL.revokeObjectURL(url);
+          
+          toast({
+            title: "Image downloaded!",
+            description: "The achievement card has been downloaded. You can upload it to X!",
+          });
+        }
+      }, 'image/png');
+
     } catch (error) {
-      console.error('Clipboard error:', error);
+      console.error('Error generating card:', error);
       
-      // Manual fallback - create a temporary textarea
-      const textArea = document.createElement('textarea');
+      // Fallback to text sharing
       const shareText = `🎉 ${achievement}
 
 💎 FAPS Count: ${userStats.fapsCount}
@@ -59,29 +103,19 @@ ${userStats.rank ? `🏆 Rank: #${userStats.rank}
 
 #FAPS #Achievement #Crypto`;
       
-      textArea.value = shareText;
-      textArea.style.position = 'fixed';
-      textArea.style.left = '-999999px';
-      textArea.style.top = '-999999px';
-      document.body.appendChild(textArea);
-      textArea.focus();
-      textArea.select();
-      
       try {
-        document.execCommand('copy');
+        await navigator.clipboard.writeText(shareText);
         toast({
-          title: "Achievement text copied!",
-          description: "The achievement text has been copied for sharing on X!",
+          title: "Text copied instead",
+          description: "Achievement text has been copied for sharing on X!",
         });
-      } catch (err) {
+      } catch (textError) {
         toast({
-          title: "Copy failed",
-          description: "Please manually copy the text from the share dialog.",
+          title: "Generation failed",
+          description: "Please try again or use the text share option.",
           variant: "destructive",
         });
       }
-      
-      document.body.removeChild(textArea);
     }
   };
 
