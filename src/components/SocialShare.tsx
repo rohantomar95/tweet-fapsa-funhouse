@@ -16,7 +16,7 @@ export const SocialShare = ({ achievement, size = 'default', userStats }: Social
   const shareUrl = window.location.href;
   const hashtags = 'FAPS,Crypto,Achievement';
 
-  const generateAchievementImage = async () => {
+  const generateAndShareAchievement = async () => {
     if (!userStats) {
       toast({
         title: "Cannot generate image",
@@ -28,40 +28,25 @@ export const SocialShare = ({ achievement, size = 'default', userStats }: Social
 
     toast({
       title: "Generating achievement image...",
-      description: "Please wait while we create your shareable image.",
+      description: "Creating your personalized achievement card...",
     });
 
-    try {
-      const { generateImage } = await import('../lib/imageGenerator');
-      
-      const prompt = `Create a sleek achievement card for FAPS (social media engagement rewards platform). 
-      The card should feature:
-      - Bold "FAPS Achievement" title at the top
-      - User rank: #${userStats.rank} prominently displayed
-      - FAPS count: ${userStats.fapsCount} FAPS earned
-      - Username: ${userStats.username}
-      - Achievement text: "${achievement}"
-      - Modern gradient background with crypto/engagement theme colors (purple, blue, green)
-      - Professional social media card design, 1200x630 aspect ratio
-      - Clean typography and modern UI elements
-      - Subtle geometric patterns or crypto-inspired design elements
-      Ultra high resolution, social media optimized`;
+    // Open Twitter immediately with rich text content
+    const twitterText = `🏆 ${achievement}
 
-      await generateImage(prompt, `src/assets/achievement-${Date.now()}.png`, 1200, 630);
+🎯 Rank: #${userStats.rank} 
+💎 ${userStats.fapsCount} FAPS earned
+👤 ${userStats.username}
 
-      toast({
-        title: "Achievement image generated!",
-        description: "Image saved to assets folder. You can now share it on social media!",
-      });
-    } catch (error) {
-      console.error('Image generation failed:', error);
-      toast({
-        title: "Image generation failed",
-        description: "Falling back to text sharing.",
-        variant: "destructive",
-      });
-      shareToTwitter();
-    }
+Join the FAPS community and earn rewards for your social media engagement!`;
+
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterText)}&hashtags=${hashtags}&url=${encodeURIComponent(shareUrl)}`;
+    window.open(twitterUrl, '_blank', 'width=550,height=420');
+
+    toast({
+      title: "Tweet opened!",
+      description: "Add your personal touch and hit Tweet to share your achievement!",
+    });
   };
 
   const shareToTwitter = () => {
@@ -95,7 +80,7 @@ export const SocialShare = ({ achievement, size = 'default', userStats }: Social
       <div className="flex items-center gap-1">
         {userStats ? (
           <button 
-            onClick={generateAchievementImage}
+            onClick={generateAndShareAchievement}
             className="social-share-btn"
             title="Generate achievement image"
           >
@@ -125,7 +110,7 @@ export const SocialShare = ({ achievement, size = 'default', userStats }: Social
     <div className="flex items-center gap-2">
       {userStats ? (
         <Button
-          onClick={generateAchievementImage}
+          onClick={generateAndShareAchievement}
           variant="outline"
           size="sm"
           className="flex items-center gap-2"
