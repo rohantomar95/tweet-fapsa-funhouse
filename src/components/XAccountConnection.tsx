@@ -8,7 +8,7 @@ import { toast } from "@/hooks/use-toast";
 
 const TwitterIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   <svg viewBox="0 0 24 24" className={className} fill="currentColor">
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.80l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
   </svg>
 );
 
@@ -56,7 +56,6 @@ export const XAccountConnection = () => {
             className="bg-faps-primary hover:bg-faps-secondary flex items-center gap-2"
             onClick={handleConnect}
           >
-            <TwitterIcon className="w-4 h-4" />
             Connect <TwitterIcon className="w-4 h-4 inline mx-1" /> account
           </Button>
         </div>
@@ -91,7 +90,7 @@ export const XAccountConnection = () => {
             alt="Profile"
             className="w-12 h-12 rounded-full"
           />
-          <div className="pr-20">
+          <div className="pr-24">
             <p className="font-semibold text-faps-primary">{userProfile.username}</p>
             <div className="flex items-center gap-2 mt-1">
               <span className="text-sm text-muted-foreground">Twitter Score:</span>
@@ -113,9 +112,10 @@ export const XAccountConnection = () => {
             variant="outline"
             size="sm"
             onClick={handleDisconnect}
-            className="absolute top-2 right-2 p-1 h-6 w-6"
+            className="absolute top-2 right-2 flex items-center gap-1 px-2 h-auto py-1"
           >
             <X className="w-3 h-3" />
+            <span className="text-xs">Disconnect</span>
           </Button>
         </div>
       </div>
