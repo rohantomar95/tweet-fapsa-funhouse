@@ -100,14 +100,61 @@ export const TopPosts = () => {
               )}
             </div>
             
-            {/* Content and media side by side */}
-            <div className="flex gap-4">
-              <div className="flex-1">
-                <p className="text-sm leading-relaxed line-clamp-3 mb-3">
-                  {post.content.length > 150 ? `${post.content.substring(0, 150)}...` : post.content}
-                </p>
+            {/* Content and media */}
+            {post.content.trim() ? (
+              // Post has text content
+              <div className="flex gap-4">
+                <div className="flex-1">
+                  <p className="text-sm leading-relaxed line-clamp-3 mb-3">
+                    {post.content.length > 150 ? `${post.content.substring(0, 150)}...` : post.content}
+                  </p>
+                  
+                  {/* Compact engagement metrics */}
+                  <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                    <div className="flex items-center gap-1">
+                      <Heart className="w-3 h-3 text-red-400" />
+                      <span>{post.engagements.likes}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <MessageCircle className="w-3 h-3 text-blue-400" />
+                      <span>{post.engagements.comments}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Repeat2 className="w-3 h-3 text-green-400" />
+                      <span>{post.engagements.retweets}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <BarChart3 className="w-3 h-3 text-purple-400" />
+                      <span>{post.engagements.views.toLocaleString()}</span>
+                    </div>
+                  </div>
+                </div>
                 
-                {/* Compact engagement metrics */}
+                {/* Compact media thumbnail */}
+                {post.hasMedia && (
+                  <div className="flex-shrink-0">
+                    <img 
+                      src={post.mediaUrl} 
+                      alt="Post media"
+                      className="w-20 h-20 object-cover rounded-lg border border-border"
+                    />
+                  </div>
+                )}
+              </div>
+            ) : (
+              // Post has only media, no text
+              <div>
+                {post.hasMedia && (
+                  <div className="mb-3">
+                    <img 
+                      src={post.mediaUrl} 
+                      alt="Post media"
+                      className="w-full h-32 object-cover rounded-lg border border-border"
+                    />
+                  </div>
+                )}
+                
+                {/* Engagement metrics for media-only posts */}
                 <div className="flex items-center gap-4 text-xs text-muted-foreground">
                   <div className="flex items-center gap-1">
                     <Heart className="w-3 h-3 text-red-400" />
@@ -127,18 +174,7 @@ export const TopPosts = () => {
                   </div>
                 </div>
               </div>
-              
-              {/* Compact media thumbnail */}
-              {post.hasMedia && (
-                <div className="flex-shrink-0">
-                  <img 
-                    src={post.mediaUrl} 
-                    alt="Post media"
-                    className="w-20 h-20 object-cover rounded-lg border border-border"
-                  />
-                </div>
-              )}
-            </div>
+            )}
           </div>
         ))}
       </div>
