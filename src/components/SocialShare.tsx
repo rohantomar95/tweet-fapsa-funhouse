@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Share2, Facebook, Link, Download } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import { AchievementCardGenerator } from "./AchievementCardGenerator";
 
 const TwitterIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
   <svg viewBox="0 0 24 24" className={className} fill="currentColor">
@@ -85,6 +86,20 @@ Join the FAPS community and earn rewards for your social media engagement!
       });
     }
   };
+
+  if (showPostOnX && userStats) {
+    return (
+      <AchievementCardGenerator
+        achievement={achievement}
+        userStats={{
+          rank: userStats.rank,
+          fapsCount: userStats.fapsCount,
+          username: userStats.username
+        }}
+        showPostOnX={true}
+      />
+    );
+  }
 
   if (showPostOnX) {
     return (

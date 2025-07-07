@@ -1,7 +1,8 @@
 
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Heart, MessageCircle, Repeat2, MoreHorizontal, Bookmark, Share, BarChart3 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Heart, MessageCircle, Repeat2, MoreHorizontal, Bookmark, Share, BarChart3, ExternalLink } from "lucide-react";
 
 const TwitterIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
   <svg viewBox="0 0 24 24" className={className} fill="currentColor">
@@ -22,6 +23,7 @@ export const TopPosts = () => {
       content: "Finally the target hit 100k fractals 🎉🔥\nBut a still not included in top 100 , the next step is top 100 😤\nCan I get congrats @FractionAI_xyz",
       hasMedia: true,
       mediaUrl: "/lovable-uploads/7a5722af-0572-4581-a24a-a97514d8a07d.png",
+      tweetUrl: "https://twitter.com/120230Arafa/status/1808245789123456789",
       engagements: {
         likes: 46,
         comments: 26,
@@ -42,6 +44,7 @@ export const TopPosts = () => {
       content: "",
       hasMedia: true,
       mediaUrl: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=400&h=300&fit=crop&auto=format",
+      tweetUrl: "https://twitter.com/whale_hunter/status/1807892345678901234",
       engagements: {
         likes: 89,
         comments: 12,
@@ -62,6 +65,7 @@ export const TopPosts = () => {
       content: "A short introduction of @FractionAI_xyz building on @NEARProtocol\n\nFounder is @Oxshah🔥who worked as:\n\n- ML strat analyst at @GoldmanSachs\n- Software engineering intern at @Microsoft\n- Data scientist at @augutan\n- Graduate teaching assistant at @iitdelhi\n- Quantitative",
       hasMedia: true,
       mediaUrl: "/lovable-uploads/ee4e5e2c-64d4-41d7-8acd-36046f7a2da9.png",
+      tweetUrl: "https://twitter.com/auguraemal323/status/1806789012345678901",
       engagements: {
         likes: 34,
         comments: 8,
@@ -82,6 +86,7 @@ export const TopPosts = () => {
       content: "The future of decentralized finance is here! 🚀 Just discovered this amazing protocol that's revolutionizing yield farming. Early adoption is key! #DeFi #Crypto #YieldFarming",
       hasMedia: false,
       mediaUrl: "",
+      tweetUrl: "https://twitter.com/defi_insights/status/1805456789012345678",
       engagements: {
         likes: 23,
         comments: 7,
@@ -102,6 +107,7 @@ export const TopPosts = () => {
       content: "Breaking: Major institutional adoption incoming! This could be the catalyst we've all been waiting for. The market is about to shift dramatically. Are you ready? 📈💎",
       hasMedia: true,
       mediaUrl: "https://images.unsplash.com/photo-1721322800607-8c38375eef04?w=400&h=300&fit=crop&auto=format",
+      tweetUrl: "https://twitter.com/blockchain_news/status/1804123456789012345",
       engagements: {
         likes: 67,
         comments: 15,
@@ -160,6 +166,7 @@ export const TopPosts = () => {
               )}
             </div>
             
+            
             {/* Content and media */}
             {post.content.trim() ? (
               // Post has text content
@@ -169,24 +176,35 @@ export const TopPosts = () => {
                     {post.content.length > 150 ? `${post.content.substring(0, 150)}...` : post.content}
                   </p>
                   
-                  {/* Compact engagement metrics */}
-                  <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                    <div className="flex items-center gap-1">
-                      <Heart className="w-3 h-3 text-red-400" />
-                      <span>{post.engagements.likes}</span>
+                  {/* Compact engagement metrics and View on X button */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                      <div className="flex items-center gap-1">
+                        <Heart className="w-3 h-3 text-red-400" />
+                        <span>{post.engagements.likes}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <MessageCircle className="w-3 h-3 text-blue-400" />
+                        <span>{post.engagements.comments}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Repeat2 className="w-3 h-3 text-green-400" />
+                        <span>{post.engagements.retweets}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <BarChart3 className="w-3 h-3 text-purple-400" />
+                        <span>{post.engagements.views.toLocaleString()}</span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <MessageCircle className="w-3 h-3 text-blue-400" />
-                      <span>{post.engagements.comments}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Repeat2 className="w-3 h-3 text-green-400" />
-                      <span>{post.engagements.retweets}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <BarChart3 className="w-3 h-3 text-purple-400" />
-                      <span>{post.engagements.views.toLocaleString()}</span>
-                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="text-xs px-2 py-1 h-auto"
+                      onClick={() => window.open(post.tweetUrl, '_blank')}
+                    >
+                      <TwitterIcon className="w-3 h-3 mr-1" />
+                      View on X
+                    </Button>
                   </div>
                 </div>
                 
@@ -214,24 +232,35 @@ export const TopPosts = () => {
                   </div>
                 )}
                 
-                {/* Engagement metrics for media-only posts */}
-                <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                  <div className="flex items-center gap-1">
-                    <Heart className="w-3 h-3 text-red-400" />
-                    <span>{post.engagements.likes}</span>
+                {/* Engagement metrics and View on X button for media-only posts */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                    <div className="flex items-center gap-1">
+                      <Heart className="w-3 h-3 text-red-400" />
+                      <span>{post.engagements.likes}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <MessageCircle className="w-3 h-3 text-blue-400" />
+                      <span>{post.engagements.comments}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Repeat2 className="w-3 h-3 text-green-400" />
+                      <span>{post.engagements.retweets}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <BarChart3 className="w-3 h-3 text-purple-400" />
+                      <span>{post.engagements.views.toLocaleString()}</span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <MessageCircle className="w-3 h-3 text-blue-400" />
-                    <span>{post.engagements.comments}</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Repeat2 className="w-3 h-3 text-green-400" />
-                    <span>{post.engagements.retweets}</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <BarChart3 className="w-3 h-3 text-purple-400" />
-                    <span>{post.engagements.views.toLocaleString()}</span>
-                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="text-xs px-2 py-1 h-auto"
+                    onClick={() => window.open(post.tweetUrl, '_blank')}
+                  >
+                    <TwitterIcon className="w-3 h-3 mr-1" />
+                    View on X
+                  </Button>
                 </div>
               </div>
             )}
