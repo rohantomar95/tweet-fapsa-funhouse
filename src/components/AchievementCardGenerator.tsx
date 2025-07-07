@@ -22,18 +22,37 @@ interface AchievementCardProps {
 export const AchievementCardGenerator = ({ achievement, userStats, showPostOnX }: AchievementCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
+  const copyImageToClipboard = async (canvas: HTMLCanvasElement) => {
+    if (!navigator.clipboard || !navigator.clipboard.write) {
+      throw new Error('Clipboard API not supported in this browser');
+    }
+    
+    // Convert canvas to blob
+    const blob = await new Promise<Blob | null>(resolve => {
+      canvas.toBlob(resolve, 'image/png', 0.9);
+    });
+    
+    if (!blob) {
+      throw new Error('Failed to create blob from canvas');
+    }
+    
+    // Copy to clipboard
+    const clipboardItem = new ClipboardItem({ 'image/png': blob });
+    await navigator.clipboard.write([clipboardItem]);
+  };
+
   const generateCard = async () => {
     if (!cardRef.current) return;
 
     try {
-      // Import html2canvas dynamically
-      const html2canvas = (await import('html2canvas')).default;
-      
       toast({
         title: "Generating card...",
         description: "Creating your achievement image...",
       });
 
+      // Import html2canvas dynamically
+      const html2canvas = (await import('html2canvas')).default;
+      
       // Generate the canvas
       const canvas = await html2canvas(cardRef.current, {
         backgroundColor: '#0f0f23',
@@ -44,55 +63,16 @@ export const AchievementCardGenerator = ({ achievement, userStats, showPostOnX }
         allowTaint: true
       });
 
-      // Convert to blob
-      canvas.toBlob(async (blob) => {
-        if (!blob) {
-          toast({
-            title: "Failed to generate image",
-            description: "Please try again.",
-            variant: "destructive",
-          });
-          return;
-        }
-
-        try {
-          // Try to copy image to clipboard with proper user interaction handling
-          if (navigator.clipboard && navigator.clipboard.write) {
-            await navigator.clipboard.write([
-              new ClipboardItem({
-                'image/png': blob
-              })
-            ]);
-            
-            toast({
-              title: "Achievement card copied!",
-              description: "The visual card has been copied to your clipboard. Paste it on X!",
-            });
-          } else {
-            throw new Error('Clipboard API not supported');
-          }
-        } catch (clipboardError) {
-          console.error('Clipboard error:', clipboardError);
-          
-          // Fallback: Create a download link for the image
-          const url = URL.createObjectURL(blob);
-          const link = document.createElement('a');
-          link.href = url;
-          link.download = 'achievement-card.png';
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          URL.revokeObjectURL(url);
-          
-          toast({
-            title: "Image downloaded!",
-            description: "The achievement card has been downloaded. You can upload it to X!",
-          });
-        }
-      }, 'image/png');
+      // Copy to clipboard - THIS IS THE KEY PART
+      await copyImageToClipboard(canvas);
+      
+      toast({
+        title: "Achievement card copied!",
+        description: "The visual card has been copied to your clipboard. Paste it on X!",
+      });
 
     } catch (error) {
-      console.error('Error generating card:', error);
+      console.error('Error generating/copying card:', error);
       
       // Fallback to text sharing
       const shareText = `🎉 ${achievement}
@@ -111,8 +91,8 @@ ${userStats.rank ? `🏆 Rank: #${userStats.rank}
         });
       } catch (textError) {
         toast({
-          title: "Generation failed",
-          description: "Please try again or use the text share option.",
+          title: "Copy failed",
+          description: "Please try the 'Post on X' button instead.",
           variant: "destructive",
         });
       }
