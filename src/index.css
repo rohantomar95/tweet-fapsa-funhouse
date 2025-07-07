@@ -29,7 +29,7 @@ All colors MUST be HSL.
     --muted: 220 13% 12%;
     --muted-foreground: 0 0% 65%;
 
-    --accent: 255 85% 65%;  /* Purple accent from screenshot */
+    --accent: 25 65% 45%;  /* Warm amber accent */
     --accent-foreground: 0 0% 95%;
 
     --destructive: 0 63% 50%;
@@ -43,8 +43,8 @@ All colors MUST be HSL.
 
     /* FAPS specific design tokens - golden brown colors */
     --faps-primary: 40 36% 49%;    /* Custom golden brown color #A98B4F */
-    --faps-secondary: 255 85% 65%; /* Purple accent */
-    --faps-accent: 255 85% 65%;    /* Purple for buttons */
+    --faps-secondary: 25 65% 45%;  /* Warm amber accent */
+    --faps-accent: 25 65% 45%;     /* Warm amber for buttons */
     --faps-success: 142 76% 36%;
     --faps-warning: 40 36% 49%;    /* Golden brown for consistency */
     --faps-chart: 40 36% 49%;
@@ -91,7 +91,7 @@ All colors MUST be HSL.
     --muted: 220 13% 12%;
     --muted-foreground: 0 0% 65%;
 
-    --accent: 255 85% 65%;
+    --accent: 25 65% 45%;
     --accent-foreground: 0 0% 95%;
 
     --destructive: 0 63% 50%;
