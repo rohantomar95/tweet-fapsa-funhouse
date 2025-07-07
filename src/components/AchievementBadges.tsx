@@ -55,13 +55,13 @@ export const AchievementBadges = ({ totalEarnings, streak }: AchievementBadgesPr
       shareText: 'Stroke of Genius unlocked! 500+ people loved my brilliant performance! 🧠💦 @Fractionai_xyz'
     },
     {
-      id: 'faps-god',
-      title: 'FAPS God',
+      id: 'fap-god',
+      title: 'FAP God',
       description: 'Earn 10,000+ FAPS',
       icon: Crown,
       unlocked: totalEarnings >= 10000,
       progress: Math.min(totalEarnings / 10000, 1),
-      shareText: 'FAPS God ascended! 10K+ FAPS of pure domination! Bow down! 👑🔥 @Fractionai_xyz'
+      shareText: 'FAP God ascended! 10K+ FAPS of pure domination! Bow down! 👑🔥 @Fractionai_xyz'
     }
   ];
 
