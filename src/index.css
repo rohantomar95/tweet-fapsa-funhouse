@@ -9,54 +9,54 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Modern dark theme with golden accents to match screenshot */
+    /* Modern dark theme with gradients */
     --background: 220 13% 6%;
     --foreground: 0 0% 95%;
 
-    --card: 220 13% 7%;
+    --card: 220 13% 8%;
     --card-foreground: 0 0% 95%;
 
-    --popover: 220 13% 8%;
+    --popover: 220 13% 9%;
     --popover-foreground: 0 0% 95%;
 
-    /* Golden theme colors matching the screenshot */
-    --primary: 45 65% 55%;  /* Brighter golden yellow */
-    --primary-foreground: 220 13% 6%;
+    /* FAPS brand colors - inspired by screenshot */
+    --primary: 40 36% 49%;  /* Golden accent */
+    --primary-foreground: 0 0% 95%;
 
-    --secondary: 220 13% 10%;
+    --secondary: 220 13% 11%;
     --secondary-foreground: 0 0% 95%;
 
-    --muted: 220 13% 10%;
+    --muted: 220 13% 11%;
     --muted-foreground: 0 0% 65%;
 
-    --accent: 45 65% 55%;  /* Match primary golden */
-    --accent-foreground: 220 13% 6%;
+    --accent: 25 65% 45%;  /* Warm amber accent */
+    --accent-foreground: 0 0% 95%;
 
     --destructive: 0 63% 50%;
     --destructive-foreground: 0 0% 95%;
 
-    --border: 220 13% 12%;  /* Subtle borders */
-    --input: 220 13% 9%;
-    --ring: 45 65% 55%;
+    --border: 220 13% 12%;  /* Much subtler borders */
+    --input: 220 13% 10%;
+    --ring: 40 36% 49%;
 
     --radius: 0.75rem;
 
-    /* FAPS brand colors matching screenshot */
-    --faps-primary: 45 65% 55%;    /* Golden yellow from screenshot */
-    --faps-secondary: 40 50% 50%;  /* Slightly muted golden */
-    --faps-accent: 45 65% 55%;     
+    /* FAPS specific design tokens */
+    --faps-primary: 40 36% 49%;
+    --faps-secondary: 25 65% 45%;
+    --faps-accent: 25 65% 45%;
     --faps-success: 142 76% 36%;
-    --faps-warning: 45 65% 55%;    
-    --faps-chart: 45 65% 55%;
+    --faps-warning: 40 36% 49%;
+    --faps-chart: 40 36% 49%;
     
-    /* Enhanced gradients matching the screenshot theme */
-    --gradient-background: radial-gradient(ellipse 100% 60% at 50% 0%, hsl(45 25% 8%) 0%, transparent 50%);
-    --gradient-card: linear-gradient(145deg, hsl(220 13% 8% / 0.9), hsl(220 13% 6% / 0.95));
+    /* Beautiful background gradients */
+    --gradient-background: radial-gradient(ellipse at top, hsl(220 13% 8%) 0%, hsl(220 13% 6%) 50%, hsl(220 13% 4%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(220 13% 9%) 0%, hsl(220 13% 7%) 100%);
     --gradient-primary: linear-gradient(135deg, hsl(var(--faps-primary)), hsl(var(--faps-secondary)));
     --gradient-glow: linear-gradient(135deg, hsl(var(--faps-primary) / 0.1), hsl(var(--faps-secondary) / 0.1));
     --gradient-border: linear-gradient(135deg, hsl(var(--faps-primary) / 0.3), hsl(var(--faps-secondary) / 0.3));
     
-    /* Subtle shadows with golden glow */
+    /* Subtle shadows and glows */
     --shadow-glow: 0 0 30px hsl(var(--faps-primary) / 0.15);
     --shadow-card: 0 4px 20px hsl(0 0% 0% / 0.3);
     --shadow-subtle: 0 2px 10px hsl(0 0% 0% / 0.2);
@@ -64,16 +64,6 @@ All colors MUST be HSL.
     /* Smooth animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --pulse-duration: 2s;
-
-    /* Sidebar colors matching the theme */
-    --sidebar-background: 220 13% 7%;
-    --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 45 65% 55%;
-    --sidebar-primary-foreground: 220 13% 6%;
-    --sidebar-accent: 220 13% 11%;
-    --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 220 13% 12%;
-    --sidebar-ring: 45 65% 55%;
 
     --sidebar-background: 220 13% 9%;
     --sidebar-foreground: 0 0% 95%;
@@ -133,21 +123,21 @@ All colors MUST be HSL.
   body {
     @apply text-foreground;
     background: 
-      radial-gradient(ellipse 100% 60% at 50% 0%, hsl(45 25% 8%) 0%, transparent 50%),
-      radial-gradient(ellipse 80% 50% at 50% 100%, hsl(40 20% 6%) 0%, transparent 50%),
-      linear-gradient(180deg, hsl(220 13% 6%) 0%, hsl(35 15% 5%) 30%, hsl(40 18% 4%) 100%);
+      radial-gradient(ellipse 80% 50% at 50% 0%, hsl(40 36% 8%) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 50% at 50% 100%, hsl(25 65% 6%) 0%, transparent 50%),
+      linear-gradient(135deg, hsl(220 13% 6%) 0%, hsl(30 20% 5%) 50%, hsl(35 25% 4%) 100%);
     background-attachment: fixed;
     min-height: 100vh;
   }
 }
 
 @layer components {
-  /* FAPS Dashboard Component Styles - Matching screenshot theme */
+  /* FAPS Dashboard Component Styles - Golden theme gradients */
   .faps-card {
-    background: var(--gradient-card);
-    @apply border border-border/30 rounded-xl p-6 shadow-lg backdrop-blur-sm
+    background: linear-gradient(145deg, hsl(30 20% 8% / 0.8), hsl(35 25% 6% / 0.9));
+    @apply border border-faps-primary/10 rounded-xl p-6 shadow-lg backdrop-blur-sm
            transition-all duration-300 hover:shadow-2xl hover:shadow-faps-primary/20
-           hover:scale-[1.01] hover:border-faps-primary/40;
+           hover:scale-[1.01] hover:border-faps-primary/30;
   }
   
   .faps-card-glow {
