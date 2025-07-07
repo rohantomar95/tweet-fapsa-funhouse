@@ -145,16 +145,25 @@ export const TopPosts = () => {
           >
             {/* Compact header with rank badge */}
             <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 flex-1">
                 <img 
                   src={post.author.avatar} 
                   alt={post.author.name}
                   className="w-8 h-8 rounded-full"
                 />
-                <div>
+                <div className="flex-1">
                   <div className="flex items-center gap-2">
                     <span className="font-semibold text-sm">{post.author.name}</span>
                     <span className="text-muted-foreground text-xs">{post.author.username}</span>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="text-xs px-2 py-1 h-auto ml-2"
+                      onClick={() => window.open(post.tweetUrl, '_blank')}
+                    >
+                      <TwitterIcon className="w-3 h-3 mr-1" />
+                      View on X
+                    </Button>
                   </div>
                   <span className="text-muted-foreground text-xs">{post.timestamp}</span>
                 </div>
@@ -176,35 +185,24 @@ export const TopPosts = () => {
                     {post.content.length > 150 ? `${post.content.substring(0, 150)}...` : post.content}
                   </p>
                   
-                  {/* Compact engagement metrics and View on X button */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                      <div className="flex items-center gap-1">
-                        <Heart className="w-3 h-3 text-red-400" />
-                        <span>{post.engagements.likes}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <MessageCircle className="w-3 h-3 text-blue-400" />
-                        <span>{post.engagements.comments}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Repeat2 className="w-3 h-3 text-green-400" />
-                        <span>{post.engagements.retweets}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <BarChart3 className="w-3 h-3 text-purple-400" />
-                        <span>{post.engagements.views.toLocaleString()}</span>
-                      </div>
+                  {/* Compact engagement metrics */}
+                  <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                    <div className="flex items-center gap-1">
+                      <Heart className="w-3 h-3 text-red-400" />
+                      <span>{post.engagements.likes}</span>
                     </div>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="text-xs px-2 py-1 h-auto"
-                      onClick={() => window.open(post.tweetUrl, '_blank')}
-                    >
-                      <TwitterIcon className="w-3 h-3 mr-1" />
-                      View on X
-                    </Button>
+                    <div className="flex items-center gap-1">
+                      <MessageCircle className="w-3 h-3 text-blue-400" />
+                      <span>{post.engagements.comments}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Repeat2 className="w-3 h-3 text-green-400" />
+                      <span>{post.engagements.retweets}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <BarChart3 className="w-3 h-3 text-purple-400" />
+                      <span>{post.engagements.views.toLocaleString()}</span>
+                    </div>
                   </div>
                 </div>
                 
@@ -232,35 +230,24 @@ export const TopPosts = () => {
                   </div>
                 )}
                 
-                {/* Engagement metrics and View on X button for media-only posts */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                    <div className="flex items-center gap-1">
-                      <Heart className="w-3 h-3 text-red-400" />
-                      <span>{post.engagements.likes}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <MessageCircle className="w-3 h-3 text-blue-400" />
-                      <span>{post.engagements.comments}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Repeat2 className="w-3 h-3 text-green-400" />
-                      <span>{post.engagements.retweets}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <BarChart3 className="w-3 h-3 text-purple-400" />
-                      <span>{post.engagements.views.toLocaleString()}</span>
-                    </div>
+                {/* Engagement metrics for media-only posts */}
+                <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                  <div className="flex items-center gap-1">
+                    <Heart className="w-3 h-3 text-red-400" />
+                    <span>{post.engagements.likes}</span>
                   </div>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="text-xs px-2 py-1 h-auto"
-                    onClick={() => window.open(post.tweetUrl, '_blank')}
-                  >
-                    <TwitterIcon className="w-3 h-3 mr-1" />
-                    View on X
-                  </Button>
+                  <div className="flex items-center gap-1">
+                    <MessageCircle className="w-3 h-3 text-blue-400" />
+                    <span>{post.engagements.comments}</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Repeat2 className="w-3 h-3 text-green-400" />
+                    <span>{post.engagements.retweets}</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <BarChart3 className="w-3 h-3 text-purple-400" />
+                    <span>{post.engagements.views.toLocaleString()}</span>
+                  </div>
                 </div>
               </div>
             )}
