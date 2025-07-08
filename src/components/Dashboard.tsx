@@ -1149,58 +1149,46 @@ export const Dashboard = () => {
         {/* Main Stats Cards - 4 cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
           <Card className="faps-card h-32">
-            <div className="flex items-center justify-between h-full">
-              <div>
-                <p className="text-sm text-muted-foreground">Total Earnings</p>
-                <p className="text-3xl font-bold text-white animate-counter">
+            <div className="flex items-center justify-center h-full p-4">
+              <div className="text-center">
+                <p className="text-xs md:text-sm text-muted-foreground">Total Earnings</p>
+                <p className="text-xl md:text-3xl font-bold text-white animate-counter">
                   {animatedEarnings.toFixed(2)} FAPS
                 </p>
-                <p className="text-sm text-muted-foreground">Your Rank: #{mockData.userRank}</p>
-              </div>
-              <div className="sparkline-container">
-                <SparklineChart data={mockData.totalEarningsData} />
+                <p className="text-xs md:text-sm text-muted-foreground">Your Rank: #{mockData.userRank}</p>
               </div>
             </div>
           </Card>
 
           <Card className="faps-card h-32">
-            <div className="flex items-center justify-between h-full">
-              <div>
-                <p className="text-sm text-muted-foreground">Daily Earnings</p>
-                <p className="text-3xl font-bold">{mockData.dailyEarnings.toFixed(2)} FAPS</p>
-                <p className="text-sm text-faps-success">+0.0% vs last day</p>
-              </div>
-              <div className="sparkline-container">
-                <SparklineChart data={[0, 5, 10, 8, 12, 0, 0]} />
+            <div className="flex items-center justify-center h-full p-4">
+              <div className="text-center">
+                <p className="text-xs md:text-sm text-muted-foreground">Daily Earnings</p>
+                <p className="text-xl md:text-3xl font-bold">{mockData.dailyEarnings.toFixed(2)} FAPS</p>
+                <p className="text-xs md:text-sm text-faps-success">+0.0% vs last day</p>
               </div>
             </div>
           </Card>
 
           <Card className="faps-card h-32">
-            <div className="flex items-center justify-between h-full">
-              <div>
-                <p className="text-sm text-muted-foreground">Weekly Earnings</p>
-                <p className="text-3xl font-bold">{mockData.weeklyEarnings.toFixed(2)} FAPS</p>
-                <p className="text-sm text-destructive">-100.0% vs last week</p>
-              </div>
-              <div className="sparkline-container">
-                <SparklineChart data={[100, 120, 150, 180, 200, 0, 0]} />
+            <div className="flex items-center justify-center h-full p-4">
+              <div className="text-center">
+                <p className="text-xs md:text-sm text-muted-foreground">Weekly Earnings</p>
+                <p className="text-xl md:text-3xl font-bold">{mockData.weeklyEarnings.toFixed(2)} FAPS</p>
+                <p className="text-xs md:text-sm text-destructive">-100.0% vs last week</p>
               </div>
             </div>
           </Card>
 
           <Card className="faps-card h-32">
-            <div className="flex items-center justify-between h-full">
-              <div>
-                <p className="text-sm text-muted-foreground">Current Streak</p>
-                <div className="flex items-center gap-2">
-                  <Flame className="w-8 h-8 text-faps-warning" />
-                  <p className="text-3xl font-bold text-faps-warning">{mockData.currentStreak}</p>
+            <div className="flex items-center justify-center h-full p-4">
+              <div className="text-center">
+                <p className="text-xs md:text-sm text-muted-foreground">Current Streak</p>
+                <div className="flex items-center justify-center gap-2">
+                  <Flame className="w-6 h-6 md:w-8 md:h-8 text-faps-warning" />
+                  <p className="text-xl md:text-3xl font-bold text-faps-warning">{mockData.currentStreak}</p>
                 </div>
-                <p className="text-sm text-muted-foreground">days in a row</p>
-              </div>
-              <div className="sparkline-container">
-                <SparklineChart data={[1, 2, 3, 4, 5, 6, 7]} />
+                <p className="text-xs md:text-sm text-muted-foreground">days in a row</p>
               </div>
             </div>
           </Card>
