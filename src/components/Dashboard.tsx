@@ -316,15 +316,32 @@ const AchievementImageGenerator = ({ achievement, userStats }: AchievementImageG
       // Main achievement text - large and bold
       const centerY = canvas.height / 2;
       ctx.fillStyle = '#ffffff';
-      ctx.font = 'bold 48px system-ui, -apple-system, sans-serif';
+      ctx.font = 'bold 42px system-ui, -apple-system, sans-serif';
       ctx.textAlign = 'center';
       
-      // Clean achievement text
-      const achievementText = `EARNED ${achievement.toUpperCase()}`;
-      ctx.fillText(achievementText, canvas.width / 2, centerY - 40);
+      // Simple achievement text
+      const achievementText = `Earned ${achievement} in FAPS on Fraction AI`;
       
-      ctx.font = 'bold 36px system-ui, -apple-system, sans-serif';
-      ctx.fillText('IN FAPS ON FRACTION AI', canvas.width / 2, centerY + 20);
+      // Handle multi-line text if needed
+      const maxWidth = canvas.width - 120;
+      const words = achievementText.split(' ');
+      let line = '';
+      let currentY = centerY - 20;
+      const lineHeight = 50;
+      
+      for (let n = 0; n < words.length; n++) {
+        const testLine = line + words[n] + ' ';
+        const metrics = ctx.measureText(testLine);
+        
+        if (metrics.width > maxWidth && n > 0) {
+          ctx.fillText(line.trim(), canvas.width / 2, currentY);
+          line = words[n] + ' ';
+          currentY += lineHeight;
+        } else {
+          line = testLine;
+        }
+      }
+      ctx.fillText(line.trim(), canvas.width / 2, currentY);
 
       // FAPS count highlight
       ctx.fillStyle = '#ffd700';
