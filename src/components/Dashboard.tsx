@@ -1144,15 +1144,10 @@ export const Dashboard = () => {
           <div>
             <h1 className="text-3xl font-bold faps-gradient-text">FAPs</h1>
           </div>
-          <div className="flex items-center gap-2">
-            <Flame className="w-6 h-6 text-faps-warning" />
-            <span className="text-2xl font-bold text-faps-warning">{mockData.currentStreak}</span>
-            <span className="text-sm text-muted-foreground">day streak</span>
-          </div>
         </div>
 
-        {/* Main Stats Cards - Equal height */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Main Stats Cards - 4 cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <Card className="faps-card h-32">
             <div className="flex items-center justify-between h-full">
               <div>
@@ -1190,6 +1185,22 @@ export const Dashboard = () => {
               </div>
               <div className="sparkline-container">
                 <SparklineChart data={[100, 120, 150, 180, 200, 0, 0]} />
+              </div>
+            </div>
+          </Card>
+
+          <Card className="faps-card h-32">
+            <div className="flex items-center justify-between h-full">
+              <div>
+                <p className="text-sm text-muted-foreground">Current Streak</p>
+                <div className="flex items-center gap-2">
+                  <Flame className="w-8 h-8 text-faps-warning" />
+                  <p className="text-3xl font-bold text-faps-warning">{mockData.currentStreak}</p>
+                </div>
+                <p className="text-sm text-muted-foreground">days in a row</p>
+              </div>
+              <div className="sparkline-container">
+                <SparklineChart data={[1, 2, 3, 4, 5, 6, 7]} />
               </div>
             </div>
           </Card>
