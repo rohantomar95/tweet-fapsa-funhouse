@@ -1186,22 +1186,23 @@ export const Dashboard = () => {
         {/* Header Section - responsive */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-[1rem]">
           <div>
-            <h1 className="text-[2rem] sm:text-[2.5rem] lg:text-[3rem] font-bold faps-gradient-text">
+            <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold faps-gradient-text">
               FAPS Dashboard
             </h1>
-            <p className="text-[1rem] sm:text-[1.125rem] text-muted-foreground mt-[0.5rem]">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-muted-foreground mt-[0.5rem]">
               Track your engagement rewards and earnings
             </p>
           </div>
           
           <div className="flex items-center gap-[0.75rem] w-full sm:w-auto">
-            <Badge className="bg-faps-primary/20 text-faps-primary border-faps-primary/30 px-[0.75rem] py-[0.25rem]">
-              <Flame className="w-[1rem] h-[1rem] mr-[0.25rem]" />
-              {mockData.currentStreak} day streak
+            <Badge className="bg-faps-primary/20 text-faps-primary border-faps-primary/30 px-2 sm:px-3 py-1">
+              <Flame className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+              <span className="text-xs sm:text-sm">{mockData.currentStreak} day streak</span>
             </Badge>
-            <Button variant="outline" size="sm" className="text-[0.875rem] px-[1rem]">
-              <Share className="w-[1rem] h-[1rem] mr-[0.25rem]" />
-              Share Progress
+            <Button variant="outline" size="sm" className="text-xs sm:text-sm px-2 sm:px-4">
+              <Share className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">Share Progress</span>
+              <span className="sm:hidden">Share</span>
             </Button>
           </div>
         </div>
@@ -1212,14 +1213,14 @@ export const Dashboard = () => {
           <Card className="faps-card-glow">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-[0.875rem] font-medium text-muted-foreground">Total Earnings</p>
-                <p className="text-[2rem] sm:text-[2.5rem] font-bold text-faps-primary animate-counter">
+                <p className="text-xs sm:text-sm md:text-base font-medium text-muted-foreground">Total Earnings</p>
+                <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-faps-primary animate-counter">
                   {mockData.totalEarnings.toLocaleString()}
                 </p>
-                <p className="text-[0.75rem] text-muted-foreground">FAPS tokens</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">FAPS tokens</p>
               </div>
-              <div className="p-[0.75rem] bg-faps-primary/10 rounded-full">
-                <TrendingUp className="w-[1.5rem] h-[1.5rem] text-faps-primary" />
+              <div className="p-2 sm:p-3 bg-faps-primary/10 rounded-full">
+                <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-faps-primary" />
               </div>
             </div>
           </Card>
@@ -1228,13 +1229,13 @@ export const Dashboard = () => {
           <Card className="faps-card">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-[0.875rem] font-medium text-muted-foreground">Today's Earnings</p>
-                <p className="text-[2rem] sm:text-[2.5rem] font-bold text-faps-secondary animate-counter">
+                <p className="text-xs sm:text-sm md:text-base font-medium text-muted-foreground">Today's Earnings</p>
+                <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-faps-secondary animate-counter">
                   +{mockData.dailyEarnings}
                 </p>
-                <div className="flex items-center gap-[0.25rem] mt-[0.25rem]">
-                  <TrendingUp className="w-[0.875rem] h-[0.875rem] text-green-400" />
-                  <span className="text-[0.75rem] text-green-400">+12% from yesterday</span>
+                <div className="flex items-center gap-1 mt-1">
+                  <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4 text-green-400" />
+                  <span className="text-xs sm:text-sm text-green-400">+12% from yesterday</span>
                 </div>
               </div>
               <div className="sparkline-container">
@@ -1247,14 +1248,14 @@ export const Dashboard = () => {
           <Card className="faps-card">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-[0.875rem] font-medium text-muted-foreground">Total Actions</p>
-                <p className="text-[2rem] sm:text-[2.5rem] font-bold text-foreground animate-counter">
+                <p className="text-xs sm:text-sm md:text-base font-medium text-muted-foreground">Total Actions</p>
+                <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-foreground animate-counter">
                   {mockData.totalActions}
                 </p>
-                <p className="text-[0.75rem] text-muted-foreground">engagements</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">engagements</p>
               </div>
-              <div className="p-[0.75rem] bg-blue-500/10 rounded-full">
-                <Users className="w-[1.5rem] h-[1.5rem] text-blue-400" />
+              <div className="p-2 sm:p-3 bg-blue-500/10 rounded-full">
+                <Users className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-blue-400" />
               </div>
             </div>
           </Card>
