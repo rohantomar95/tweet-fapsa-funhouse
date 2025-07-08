@@ -246,129 +246,125 @@ const AchievementImageGenerator = ({ achievement, userStats }: AchievementImageG
       canvas.width = 1200;
       canvas.height = 675;
 
-      // Create main gradient background (dark theme)
-      const mainGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-      mainGradient.addColorStop(0, '#0f0f23');
-      mainGradient.addColorStop(0.5, '#1a1a2e');
-      mainGradient.addColorStop(1, '#16213e');
+      // Create modern gradient background
+      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      gradient.addColorStop(0, '#1a1a2e');
+      gradient.addColorStop(0.3, '#16213e');
+      gradient.addColorStop(0.7, '#0f1419');
+      gradient.addColorStop(1, '#0a0a0a');
       
-      ctx.fillStyle = mainGradient;
+      ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Create badge background with rounded corners
-      const badgeWidth = 800;
-      const badgeHeight = 500;
-      const badgeX = (canvas.width - badgeWidth) / 2;
-      const badgeY = (canvas.height - badgeHeight) / 2;
-      const cornerRadius = 30;
-
-      // Badge background gradient
-      const badgeGradient = ctx.createLinearGradient(badgeX, badgeY, badgeX + badgeWidth, badgeY + badgeHeight);
-      badgeGradient.addColorStop(0, 'rgba(255, 215, 0, 0.15)');
-      badgeGradient.addColorStop(0.5, 'rgba(255, 215, 0, 0.08)');
-      badgeGradient.addColorStop(1, 'rgba(255, 215, 0, 0.05)');
-
-      // Draw rounded rectangle for badge
-      ctx.fillStyle = badgeGradient;
+      // Add geometric shapes for modern look
+      ctx.save();
+      
+      // Large geometric shape - top right
+      ctx.fillStyle = 'rgba(255, 215, 0, 0.08)';
       ctx.beginPath();
-      ctx.moveTo(badgeX + cornerRadius, badgeY);
-      ctx.arcTo(badgeX + badgeWidth, badgeY, badgeX + badgeWidth, badgeY + badgeHeight, cornerRadius);
-      ctx.arcTo(badgeX + badgeWidth, badgeY + badgeHeight, badgeX, badgeY + badgeHeight, cornerRadius);
-      ctx.arcTo(badgeX, badgeY + badgeHeight, badgeX, badgeY, cornerRadius);
-      ctx.arcTo(badgeX, badgeY, badgeX + badgeWidth, badgeY, cornerRadius);
+      ctx.moveTo(canvas.width - 200, 0);
+      ctx.lineTo(canvas.width, 0);
+      ctx.lineTo(canvas.width, 300);
+      ctx.lineTo(canvas.width - 400, 200);
       ctx.closePath();
       ctx.fill();
 
-      // Badge border
+      // Medium geometric shape - bottom left
+      ctx.fillStyle = 'rgba(255, 215, 0, 0.05)';
+      ctx.beginPath();
+      ctx.moveTo(0, canvas.height - 250);
+      ctx.lineTo(350, canvas.height - 100);
+      ctx.lineTo(200, canvas.height);
+      ctx.lineTo(0, canvas.height);
+      ctx.closePath();
+      ctx.fill();
+
+      // Small accent shape - top left
+      ctx.fillStyle = 'rgba(255, 215, 0, 0.12)';
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(180, 0);
+      ctx.lineTo(120, 120);
+      ctx.lineTo(0, 80);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.restore();
+
+      // User profile section (top left)
+      const profileY = 80;
+      
+      // Profile picture placeholder (circular)
+      ctx.fillStyle = 'rgba(255, 215, 0, 0.2)';
+      ctx.beginPath();
+      ctx.arc(100, profileY, 30, 0, 2 * Math.PI);
+      ctx.fill();
+      
       ctx.strokeStyle = '#ffd700';
-      ctx.lineWidth = 3;
+      ctx.lineWidth = 2;
       ctx.stroke();
 
-      // Load and draw logo
-      const logo = new Image();
-      logo.crossOrigin = 'anonymous';
-      
-      await new Promise((resolve, reject) => {
-        logo.onload = resolve;
-        logo.onerror = reject;
-        logo.src = '/lovable-uploads/97f53de6-1265-49ee-8cce-799b9e43802c.png';
-      });
-
-      // Draw logo at top center
-      const logoSize = 80;
-      const logoX = (canvas.width - logoSize) / 2;
-      const logoY = badgeY + 40;
-      ctx.drawImage(logo, logoX, logoY, logoSize, logoSize);
-
-      // Achievement header
-      ctx.fillStyle = '#ffd700';
-      ctx.font = 'bold 32px system-ui, -apple-system, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('ACHIEVEMENT UNLOCKED', canvas.width / 2, logoY + logoSize + 60);
-
-      // Achievement title
+      // User info next to profile
       ctx.fillStyle = '#ffffff';
-      ctx.font = 'bold 44px system-ui, -apple-system, sans-serif';
+      ctx.font = 'bold 24px system-ui, -apple-system, sans-serif';
+      ctx.fillText(userStats.username, 150, profileY - 5);
       
-      // Handle multi-line achievement text
-      const maxWidth = badgeWidth - 80;
-      const lineHeight = 50;
-      let currentY = logoY + logoSize + 120;
-      
-      const words = achievement.split(' ');
-      let line = '';
-      
-      for (let n = 0; n < words.length; n++) {
-        const testLine = line + words[n] + ' ';
-        const metrics = ctx.measureText(testLine);
-        
-        if (metrics.width > maxWidth && n > 0) {
-          ctx.fillText(line.trim(), canvas.width / 2, currentY);
-          line = words[n] + ' ';
-          currentY += lineHeight;
-        } else {
-          line = testLine;
-        }
-      }
-      ctx.fillText(line.trim(), canvas.width / 2, currentY);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+      ctx.font = '18px system-ui, -apple-system, sans-serif';
+      ctx.fillText('@' + userStats.username.toLowerCase(), 150, profileY + 20);
 
-      // Stats section
-      currentY += 80;
+      // Main achievement text - large and bold
+      const centerY = canvas.height / 2;
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 48px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'center';
+      
+      // Clean achievement text
+      const achievementText = `EARNED ${achievement.toUpperCase()}`;
+      ctx.fillText(achievementText, canvas.width / 2, centerY - 40);
+      
+      ctx.font = 'bold 36px system-ui, -apple-system, sans-serif';
+      ctx.fillText('IN FAPS ON FRACTION AI', canvas.width / 2, centerY + 20);
+
+      // FAPS count highlight
       ctx.fillStyle = '#ffd700';
       ctx.font = 'bold 28px system-ui, -apple-system, sans-serif';
-      ctx.fillText(`${userStats.fapsCount} FAPS EARNED`, canvas.width / 2, currentY);
+      ctx.fillText(`${userStats.fapsCount} FAPS`, canvas.width / 2, centerY + 80);
 
-      currentY += 50;
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-      ctx.font = '24px system-ui, -apple-system, sans-serif';
-      ctx.fillText(`Achieved by ${userStats.username}`, canvas.width / 2, currentY);
+      // Load and draw logo (bottom left)
+      try {
+        const logo = new Image();
+        logo.crossOrigin = 'anonymous';
+        
+        await new Promise((resolve, reject) => {
+          logo.onload = resolve;
+          logo.onerror = reject;
+          logo.src = '/lovable-uploads/97f53de6-1265-49ee-8cce-799b9e43802c.png';
+        });
 
-      // Decorative elements - subtle corner accents
-      ctx.fillStyle = 'rgba(255, 215, 0, 0.3)';
-      
-      // Top left accent
-      ctx.beginPath();
-      ctx.moveTo(badgeX + 20, badgeY + 80);
-      ctx.lineTo(badgeX + 80, badgeY + 20);
-      ctx.lineTo(badgeX + 100, badgeY + 40);
-      ctx.lineTo(badgeX + 40, badgeY + 100);
-      ctx.closePath();
-      ctx.fill();
+        // Draw logo at bottom left
+        const logoSize = 40;
+        ctx.drawImage(logo, 60, canvas.height - logoSize - 40, logoSize, logoSize);
+        
+        // Company name next to logo
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 20px system-ui, -apple-system, sans-serif';
+        ctx.textAlign = 'start';
+        ctx.fillText('FRACTION AI', 115, canvas.height - 35);
+        
+      } catch (logoError) {
+        console.warn('Could not load logo, using text fallback');
+        ctx.fillStyle = '#ffd700';
+        ctx.font = 'bold 24px system-ui, -apple-system, sans-serif';
+        ctx.textAlign = 'start';
+        ctx.fillText('FRACTION AI', 60, canvas.height - 35);
+      }
 
-      // Bottom right accent
-      ctx.beginPath();
-      ctx.moveTo(badgeX + badgeWidth - 20, badgeY + badgeHeight - 80);
-      ctx.lineTo(badgeX + badgeWidth - 80, badgeY + badgeHeight - 20);
-      ctx.lineTo(badgeX + badgeWidth - 100, badgeY + badgeHeight - 40);
-      ctx.lineTo(badgeX + badgeWidth - 40, badgeY + badgeHeight - 100);
-      ctx.closePath();
-      ctx.fill();
-
-      // Bottom signature
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+      // Website URL (bottom right)
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
       ctx.font = '18px system-ui, -apple-system, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('fractionai.xyz', canvas.width / 2, canvas.height - 30);
+      ctx.textAlign = 'end';
+      ctx.fillText('fractionai.xyz', canvas.width - 60, canvas.height - 35);
 
       ctx.textAlign = 'start'; // Reset text alignment
       return canvas;
