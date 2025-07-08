@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from 'recharts';
+import { toast } from "sonner";
 import { 
   TrendingUp, Flame, Calendar, Users, MessageCircle, Repeat2, Heart, 
   Trophy, Star, Target, Zap, Crown, Info, Share2, Facebook, Link, 
@@ -108,22 +109,28 @@ const AchievementCardGenerator = ({ achievement, userStats, showPostOnX }: Achie
     if (!cardRef.current) return;
 
     try {
-      console.log("Generating card...");
+      toast.promise(
+        (async () => {
+          const html2canvas = (await import('html2canvas')).default;
+          
+          const canvas = await html2canvas(cardRef.current, {
+            backgroundColor: 'hsl(220 13% 6%)',
+            scale: 3,
+            width: 1200,
+            height: 630,
+            useCORS: true,
+            allowTaint: true
+          });
 
-      const html2canvas = (await import('html2canvas')).default;
-      
-      const canvas = await html2canvas(cardRef.current, {
-        backgroundColor: '#0f0f23',
-        scale: 2,
-        width: 800,
-        height: 400,
-        useCORS: true,
-        allowTaint: true
-      });
-
-      await copyImageToClipboard(canvas);
-      
-      console.log("Achievement card copied!");
+          await copyImageToClipboard(canvas);
+          return "Achievement image copied to clipboard!";
+        })(),
+        {
+          loading: 'Generating achievement image...',
+          success: 'Image copied to clipboard! Ready to share on X.',
+          error: 'Failed to copy image. Please try again.',
+        }
+      );
 
     } catch (error) {
       console.error('Error generating/copying card:', error);
@@ -138,9 +145,9 @@ ${userStats.rank ? `🏆 Rank: #${userStats.rank}
       
       try {
         await navigator.clipboard.writeText(shareText);
-        console.log("Text copied instead");
+        toast.success("Text copied to clipboard instead!");
       } catch (textError) {
-        console.log("Copy failed");
+        toast.error("Failed to copy. Please try again.");
       }
     }
   };
@@ -155,45 +162,102 @@ ${userStats.rank ? `🏆 Rank: #${userStats.rank}
     <div className="flex items-center gap-2">
       <div 
         ref={cardRef}
-        className="fixed -left-[9999px] -top-[9999px] w-[800px] h-[400px] bg-gradient-to-br from-faps-primary via-faps-secondary to-faps-accent p-8 text-white"
-        style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
+        className="fixed -left-[9999px] -top-[9999px] w-[1200px] h-[630px] text-white relative overflow-hidden"
+        style={{ 
+          fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+          background: `
+            radial-gradient(ellipse 80% 50% at 50% 0%, hsl(40 36% 8%) 0%, transparent 50%),
+            radial-gradient(ellipse 60% 50% at 50% 100%, hsl(25 65% 6%) 0%, transparent 50%),
+            linear-gradient(135deg, hsl(220 13% 6%) 0%, hsl(30 20% 5%) 50%, hsl(35 25% 4%) 100%)
+          `
+        }}
       >
-        <div className="flex items-center justify-between mb-6">
-          <div className="text-3xl font-bold">FAPS</div>
-          <div className="text-right">
-            <div className="text-xl font-bold">🎉 Achievement Unlocked!</div>
-          </div>
+        {/* Background pattern overlay */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `
+              radial-gradient(circle at 25% 25%, hsl(40 36% 49% / 0.3) 0%, transparent 50%),
+              radial-gradient(circle at 75% 75%, hsl(25 65% 45% / 0.3) 0%, transparent 50%)
+            `
+          }} />
         </div>
 
-        <div className="flex items-center justify-between h-48">
-          <div className="flex-1">
-            <h2 className="text-4xl font-bold mb-4 leading-tight">{achievement}</h2>
-            <div className="space-y-2 text-xl">
-              <div className="flex items-center gap-3">
-                <span className="text-2xl">💎</span>
-                <span>FAPS Count: <strong>{userStats.fapsCount}</strong></span>
+        {/* Main content */}
+        <div className="relative z-10 h-full p-16 flex flex-col">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-12">
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[hsl(40_36%_49%)] to-[hsl(25_65%_45%)] flex items-center justify-center text-3xl font-bold shadow-lg">
+                F
               </div>
-              {userStats.rank && (
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">🏆</span>
-                  <span>Rank: <strong>#{userStats.rank}</strong></span>
+              <div>
+                <div className="text-4xl font-bold bg-gradient-to-r from-[hsl(40_36%_49%)] to-[hsl(25_65%_45%)] bg-clip-text text-transparent">
+                  FAPS
                 </div>
-              )}
-              <div className="flex items-center gap-3">
-                <span className="text-2xl">👤</span>
-                <span>User: <strong>{userStats.username}</strong></span>
+                <div className="text-lg text-white/70">Fraction AI Protocol</div>
               </div>
             </div>
+            <div className="text-right">
+              <div className="text-3xl font-bold bg-gradient-to-r from-[hsl(40_36%_49%)] to-[hsl(25_65%_45%)] bg-clip-text text-transparent">
+                🎉 Achievement Unlocked!
+              </div>
+              <div className="text-white/60 text-lg mt-1">Congratulations!</div>
+            </div>
           </div>
-          
-          <div className="w-32 h-32 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20">
-            <div className="text-6xl">🏆</div>
-          </div>
-        </div>
 
-        <div className="flex items-center justify-between mt-6 pt-4 border-t border-white/20">
-          <div className="text-lg opacity-80">#FAPS #Achievement #Crypto</div>
-          <div className="text-lg opacity-80">Share your success!</div>
+          {/* Main content area */}
+          <div className="flex-1 flex items-center justify-between">
+            <div className="flex-1 pr-16">
+              <h2 className="text-6xl font-bold mb-8 leading-tight text-white drop-shadow-lg">
+                {achievement}
+              </h2>
+              <div className="space-y-4 text-2xl">
+                <div className="flex items-center gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[hsl(40_36%_49%)] to-[hsl(25_65%_45%)] flex items-center justify-center">
+                    <span className="text-2xl">💎</span>
+                  </div>
+                  <span>FAPS Count: <strong className="text-[hsl(40_36%_49%)]">{userStats.fapsCount.toLocaleString()}</strong></span>
+                </div>
+                {userStats.rank && (
+                  <div className="flex items-center gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[hsl(40_36%_49%)] to-[hsl(25_65%_45%)] flex items-center justify-center">
+                      <span className="text-2xl">🏆</span>
+                    </div>
+                    <span>Rank: <strong className="text-[hsl(40_36%_49%)]">#{userStats.rank}</strong></span>
+                  </div>
+                )}
+                <div className="flex items-center gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[hsl(40_36%_49%)] to-[hsl(25_65%_45%)] flex items-center justify-center">
+                    <span className="text-2xl">👤</span>
+                  </div>
+                  <span>User: <strong className="text-[hsl(40_36%_49%)]">{userStats.username}</strong></span>
+                </div>
+              </div>
+            </div>
+            
+            {/* Achievement icon */}
+            <div className="w-80 h-80 relative flex-shrink-0">
+              <div className="w-full h-full rounded-full bg-gradient-to-br from-[hsl(40_36%_49%)] to-[hsl(25_65%_45%)] flex items-center justify-center shadow-2xl relative">
+                <div className="absolute inset-0 rounded-full bg-white/10 backdrop-blur-sm border-2 border-white/20"></div>
+                <div className="text-9xl relative z-10 drop-shadow-lg">🏆</div>
+                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-white/20 to-transparent"></div>
+              </div>
+              {/* Glow effect */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[hsl(40_36%_49%)] to-[hsl(25_65%_45%)] blur-xl opacity-30 scale-110"></div>
+            </div>
+          </div>
+
+          {/* Footer */}
+          <div className="flex items-center justify-between pt-8 border-t border-white/20">
+            <div className="flex items-center gap-3">
+              <span className="text-xl text-[hsl(40_36%_49%)] font-semibold">#FAPS</span>
+              <span className="text-xl text-[hsl(25_65%_45%)] font-semibold">#Achievement</span>
+              <span className="text-xl text-white/60 font-semibold">#FractionAI</span>
+            </div>
+            <div className="text-xl text-white/70 font-medium">
+              Share your success and earn more rewards! 🚀
+            </div>
+          </div>
         </div>
       </div>
 
@@ -201,21 +265,24 @@ ${userStats.rank ? `🏆 Rank: #${userStats.rank}
         variant="outline"
         size="sm"
         onClick={generateCard}
-        className="text-xs px-2 py-1 h-auto"
+        className="text-xs px-2 py-1 h-auto hover:bg-faps-primary/10 hover:border-faps-primary/30"
       >
         <Copy className="w-3 h-3 mr-1" />
-        Copy Card
+        Copy Image
       </Button>
       
       {showPostOnX && (
         <Button
           variant="outline"
           size="sm"
-          onClick={shareOnX}
-          className="text-xs px-2 py-1 h-auto"
+          onClick={() => {
+            generateCard();
+            setTimeout(() => shareOnX(), 1000);
+          }}
+          className="text-xs px-2 py-1 h-auto hover:bg-faps-primary/10 hover:border-faps-primary/30"
         >
           <TwitterIcon className="w-3 h-3 mr-1" />
-          Post on X
+          Share on X
         </Button>
       )}
     </div>
