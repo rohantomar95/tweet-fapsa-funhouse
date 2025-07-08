@@ -88,90 +88,105 @@ interface AchievementCardProps {
 const AchievementCardGenerator = ({ achievement, userStats, showPostOnX }: AchievementCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
-  const copyImageToClipboard = async (canvas: HTMLCanvasElement) => {
+  const copyImageToClipboard = async (canvas: HTMLCanvasElement): Promise<boolean> => {
     console.log('Starting clipboard copy process...');
     
-    // Check if we're in a secure context
-    if (!window.isSecureContext) {
-      console.error('Clipboard API requires secure context (HTTPS)');
-      throw new Error('Clipboard API requires secure context (HTTPS)');
+    try {
+      // Check if we're in a secure context
+      if (!window.isSecureContext) {
+        console.error('Not in secure context, clipboard API requires HTTPS');
+        return false;
+      }
+      
+      if (!navigator.clipboard) {
+        console.error('Clipboard API not supported');
+        return false;
+      }
+      
+      if (!navigator.clipboard.write) {
+        console.error('Clipboard write not supported');
+        return false;
+      }
+      
+      console.log('Creating blob from canvas...');
+      const blob = await new Promise<Blob | null>(resolve => {
+        canvas.toBlob((blob) => {
+          console.log('Blob creation callback, blob:', blob);
+          resolve(blob);
+        }, 'image/png', 1.0);
+      });
+      
+      if (!blob) {
+        console.error('Failed to create blob from canvas');
+        return false;
+      }
+      
+      console.log('Blob created successfully, size:', blob.size, 'type:', blob.type);
+      
+      const clipboardItem = new ClipboardItem({ 'image/png': blob });
+      console.log('Writing to clipboard...');
+      
+      await navigator.clipboard.write([clipboardItem]);
+      
+      console.log('Image successfully written to clipboard');
+      
+      // Verify clipboard contents
+      const clipboardContents = await navigator.clipboard.read();
+      console.log('Clipboard verification - items count:', clipboardContents.length);
+      
+      return true;
+    } catch (error) {
+      console.error('Clipboard copy failed:', error);
+      return false;
     }
-    
-    if (!navigator.clipboard) {
-      console.error('Clipboard API not supported');
-      throw new Error('Clipboard API not supported in this browser');
-    }
-    
-    if (!navigator.clipboard.write) {
-      console.error('Clipboard write not supported');
-      throw new Error('Clipboard write not supported in this browser');
-    }
-    
-    const blob = await new Promise<Blob | null>(resolve => {
-      canvas.toBlob(resolve, 'image/png', 1.0);
-    });
-    
-    if (!blob) {
-      console.error('Failed to create blob from canvas');
-      throw new Error('Failed to create blob from canvas');
-    }
-    
-    console.log('Blob created successfully, size:', blob.size);
-    
-    const clipboardItem = new ClipboardItem({ 'image/png': blob });
-    await navigator.clipboard.write([clipboardItem]);
-    
-    console.log('Image successfully written to clipboard');
   };
 
-  const generateCard = async () => {
+  const generateCard = async (): Promise<boolean> => {
     if (!cardRef.current) {
       console.error('Card ref not available');
       toast.error('Failed to generate image - component not ready');
-      return;
+      return false;
     }
 
     console.log('Starting image generation...');
 
     try {
-      const result = await toast.promise(
-        (async () => {
-          console.log('Loading html2canvas...');
-          const html2canvas = (await import('html2canvas')).default;
-          
-          console.log('Generating canvas from element...');
-          const canvas = await html2canvas(cardRef.current!, {
-            backgroundColor: 'hsl(220 13% 6%)',
-            scale: 3,
-            width: 1200,
-            height: 630,
-            useCORS: true,
-            allowTaint: true,
-            logging: true
-          });
-
-          console.log('Canvas generated successfully, size:', canvas.width, 'x', canvas.height);
-
-          console.log('Copying to clipboard...');
-          await copyImageToClipboard(canvas);
-          
-          return "Image successfully copied to clipboard!";
-        })(),
-        {
-          loading: 'Generating achievement image...',
-          success: (message) => {
-            console.log('Success:', message);
-            return 'Image copied to clipboard! Ready to share on X 🎉';
-          },
-          error: (error) => {
-            console.error('Generation failed:', error);
-            return `Failed to copy image: ${error.message}`;
-          },
+      console.log('Loading html2canvas...');
+      const html2canvas = (await import('html2canvas')).default;
+      
+      console.log('Generating canvas from element...');
+      const canvas = await html2canvas(cardRef.current, {
+        backgroundColor: 'hsl(220 13% 6%)',
+        scale: 2, // Reduced scale for better performance
+        width: 1200,
+        height: 630,
+        useCORS: true,
+        allowTaint: true,
+        logging: false, // Disable html2canvas logging
+        onclone: (clonedDoc) => {
+          console.log('Document cloned for rendering');
         }
-      );
+      });
+
+      console.log('Canvas generated successfully, size:', canvas.width, 'x', canvas.height);
+
+      // Test if we can create a data URL first
+      const dataUrl = canvas.toDataURL('image/png');
+      console.log('Data URL created, length:', dataUrl.length);
+
+      console.log('Attempting to copy to clipboard...');
+      const copySuccess = await copyImageToClipboard(canvas);
+      
+      if (copySuccess) {
+        toast.success('✅ Image copied to clipboard! Ready to share on X 🎉');
+        console.log('✅ Copy successful!');
+        return true;
+      } else {
+        throw new Error('Clipboard copy returned false');
+      }
 
     } catch (error) {
-      console.error('Outer catch - Error generating/copying card:', error);
+      console.error('❌ Image generation/copy failed:', error);
       
       // Fallback to text copying
       const shareText = `🎉 ${achievement}
@@ -184,19 +199,32 @@ ${userStats.rank ? `🏆 Rank: #${userStats.rank}
       
       try {
         await navigator.clipboard.writeText(shareText);
-        toast.success("Text copied to clipboard instead!");
-        console.log('Fallback text copy successful');
+        toast.warning("Image copy failed - text copied instead!");
+        console.log('📝 Fallback text copy successful');
+        return false;
       } catch (textError) {
-        console.error('Even text copy failed:', textError);
-        toast.error("Failed to copy anything. Please check browser permissions.");
+        console.error('❌ Even text copy failed:', textError);
+        toast.error("❌ Failed to copy anything. Please check browser permissions.");
+        return false;
       }
     }
   };
 
-  const shareOnX = () => {
-    const shareText = `🎉 ${achievement}\n\n💎 FAPS Count: ${userStats.fapsCount}\n${userStats.rank ? `🏆 Rank: #${userStats.rank}\n` : ''}👤 User: ${userStats.username}\n\n#FAPS #Achievement #Crypto`;
-    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
-    window.open(url, '_blank');
+  const shareOnX = async () => {
+    // First ensure image is copied to clipboard
+    const copySuccess = await generateCard();
+    
+    if (copySuccess) {
+      // Wait a moment for clipboard to be ready
+      setTimeout(() => {
+        const shareText = `🎉 ${achievement}\n\n💎 FAPS Count: ${userStats.fapsCount}\n${userStats.rank ? `🏆 Rank: #${userStats.rank}\n` : ''}👤 User: ${userStats.username}\n\n#FAPS #Achievement #Crypto`;
+        const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
+        window.open(url, '_blank');
+        toast.info('🐦 Opening Twitter - paste your image in the tweet!');
+      }, 500);
+    } else {
+      toast.error('Please copy the image first before sharing on X');
+    }
   };
 
   return (
@@ -316,10 +344,7 @@ ${userStats.rank ? `🏆 Rank: #${userStats.rank}
         <Button
           variant="outline"
           size="sm"
-          onClick={() => {
-            generateCard();
-            setTimeout(() => shareOnX(), 1000);
-          }}
+          onClick={shareOnX}
           className="text-xs px-2 py-1 h-auto hover:bg-faps-primary/10 hover:border-faps-primary/30"
         >
           <TwitterIcon className="w-3 h-3 mr-1" />
