@@ -89,52 +89,91 @@ const AchievementCardGenerator = ({ achievement, userStats, showPostOnX }: Achie
   const cardRef = useRef<HTMLDivElement>(null);
 
   const copyImageToClipboard = async (canvas: HTMLCanvasElement) => {
-    if (!navigator.clipboard || !navigator.clipboard.write) {
+    console.log('Starting clipboard copy process...');
+    
+    // Check if we're in a secure context
+    if (!window.isSecureContext) {
+      console.error('Clipboard API requires secure context (HTTPS)');
+      throw new Error('Clipboard API requires secure context (HTTPS)');
+    }
+    
+    if (!navigator.clipboard) {
+      console.error('Clipboard API not supported');
       throw new Error('Clipboard API not supported in this browser');
     }
     
+    if (!navigator.clipboard.write) {
+      console.error('Clipboard write not supported');
+      throw new Error('Clipboard write not supported in this browser');
+    }
+    
     const blob = await new Promise<Blob | null>(resolve => {
-      canvas.toBlob(resolve, 'image/png', 0.9);
+      canvas.toBlob(resolve, 'image/png', 1.0);
     });
     
     if (!blob) {
+      console.error('Failed to create blob from canvas');
       throw new Error('Failed to create blob from canvas');
     }
     
+    console.log('Blob created successfully, size:', blob.size);
+    
     const clipboardItem = new ClipboardItem({ 'image/png': blob });
     await navigator.clipboard.write([clipboardItem]);
+    
+    console.log('Image successfully written to clipboard');
   };
 
   const generateCard = async () => {
-    if (!cardRef.current) return;
+    if (!cardRef.current) {
+      console.error('Card ref not available');
+      toast.error('Failed to generate image - component not ready');
+      return;
+    }
+
+    console.log('Starting image generation...');
 
     try {
-      toast.promise(
+      const result = await toast.promise(
         (async () => {
+          console.log('Loading html2canvas...');
           const html2canvas = (await import('html2canvas')).default;
           
-          const canvas = await html2canvas(cardRef.current, {
+          console.log('Generating canvas from element...');
+          const canvas = await html2canvas(cardRef.current!, {
             backgroundColor: 'hsl(220 13% 6%)',
             scale: 3,
             width: 1200,
             height: 630,
             useCORS: true,
-            allowTaint: true
+            allowTaint: true,
+            logging: true
           });
 
+          console.log('Canvas generated successfully, size:', canvas.width, 'x', canvas.height);
+
+          console.log('Copying to clipboard...');
           await copyImageToClipboard(canvas);
-          return "Achievement image copied to clipboard!";
+          
+          return "Image successfully copied to clipboard!";
         })(),
         {
           loading: 'Generating achievement image...',
-          success: 'Image copied to clipboard! Ready to share on X.',
-          error: 'Failed to copy image. Please try again.',
+          success: (message) => {
+            console.log('Success:', message);
+            return 'Image copied to clipboard! Ready to share on X 🎉';
+          },
+          error: (error) => {
+            console.error('Generation failed:', error);
+            return `Failed to copy image: ${error.message}`;
+          },
         }
       );
 
     } catch (error) {
-      console.error('Error generating/copying card:', error);
+      console.error('Outer catch - Error generating/copying card:', error);
       
+      // Fallback to text copying
       const shareText = `🎉 ${achievement}
 
 💎 FAPS Count: ${userStats.fapsCount}
@@ -146,8 +185,10 @@ ${userStats.rank ? `🏆 Rank: #${userStats.rank}
       try {
         await navigator.clipboard.writeText(shareText);
         toast.success("Text copied to clipboard instead!");
+        console.log('Fallback text copy successful');
       } catch (textError) {
-        toast.error("Failed to copy. Please try again.");
+        console.error('Even text copy failed:', textError);
+        toast.error("Failed to copy anything. Please check browser permissions.");
       }
     }
   };
