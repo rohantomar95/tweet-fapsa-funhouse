@@ -222,12 +222,202 @@ ${userStats.rank ? `🏆 Rank: #${userStats.rank}
   );
 };
 
+// Achievement Image Generator Component
+interface AchievementImageGeneratorProps {
+  achievement: string;
+  userStats: {
+    fapsCount: number;
+    username: string;
+  };
+}
+
+const AchievementImageGenerator = ({ achievement, userStats }: AchievementImageGeneratorProps) => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const generateAchievementImage = async () => {
+    try {
+      const canvas = canvasRef.current;
+      if (!canvas) return null;
+
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return null;
+
+      // Set canvas size for high quality
+      canvas.width = 1200;
+      canvas.height = 630;
+
+      // Create gradient background
+      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      gradient.addColorStop(0, '#1a1a2e');
+      gradient.addColorStop(0.5, '#16213e');
+      gradient.addColorStop(1, '#0f0f23');
+      
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Add subtle grid pattern
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+      ctx.lineWidth = 1;
+      for (let i = 0; i < canvas.width; i += 50) {
+        ctx.beginPath();
+        ctx.moveTo(i, 0);
+        ctx.lineTo(i, canvas.height);
+        ctx.stroke();
+      }
+      for (let i = 0; i < canvas.height; i += 50) {
+        ctx.beginPath();
+        ctx.moveTo(0, i);
+        ctx.lineTo(canvas.width, i);
+        ctx.stroke();
+      }
+
+      // FAPS logo/title
+      ctx.fillStyle = '#ffd700';
+      ctx.font = 'bold 48px system-ui, -apple-system, sans-serif';
+      ctx.fillText('FAPS', 60, 100);
+
+      // Achievement badge
+      ctx.fillStyle = '#ffd700';
+      ctx.font = 'bold 24px system-ui, -apple-system, sans-serif';
+      ctx.fillText('🏆 ACHIEVEMENT UNLOCKED', 60, 150);
+
+      // Main achievement text
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 40px system-ui, -apple-system, sans-serif';
+      const maxWidth = canvas.width - 120;
+      const words = achievement.split(' ');
+      let line = '';
+      let y = 220;
+      
+      for (let n = 0; n < words.length; n++) {
+        const testLine = line + words[n] + ' ';
+        const metrics = ctx.measureText(testLine);
+        const testWidth = metrics.width;
+        if (testWidth > maxWidth && n > 0) {
+          ctx.fillText(line, 60, y);
+          line = words[n] + ' ';
+          y += 50;
+        } else {
+          line = testLine;
+        }
+      }
+      ctx.fillText(line, 60, y);
+
+      // Stats section
+      y += 80;
+      ctx.fillStyle = '#ffd700';
+      ctx.font = 'bold 28px system-ui, -apple-system, sans-serif';
+      ctx.fillText(`💎 ${userStats.fapsCount} FAPS`, 60, y);
+
+      y += 50;
+      ctx.fillText(`👤 ${userStats.username}`, 60, y);
+
+      // Decorative elements
+      ctx.fillStyle = 'rgba(255, 215, 0, 0.1)';
+      ctx.beginPath();
+      ctx.arc(canvas.width - 150, 150, 100, 0, 2 * Math.PI);
+      ctx.fill();
+
+      ctx.fillStyle = '#ffd700';
+      ctx.font = '80px system-ui, -apple-system, sans-serif';
+      ctx.fillText('🏆', canvas.width - 180, 180);
+
+      // Bottom text
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+      ctx.font = '20px system-ui, -apple-system, sans-serif';
+      ctx.fillText('#FAPS #Achievement #Crypto', 60, canvas.height - 60);
+      ctx.fillText('@Fractionai_xyz', canvas.width - 200, canvas.height - 60);
+
+      return canvas;
+    } catch (error) {
+      console.error('Error generating image:', error);
+      return null;
+    }
+  };
+
+  const copyImageToClipboard = async (canvas: HTMLCanvasElement) => {
+    try {
+      const blob = await new Promise<Blob | null>((resolve) => {
+        canvas.toBlob(resolve, 'image/png', 1.0);
+      });
+
+      if (!blob) throw new Error('Failed to create blob');
+
+      await navigator.clipboard.write([
+        new ClipboardItem({ 'image/png': blob })
+      ]);
+
+      return true;
+    } catch (error) {
+      console.error('Clipboard error:', error);
+      return false;
+    }
+  };
+
+  const handleShare = async () => {
+    try {
+      const canvas = await generateAchievementImage();
+      if (!canvas) {
+        throw new Error('Failed to generate image');
+      }
+
+      const success = await copyImageToClipboard(canvas);
+      
+      if (success) {
+        // Show success toast
+        const { toast } = await import("sonner");
+        toast.success("Achievement image copied to clipboard!");
+        
+        // Small delay to show toast, then open Twitter
+        setTimeout(() => {
+          const twitterText = `${achievement} @Fractionai_xyz`;
+          const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterText)}`;
+          window.open(twitterUrl, '_blank', 'width=550,height=420');
+        }, 1000);
+      } else {
+        // Fallback to text copy
+        const twitterText = `🏆 ${achievement}\n\n💎 ${userStats.fapsCount} FAPS\n👤 ${userStats.username}\n\n#FAPS #Achievement #Crypto @Fractionai_xyz`;
+        await navigator.clipboard.writeText(twitterText);
+        
+        const { toast } = await import("sonner");
+        toast.info("Text copied to clipboard! Image copy failed.");
+        
+        setTimeout(() => {
+          const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterText)}`;
+          window.open(twitterUrl, '_blank', 'width=550,height=420');
+        }, 1000);
+      }
+    } catch (error) {
+      console.error('Share error:', error);
+      const { toast } = await import("sonner");
+      toast.error("Failed to copy. Opening Twitter...");
+      
+      const twitterText = `${achievement} @Fractionai_xyz`;
+      const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterText)}`;
+      window.open(twitterUrl, '_blank', 'width=550,height=420');
+    }
+  };
+
+  return (
+    <>
+      <canvas ref={canvasRef} style={{ display: 'none' }} />
+      <button 
+        onClick={handleShare}
+        className="social-share-btn"
+        title="Share achievement"
+      >
+        <TwitterIcon className="w-3 h-3" />
+      </button>
+    </>
+  );
+};
+
 // Social Share Component
 interface SocialShareProps {
   achievement: string;
   size?: 'sm' | 'default' | 'lg';
   userStats?: {
-    rank: number;
+    rank?: number;
     fapsCount: number;
     username: string;
   };
@@ -235,69 +425,28 @@ interface SocialShareProps {
 }
 
 const SocialShare = ({ achievement, size = 'default', userStats, showPostOnX = false }: SocialShareProps) => {
-  const shareUrl = window.location.href;
-  const hashtags = 'FAPS,Crypto,Achievement';
-
-  const generateAndShareAchievement = async () => {
-    if (!userStats) {
-      console.log("Cannot generate image");
-      return;
-    }
-
-    console.log("Generating achievement image...");
-
-    const twitterText = `🏆 ${achievement}
-
-🎯 Rank: #${userStats.rank} 
-💎 ${userStats.fapsCount} FAPS earned
-👤 ${userStats.username}
-
-Join the FAPS community and earn rewards for your social media engagement!
-
-@Fractionai_xyz`;
-
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterText)}`;
-    window.open(twitterUrl, '_blank', 'width=550,height=420');
-
-    console.log("Tweet opened!");
-  };
-
   const shareToTwitter = () => {
     const twitterText = `${achievement} @Fractionai_xyz`;
     const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterText)}`;
     window.open(twitterUrl, '_blank', 'width=550,height=420');
   };
 
-  const shareToFacebook = () => {
-    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(achievement)}`;
-    window.open(facebookUrl, '_blank', 'width=550,height=420');
-  };
-
-  const copyToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText(`${achievement} @Fractionai_xyz`);
-      console.log("Copied to clipboard!");
-    } catch (err) {
-      console.log("Failed to copy");
-    }
-  };
-
-  if (showPostOnX && userStats) {
+  if (size === 'sm') {
     return (
-      <AchievementCardGenerator
-        achievement={achievement}
-        userStats={{
-          rank: userStats.rank,
-          fapsCount: userStats.fapsCount,
-          username: userStats.username
-        }}
-        showPostOnX={true}
-      />
+      <div className="flex items-center gap-1">
+        <AchievementImageGenerator 
+          achievement={achievement}
+          userStats={{
+            fapsCount: userStats?.fapsCount || 0,
+            username: userStats?.username || 'User'
+          }}
+        />
+      </div>
     );
   }
 
-  if (showPostOnX) {
-    return (
+  return (
+    <div className="flex items-center gap-2">
       <Button
         onClick={shareToTwitter}
         variant="outline"
@@ -305,75 +454,7 @@ Join the FAPS community and earn rewards for your social media engagement!
         className="flex items-center gap-2"
       >
         <TwitterIcon />
-        Post on X
-      </Button>
-    );
-  }
-
-  if (size === 'sm') {
-    return (
-      <div className="flex items-center gap-1">
-        {userStats ? (
-          <button 
-            onClick={generateAndShareAchievement}
-            className="social-share-btn"
-            title="Generate achievement image"
-          >
-            <Download className="w-3 h-3" />
-          </button>
-        ) : (
-          <button 
-            onClick={shareToTwitter}
-            className="social-share-btn"
-            title="Share on Twitter"
-          >
-            <TwitterIcon className="w-3 h-3" />
-          </button>
-        )}
-      </div>
-    );
-  }
-
-  return (
-    <div className="flex items-center gap-2">
-      {userStats ? (
-        <Button
-          onClick={generateAndShareAchievement}
-          variant="outline"
-          size="sm"
-          className="flex items-center gap-2"
-        >
-          <Download className="w-4 h-4" />
-          Generate Image
-        </Button>
-      ) : (
-        <Button
-          onClick={shareToTwitter}
-          variant="outline"
-          size="sm"
-          className="flex items-center gap-2"
-        >
-          <TwitterIcon />
-          Share on X
-        </Button>
-      )}
-      <Button
-        onClick={shareToFacebook}
-        variant="outline"
-        size="sm"
-        className="flex items-center gap-2"
-      >
-        <Facebook className="w-4 h-4" />
-        Facebook
-      </Button>
-      <Button
-        onClick={copyToClipboard}
-        variant="outline"
-        size="sm"
-        className="flex items-center gap-2"
-      >
-        <Link className="w-4 h-4" />
-        Copy Link
+        Share on X
       </Button>
     </div>
   );
