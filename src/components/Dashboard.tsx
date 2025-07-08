@@ -242,92 +242,135 @@ const AchievementImageGenerator = ({ achievement, userStats }: AchievementImageG
       const ctx = canvas.getContext('2d');
       if (!ctx) return null;
 
-      // Set canvas size for high quality
+      // Set canvas size for Twitter optimal dimensions
       canvas.width = 1200;
-      canvas.height = 630;
+      canvas.height = 675;
 
-      // Create gradient background
-      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-      gradient.addColorStop(0, '#1a1a2e');
-      gradient.addColorStop(0.5, '#16213e');
-      gradient.addColorStop(1, '#0f0f23');
+      // Create main gradient background (dark theme)
+      const mainGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      mainGradient.addColorStop(0, '#0f0f23');
+      mainGradient.addColorStop(0.5, '#1a1a2e');
+      mainGradient.addColorStop(1, '#16213e');
       
-      ctx.fillStyle = gradient;
+      ctx.fillStyle = mainGradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Add subtle grid pattern
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
-      ctx.lineWidth = 1;
-      for (let i = 0; i < canvas.width; i += 50) {
-        ctx.beginPath();
-        ctx.moveTo(i, 0);
-        ctx.lineTo(i, canvas.height);
-        ctx.stroke();
-      }
-      for (let i = 0; i < canvas.height; i += 50) {
-        ctx.beginPath();
-        ctx.moveTo(0, i);
-        ctx.lineTo(canvas.width, i);
-        ctx.stroke();
-      }
+      // Create badge background with rounded corners
+      const badgeWidth = 800;
+      const badgeHeight = 500;
+      const badgeX = (canvas.width - badgeWidth) / 2;
+      const badgeY = (canvas.height - badgeHeight) / 2;
+      const cornerRadius = 30;
 
-      // FAPS logo/title
+      // Badge background gradient
+      const badgeGradient = ctx.createLinearGradient(badgeX, badgeY, badgeX + badgeWidth, badgeY + badgeHeight);
+      badgeGradient.addColorStop(0, 'rgba(255, 215, 0, 0.15)');
+      badgeGradient.addColorStop(0.5, 'rgba(255, 215, 0, 0.08)');
+      badgeGradient.addColorStop(1, 'rgba(255, 215, 0, 0.05)');
+
+      // Draw rounded rectangle for badge
+      ctx.fillStyle = badgeGradient;
+      ctx.beginPath();
+      ctx.moveTo(badgeX + cornerRadius, badgeY);
+      ctx.arcTo(badgeX + badgeWidth, badgeY, badgeX + badgeWidth, badgeY + badgeHeight, cornerRadius);
+      ctx.arcTo(badgeX + badgeWidth, badgeY + badgeHeight, badgeX, badgeY + badgeHeight, cornerRadius);
+      ctx.arcTo(badgeX, badgeY + badgeHeight, badgeX, badgeY, cornerRadius);
+      ctx.arcTo(badgeX, badgeY, badgeX + badgeWidth, badgeY, cornerRadius);
+      ctx.closePath();
+      ctx.fill();
+
+      // Badge border
+      ctx.strokeStyle = '#ffd700';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      // Load and draw logo
+      const logo = new Image();
+      logo.crossOrigin = 'anonymous';
+      
+      await new Promise((resolve, reject) => {
+        logo.onload = resolve;
+        logo.onerror = reject;
+        logo.src = '/lovable-uploads/97f53de6-1265-49ee-8cce-799b9e43802c.png';
+      });
+
+      // Draw logo at top center
+      const logoSize = 80;
+      const logoX = (canvas.width - logoSize) / 2;
+      const logoY = badgeY + 40;
+      ctx.drawImage(logo, logoX, logoY, logoSize, logoSize);
+
+      // Achievement header
       ctx.fillStyle = '#ffd700';
-      ctx.font = 'bold 48px system-ui, -apple-system, sans-serif';
-      ctx.fillText('FAPS', 60, 100);
+      ctx.font = 'bold 32px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('ACHIEVEMENT UNLOCKED', canvas.width / 2, logoY + logoSize + 60);
 
-      // Achievement badge
-      ctx.fillStyle = '#ffd700';
-      ctx.font = 'bold 24px system-ui, -apple-system, sans-serif';
-      ctx.fillText('🏆 ACHIEVEMENT UNLOCKED', 60, 150);
-
-      // Main achievement text
+      // Achievement title
       ctx.fillStyle = '#ffffff';
-      ctx.font = 'bold 40px system-ui, -apple-system, sans-serif';
-      const maxWidth = canvas.width - 120;
+      ctx.font = 'bold 44px system-ui, -apple-system, sans-serif';
+      
+      // Handle multi-line achievement text
+      const maxWidth = badgeWidth - 80;
+      const lineHeight = 50;
+      let currentY = logoY + logoSize + 120;
+      
       const words = achievement.split(' ');
       let line = '';
-      let y = 220;
       
       for (let n = 0; n < words.length; n++) {
         const testLine = line + words[n] + ' ';
         const metrics = ctx.measureText(testLine);
-        const testWidth = metrics.width;
-        if (testWidth > maxWidth && n > 0) {
-          ctx.fillText(line, 60, y);
+        
+        if (metrics.width > maxWidth && n > 0) {
+          ctx.fillText(line.trim(), canvas.width / 2, currentY);
           line = words[n] + ' ';
-          y += 50;
+          currentY += lineHeight;
         } else {
           line = testLine;
         }
       }
-      ctx.fillText(line, 60, y);
+      ctx.fillText(line.trim(), canvas.width / 2, currentY);
 
       // Stats section
-      y += 80;
+      currentY += 80;
       ctx.fillStyle = '#ffd700';
       ctx.font = 'bold 28px system-ui, -apple-system, sans-serif';
-      ctx.fillText(`💎 ${userStats.fapsCount} FAPS`, 60, y);
+      ctx.fillText(`${userStats.fapsCount} FAPS EARNED`, canvas.width / 2, currentY);
 
-      y += 50;
-      ctx.fillText(`👤 ${userStats.username}`, 60, y);
+      currentY += 50;
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+      ctx.font = '24px system-ui, -apple-system, sans-serif';
+      ctx.fillText(`Achieved by ${userStats.username}`, canvas.width / 2, currentY);
 
-      // Decorative elements
-      ctx.fillStyle = 'rgba(255, 215, 0, 0.1)';
+      // Decorative elements - subtle corner accents
+      ctx.fillStyle = 'rgba(255, 215, 0, 0.3)';
+      
+      // Top left accent
       ctx.beginPath();
-      ctx.arc(canvas.width - 150, 150, 100, 0, 2 * Math.PI);
+      ctx.moveTo(badgeX + 20, badgeY + 80);
+      ctx.lineTo(badgeX + 80, badgeY + 20);
+      ctx.lineTo(badgeX + 100, badgeY + 40);
+      ctx.lineTo(badgeX + 40, badgeY + 100);
+      ctx.closePath();
       ctx.fill();
 
-      ctx.fillStyle = '#ffd700';
-      ctx.font = '80px system-ui, -apple-system, sans-serif';
-      ctx.fillText('🏆', canvas.width - 180, 180);
+      // Bottom right accent
+      ctx.beginPath();
+      ctx.moveTo(badgeX + badgeWidth - 20, badgeY + badgeHeight - 80);
+      ctx.lineTo(badgeX + badgeWidth - 80, badgeY + badgeHeight - 20);
+      ctx.lineTo(badgeX + badgeWidth - 100, badgeY + badgeHeight - 40);
+      ctx.lineTo(badgeX + badgeWidth - 40, badgeY + badgeHeight - 100);
+      ctx.closePath();
+      ctx.fill();
 
-      // Bottom text
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
-      ctx.font = '20px system-ui, -apple-system, sans-serif';
-      ctx.fillText('#FAPS #Achievement #Crypto', 60, canvas.height - 60);
-      ctx.fillText('@Fractionai_xyz', canvas.width - 200, canvas.height - 60);
+      // Bottom signature
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+      ctx.font = '18px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('fractionai.xyz', canvas.width / 2, canvas.height - 30);
 
+      ctx.textAlign = 'start'; // Reset text alignment
       return canvas;
     } catch (error) {
       console.error('Error generating image:', error);
