@@ -1147,7 +1147,7 @@ export const Dashboard = () => {
         </div>
 
         {/* Main Stats Cards - 4 cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
           <Card className="faps-card h-32">
             <div className="flex items-center justify-between h-full">
               <div>
