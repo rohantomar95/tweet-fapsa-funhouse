@@ -12,8 +12,8 @@ import {
 
 
 // Twitter Icon Component
-const TwitterIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+const TwitterIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" className={className} fill="currentColor" style={{ width: "1rem", height: "1rem" }}>
     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
   </svg>
 );
@@ -31,9 +31,9 @@ const SparklineChart = ({ data, className = '' }: SparklineChartProps) => {
     if (!svgRef.current || data.length < 2) return;
 
     const svg = svgRef.current;
-    const width = 64;
-    const height = 32;
-    const padding = 2;
+    const width = 4; // 4rem = 4vw
+    const height = 2; // 2rem = 2vw  
+    const padding = 0.125; // 0.125rem = 0.125vw
 
     svg.innerHTML = '';
 
@@ -65,9 +65,8 @@ const SparklineChart = ({ data, className = '' }: SparklineChartProps) => {
   return (
     <svg
       ref={svgRef}
-      width="64"
-      height="32"
-      viewBox="0 0 64 32"
+      style={{ width: "4rem", height: "2rem" }}
+      viewBox="0 0 4 2"
       className={`${className}`}
     />
   );
