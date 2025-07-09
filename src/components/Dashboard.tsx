@@ -12,13 +12,13 @@ import {
 
 
 // Twitter Icon Component
-const TwitterIcon = ({ className = "w-[1rem] h-[1rem]" }: { className?: string }) => (
+const TwitterIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
   <svg viewBox="0 0 24 24" className={className} fill="currentColor">
     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
   </svg>
 );
 
-// Sparkline Chart Component - responsive with rem units
+// Sparkline Chart Component
 interface SparklineChartProps {
   data: number[];
   className?: string;
@@ -73,7 +73,7 @@ const SparklineChart = ({ data, className = '' }: SparklineChartProps) => {
   );
 };
 
-// Achievement Card Generator Component - responsive
+// Achievement Card Generator Component
 interface AchievementCardProps {
   achievement: string;
   userStats: {
@@ -152,48 +152,48 @@ ${userStats.rank ? `🏆 Rank: #${userStats.rank}
   };
 
   return (
-    <div className="flex items-center gap-[0.5rem]">
+    <div className="flex items-center gap-2">
       <div 
         ref={cardRef}
-        className="fixed -left-[999rem] -top-[999rem] w-[50rem] h-[25rem] bg-gradient-to-br from-faps-primary via-faps-secondary to-faps-accent p-[2rem] text-white"
+        className="fixed -left-[9999px] -top-[9999px] w-[800px] h-[400px] bg-gradient-to-br from-faps-primary via-faps-secondary to-faps-accent p-8 text-white"
         style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
       >
-        <div className="flex items-center justify-between mb-[1.5rem]">
-          <div className="text-[1.875rem] font-bold">FAPS</div>
+        <div className="flex items-center justify-between mb-6">
+          <div className="text-3xl font-bold">FAPS</div>
           <div className="text-right">
-            <div className="text-[1.25rem] font-bold">🎉 Achievement Unlocked!</div>
+            <div className="text-xl font-bold">🎉 Achievement Unlocked!</div>
           </div>
         </div>
 
-        <div className="flex items-center justify-between h-[12rem]">
+        <div className="flex items-center justify-between h-48">
           <div className="flex-1">
-            <h2 className="text-[2.5rem] font-bold mb-[1rem] leading-tight">{achievement}</h2>
-            <div className="space-y-[0.5rem] text-[1.25rem]">
-              <div className="flex items-center gap-[0.75rem]">
-                <span className="text-[1.5rem]">💎</span>
+            <h2 className="text-4xl font-bold mb-4 leading-tight">{achievement}</h2>
+            <div className="space-y-2 text-xl">
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">💎</span>
                 <span>FAPS Count: <strong>{userStats.fapsCount}</strong></span>
               </div>
               {userStats.rank && (
-                <div className="flex items-center gap-[0.75rem]">
-                  <span className="text-[1.5rem]">🏆</span>
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl">🏆</span>
                   <span>Rank: <strong>#{userStats.rank}</strong></span>
                 </div>
               )}
-              <div className="flex items-center gap-[0.75rem]">
-                <span className="text-[1.5rem]">👤</span>
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">👤</span>
                 <span>User: <strong>{userStats.username}</strong></span>
               </div>
             </div>
           </div>
           
-          <div className="w-[8rem] h-[8rem] bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20">
-            <div className="text-[3.75rem]">🏆</div>
+          <div className="w-32 h-32 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20">
+            <div className="text-6xl">🏆</div>
           </div>
         </div>
 
-        <div className="flex items-center justify-between mt-[1.5rem] pt-[1rem] border-t border-white/20">
-          <div className="text-[1.125rem] opacity-80">#FAPS #Achievement #Crypto</div>
-          <div className="text-[1.125rem] opacity-80">Share your success!</div>
+        <div className="flex items-center justify-between mt-6 pt-4 border-t border-white/20">
+          <div className="text-lg opacity-80">#FAPS #Achievement #Crypto</div>
+          <div className="text-lg opacity-80">Share your success!</div>
         </div>
       </div>
 
@@ -201,9 +201,9 @@ ${userStats.rank ? `🏆 Rank: #${userStats.rank}
         variant="outline"
         size="sm"
         onClick={generateCard}
-        className="text-[0.75rem] px-[0.5rem] py-[0.25rem] h-auto"
+        className="text-xs px-2 py-1 h-auto"
       >
-        <Copy className="w-[0.75rem] h-[0.75rem] mr-[0.25rem]" />
+        <Copy className="w-3 h-3 mr-1" />
         Copy Card
       </Button>
       
@@ -212,9 +212,9 @@ ${userStats.rank ? `🏆 Rank: #${userStats.rank}
           variant="outline"
           size="sm"
           onClick={shareOnX}
-          className="text-[0.75rem] px-[0.5rem] py-[0.25rem] h-auto"
+          className="text-xs px-2 py-1 h-auto"
         >
-          <TwitterIcon className="w-[0.75rem] h-[0.75rem] mr-[0.25rem]" />
+          <TwitterIcon className="w-3 h-3 mr-1" />
           Post on X
         </Button>
       )}
@@ -222,7 +222,7 @@ ${userStats.rank ? `🏆 Rank: #${userStats.rank}
   );
 };
 
-// Achievement Image Generator Component - responsive
+// Achievement Image Generator Component
 interface AchievementImageGeneratorProps {
   achievement: string;
   userStats: {
@@ -462,13 +462,13 @@ const AchievementImageGenerator = ({ achievement, userStats }: AchievementImageG
         className="social-share-btn"
         title="Share achievement"
       >
-        <TwitterIcon className="w-[0.75rem] h-[0.75rem]" />
+        <TwitterIcon className="w-3 h-3" />
       </button>
     </>
   );
 };
 
-// Social Share Component - responsive with rem
+// Social Share Component
 interface SocialShareProps {
   achievement: string;
   size?: 'sm' | 'default' | 'lg';
@@ -489,7 +489,7 @@ const SocialShare = ({ achievement, size = 'default', userStats, showPostOnX = f
 
   if (size === 'sm') {
     return (
-      <div className="flex items-center gap-[0.25rem]">
+      <div className="flex items-center gap-1">
         <AchievementImageGenerator 
           achievement={achievement}
           userStats={{
@@ -502,12 +502,12 @@ const SocialShare = ({ achievement, size = 'default', userStats, showPostOnX = f
   }
 
   return (
-    <div className="flex items-center gap-[0.5rem]">
+    <div className="flex items-center gap-2">
       <Button
         onClick={shareToTwitter}
         variant="outline"
         size="sm"
-        className="flex items-center gap-[0.5rem]"
+        className="flex items-center gap-2"
       >
         <TwitterIcon />
         Share on X
@@ -516,7 +516,7 @@ const SocialShare = ({ achievement, size = 'default', userStats, showPostOnX = f
   );
 };
 
-// Achievement Badges Component - responsive grid with rem units
+// Achievement Badges Component
 interface AchievementBadgesProps {
   totalEarnings: number;
   streak: number;
@@ -581,7 +581,7 @@ const AchievementBadges = ({ totalEarnings, streak }: AchievementBadgesProps) =>
   ];
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-[1rem] md:gap-[1.5rem]">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
       {achievements.map((achievement) => {
         const Icon = achievement.icon;
         
@@ -593,7 +593,7 @@ const AchievementBadges = ({ totalEarnings, streak }: AchievementBadgesProps) =>
             }`}
           >
             {!achievement.unlocked && (
-              <div className="absolute top-0 left-0 right-0 h-[0.25rem] bg-muted">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-muted">
                 <div 
                   className="h-full bg-gradient-to-r from-faps-primary to-faps-secondary transition-all duration-1000"
                   style={{ width: `${achievement.progress * 100}%` }}
@@ -601,25 +601,25 @@ const AchievementBadges = ({ totalEarnings, streak }: AchievementBadgesProps) =>
               </div>
             )}
             
-            <div className="flex flex-col items-center text-center space-y-[0.5rem]">
-              <div className={`p-[0.5rem] rounded-full ${
+            <div className="flex flex-col items-center text-center space-y-2">
+              <div className={`p-2 rounded-full ${
                 achievement.unlocked 
                   ? 'bg-faps-primary text-white' 
                   : 'bg-muted text-muted-foreground'
               }`}>
-                <Icon className="w-[1rem] h-[1rem]" />
+                <Icon className="w-4 h-4" />
               </div>
               
               <div>
-                <h4 className="text-[0.875rem] font-semibold">{achievement.title}</h4>
-                <p className="text-[0.75rem] text-muted-foreground mt-[0.25rem]">
+                <h4 className="text-sm font-semibold">{achievement.title}</h4>
+                <p className="text-xs text-muted-foreground mt-1">
                   {achievement.description}
                 </p>
               </div>
               
               {achievement.unlocked && (
-                <div className="flex items-center gap-[0.25rem]">
-                  <Badge variant="secondary" className="achievement-badge text-[0.75rem]">
+                <div className="flex items-center gap-1">
+                  <Badge variant="secondary" className="achievement-badge text-xs">
                     Unlocked
                   </Badge>
                   <SocialShare achievement={achievement.shareText} size="sm" />
@@ -627,7 +627,7 @@ const AchievementBadges = ({ totalEarnings, streak }: AchievementBadgesProps) =>
               )}
               
               {!achievement.unlocked && achievement.progress > 0 && (
-                <div className="text-[0.75rem] text-muted-foreground">
+                <div className="text-xs text-muted-foreground">
                   {Math.round(achievement.progress * 100)}% complete
                 </div>
               )}
@@ -639,7 +639,7 @@ const AchievementBadges = ({ totalEarnings, streak }: AchievementBadgesProps) =>
   );
 };
 
-// Activity Feed Component - responsive with rem units
+// Activity Feed Component
 const ActivityFeed = () => {
   const activities = [
     {
@@ -694,25 +694,25 @@ const ActivityFeed = () => {
 
   return (
     <Card className="faps-card h-full flex flex-col">
-      <div className="flex items-center justify-between mb-[1rem]">
-        <h3 className="text-[1.125rem] font-semibold">Recent Activity</h3>
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-lg font-semibold">Recent Activity</h3>
       </div>
       
-      <div className="space-y-[0.75rem] flex-1 overflow-y-auto">
+      <div className="space-y-3 flex-1 overflow-y-auto">
         {activities.map((activity) => {
           const Icon = activity.icon;
           
           return (
             <div key={activity.id} className="activity-item">
-              <div className="flex items-start gap-[0.75rem] flex-1">
-                <div className={`p-[0.375rem] rounded-full bg-muted ${activity.color}`}>
-                  <Icon className="w-[0.75rem] h-[0.75rem]" />
+              <div className="flex items-start gap-3 flex-1">
+                <div className={`p-1.5 rounded-full bg-muted ${activity.color}`}>
+                  <Icon className="w-3 h-3" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-[0.875rem] font-medium truncate">
+                  <p className="text-sm font-medium truncate">
                     {activity.description}
                   </p>
-                  <p className="text-[0.75rem] text-muted-foreground">
+                  <p className="text-xs text-muted-foreground">
                     {activity.timestamp}
                   </p>
                 </div>
@@ -722,9 +722,9 @@ const ActivityFeed = () => {
         })}
       </div>
       
-      <div className="mt-[1rem] pt-[1rem] border-t border-border">
+      <div className="mt-4 pt-4 border-t border-border">
         <div className="flex items-center justify-between">
-          <span className="text-[0.875rem] text-muted-foreground">Activities Today</span>
+          <span className="text-sm text-muted-foreground">Activities Today</span>
           <span className="font-bold text-faps-primary">6 actions</span>
         </div>
       </div>
@@ -732,7 +732,7 @@ const ActivityFeed = () => {
   );
 };
 
-// Top Posts Component - responsive with rem and mobile adjustments
+// Top Posts Component
 const TopPosts = () => {
   const topPosts = [
     {
@@ -851,74 +851,74 @@ const TopPosts = () => {
 
   return (
     <Card className="faps-card">
-      <div className="flex items-center justify-between mb-[1rem]">
-        <h3 className="text-[1.125rem] font-semibold">Top Performing Posts</h3>
-        <Badge variant="outline" className="text-[0.75rem]">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-lg font-semibold">Top Performing Posts</h3>
+        <Badge variant="outline" className="text-xs">
           Last 7 days
         </Badge>
       </div>
       
-      <div className="space-y-[0.75rem] max-h-[31.25rem] overflow-y-auto">
+      <div className="space-y-3 max-h-[500px] overflow-y-auto">
         {topPosts.map((post, index) => (
           <div 
             key={post.id} 
-            className={`p-[1rem] border border-border rounded-lg hover:bg-muted/30 transition-colors cursor-pointer ${
+            className={`p-4 border border-border rounded-lg hover:bg-muted/30 transition-colors cursor-pointer ${
               post.isTop ? 'bg-faps-primary/5 border-faps-primary/30' : ''
             }`}
           >
-            <div className="flex items-center justify-between mb-[0.75rem]">
-              <div className="flex items-center gap-[0.75rem] flex-1">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-3 flex-1">
                 <img 
                   src={post.author.avatar} 
                   alt={post.author.name}
-                  className="w-[2rem] h-[2rem] rounded-full"
+                  className="w-8 h-8 rounded-full"
                 />
                 <div className="flex-1">
-                  <div className="flex items-center gap-[0.5rem]">
-                    <span className="font-semibold text-[0.875rem]">{post.author.name}</span>
-                    <span className="text-muted-foreground text-[0.75rem]">{post.author.username}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold text-sm">{post.author.name}</span>
+                    <span className="text-muted-foreground text-xs">{post.author.username}</span>
                     <Button
                       variant="outline"
                       size="sm"
-                      className="text-[0.75rem] px-[0.5rem] py-[0.25rem] h-auto ml-[0.5rem] hidden sm:flex"
+                      className="text-xs px-2 py-1 h-auto ml-2"
                       onClick={() => window.open(post.tweetUrl, '_blank')}
                     >
-                      <TwitterIcon className="w-[0.75rem] h-[0.75rem] mr-[0.25rem]" />
+                      <TwitterIcon className="w-3 h-3 mr-1" />
                       View on X
                     </Button>
                   </div>
-                  <span className="text-muted-foreground text-[0.75rem]">{post.timestamp}</span>
+                  <span className="text-muted-foreground text-xs">{post.timestamp}</span>
                 </div>
               </div>
               {post.isTop && (
-                <Badge className="bg-faps-warning/20 text-faps-warning border-faps-warning/50 text-[0.75rem]">
+                <Badge className="bg-faps-warning/20 text-faps-warning border-faps-warning/50 text-xs">
                   🏆 Top #{index + 1}
                 </Badge>
               )}
             </div>
             
             {post.content.trim() ? (
-              <div className="flex gap-[1rem]">
+              <div className="flex gap-4">
                 <div className="flex-1">
-                  <p className="text-[0.875rem] leading-relaxed line-clamp-3 mb-[0.75rem]">
+                  <p className="text-sm leading-relaxed line-clamp-3 mb-3">
                     {post.content.length > 150 ? `${post.content.substring(0, 150)}...` : post.content}
                   </p>
                   
-                  <div className="flex items-center gap-[1rem] text-[0.75rem] text-muted-foreground">
-                    <div className="flex items-center gap-[0.25rem]">
-                      <Heart className="w-[0.75rem] h-[0.75rem] text-red-400" />
+                  <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                    <div className="flex items-center gap-1">
+                      <Heart className="w-3 h-3 text-red-400" />
                       <span>{post.engagements.likes}</span>
                     </div>
-                    <div className="flex items-center gap-[0.25rem]">
-                      <MessageCircle className="w-[0.75rem] h-[0.75rem] text-blue-400" />
+                    <div className="flex items-center gap-1">
+                      <MessageCircle className="w-3 h-3 text-blue-400" />
                       <span>{post.engagements.comments}</span>
                     </div>
-                    <div className="flex items-center gap-[0.25rem]">
-                      <Repeat2 className="w-[0.75rem] h-[0.75rem] text-green-400" />
+                    <div className="flex items-center gap-1">
+                      <Repeat2 className="w-3 h-3 text-green-400" />
                       <span>{post.engagements.retweets}</span>
                     </div>
-                    <div className="flex items-center gap-[0.25rem]">
-                      <BarChart3 className="w-[0.75rem] h-[0.75rem] text-purple-400" />
+                    <div className="flex items-center gap-1">
+                      <BarChart3 className="w-3 h-3 text-purple-400" />
                       <span>{post.engagements.views.toLocaleString()}</span>
                     </div>
                   </div>
@@ -929,7 +929,7 @@ const TopPosts = () => {
                     <img 
                       src={post.mediaUrl} 
                       alt="Post media"
-                      className="w-[5rem] h-[5rem] sm:w-[6rem] sm:h-[6rem] object-cover rounded-lg border border-border"
+                      className="w-20 h-20 object-cover rounded-lg border border-border"
                     />
                   </div>
                 )}
@@ -937,30 +937,30 @@ const TopPosts = () => {
             ) : (
               <div>
                 {post.hasMedia && (
-                  <div className="mb-[0.75rem]">
+                  <div className="mb-3">
                     <img 
                       src={post.mediaUrl} 
                       alt="Post media"
-                      className="w-full h-[8rem] object-cover rounded-lg border border-border"
+                      className="w-full h-32 object-cover rounded-lg border border-border"
                     />
                   </div>
                 )}
                 
-                <div className="flex items-center gap-[1rem] text-[0.75rem] text-muted-foreground">
-                  <div className="flex items-center gap-[0.25rem]">
-                    <Heart className="w-[0.75rem] h-[0.75rem] text-red-400" />
+                <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                  <div className="flex items-center gap-1">
+                    <Heart className="w-3 h-3 text-red-400" />
                     <span>{post.engagements.likes}</span>
                   </div>
-                  <div className="flex items-center gap-[0.25rem]">
-                    <MessageCircle className="w-[0.75rem] h-[0.75rem] text-blue-400" />
+                  <div className="flex items-center gap-1">
+                    <MessageCircle className="w-3 h-3 text-blue-400" />
                     <span>{post.engagements.comments}</span>
                   </div>
-                  <div className="flex items-center gap-[0.25rem]">
-                    <Repeat2 className="w-[0.75rem] h-[0.75rem] text-green-400" />
+                  <div className="flex items-center gap-1">
+                    <Repeat2 className="w-3 h-3 text-green-400" />
                     <span>{post.engagements.retweets}</span>
                   </div>
-                  <div className="flex items-center gap-[0.25rem]">
-                    <BarChart3 className="w-[0.75rem] h-[0.75rem] text-purple-400" />
+                  <div className="flex items-center gap-1">
+                    <BarChart3 className="w-3 h-3 text-purple-400" />
                     <span>{post.engagements.views.toLocaleString()}</span>
                   </div>
                 </div>
@@ -970,23 +970,23 @@ const TopPosts = () => {
         ))}
       </div>
       
-      <div className="mt-[1rem] pt-[1rem] border-t border-border">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-[1rem] text-center">
+      <div className="mt-4 pt-4 border-t border-border">
+        <div className="grid grid-cols-4 gap-4 text-center">
           <div>
-            <p className="text-[1.125rem] font-bold text-red-400">{totalStats.totalLikes}</p>
-            <p className="text-[0.75rem] text-muted-foreground">Total Likes</p>
+            <p className="text-lg font-bold text-red-400">{totalStats.totalLikes}</p>
+            <p className="text-xs text-muted-foreground">Total Likes</p>
           </div>
           <div>
-            <p className="text-[1.125rem] font-bold text-green-400">{totalStats.totalReposts}</p>
-            <p className="text-[0.75rem] text-muted-foreground">Total Reposts</p>
+            <p className="text-lg font-bold text-green-400">{totalStats.totalReposts}</p>
+            <p className="text-xs text-muted-foreground">Total Reposts</p>
           </div>
           <div>
-            <p className="text-[1.125rem] font-bold text-blue-400">{totalStats.totalComments}</p>
-            <p className="text-[0.75rem] text-muted-foreground">Total Comments</p>
+            <p className="text-lg font-bold text-blue-400">{totalStats.totalComments}</p>
+            <p className="text-xs text-muted-foreground">Total Comments</p>
           </div>
           <div>
-            <p className="text-[1.125rem] font-bold text-purple-400">{totalStats.totalViews.toLocaleString()}</p>
-            <p className="text-[0.75rem] text-muted-foreground">Total Views</p>
+            <p className="text-lg font-bold text-purple-400">{totalStats.totalViews.toLocaleString()}</p>
+            <p className="text-xs text-muted-foreground">Total Views</p>
           </div>
         </div>
       </div>
@@ -994,34 +994,49 @@ const TopPosts = () => {
   );
 };
 
-// X Account Connection Component - responsive with rem units and mobile optimized
+// X Account Connection Component
 const XAccountConnection = () => {
   const [isConnected, setIsConnected] = useState(false);
+  const [userProfile, setUserProfile] = useState({
+    profilePicture: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face&auto=format",
+    username: "@cryptomaster2024",
+    twitterScore: 847
+  });
 
   const handleConnect = () => {
-    setIsConnected(true);
+    console.log("Connecting to X...");
+    
+    setTimeout(() => {
+      setIsConnected(true);
+      console.log("Successfully connected!");
+    }, 2000);
+  };
+
+  const handleDisconnect = () => {
+    setIsConnected(false);
+    console.log("Account disconnected");
   };
 
   if (!isConnected) {
     return (
       <Card className="faps-card">
-        <div className="p-[0.75rem] sm:p-[1rem]">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-[1rem]">
-            <div className="flex items-center gap-[0.75rem]">
-              <div className="w-[2rem] h-[2rem] bg-faps-primary/10 rounded-lg flex items-center justify-center">
-                <TwitterIcon className="w-[1rem] h-[1rem] text-faps-primary" />
+        <div className="p-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-faps-primary/10 rounded-lg flex items-center justify-center">
+                <TwitterIcon className="w-4 h-4 text-faps-primary" />
               </div>
               <div>
-                <h3 className="font-semibold text-foreground text-[1rem] sm:text-[1.125rem]">Engagement Rewards</h3>
-                <p className="text-[0.75rem] text-muted-foreground">Connect and earn FAPS</p>
+                <h3 className="font-semibold text-foreground">Engagement Rewards</h3>
+                <p className="text-xs text-muted-foreground">Connect and earn FAPS</p>
               </div>
             </div>
             
             <Button 
-              className="bg-faps-primary hover:bg-faps-primary/90 text-primary-foreground px-[1rem] py-[0.5rem] text-[0.875rem] w-full sm:w-auto"
+              className="bg-faps-primary hover:bg-faps-primary/90 text-primary-foreground px-4 py-2 text-sm"
               onClick={handleConnect}
             >
-              Connect <TwitterIcon className="w-[0.75rem] h-[0.75rem] ml-[0.25rem]" /> account
+              Connect <TwitterIcon className="w-3 h-3 ml-1" /> account
             </Button>
           </div>
         </div>
@@ -1031,248 +1046,160 @@ const XAccountConnection = () => {
 
   return (
     <Card className="faps-card">
-      <div className="p-[0.75rem] sm:p-[1rem]">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-[1rem] mb-[1rem]">
-          <div className="flex items-center gap-[0.75rem]">
-            <div className="w-[2rem] h-[2rem] bg-green-500/10 rounded-lg flex items-center justify-center">
-              <TwitterIcon className="w-[1rem] h-[1rem] text-green-400" />
+      <div className="p-4">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-green-500/10 rounded-lg flex items-center justify-center">
+              <TwitterIcon className="w-4 h-4 text-green-400" />
             </div>
             <div>
-              <h3 className="font-semibold text-foreground text-[1rem] sm:text-[1.125rem]">Engagement Rewards</h3>
-              <p className="text-[0.75rem] text-muted-foreground">Account connected</p>
+              <h3 className="font-semibold text-foreground">Engagement Rewards</h3>
+              <p className="text-xs text-muted-foreground">Account connected</p>
             </div>
           </div>
           
-          <Badge className="bg-green-500/20 text-green-400 border-green-500/30 px-[0.5rem] py-[0.25rem] text-[0.75rem]">
+          <Badge className="bg-green-500/20 text-green-400 border-green-500/30 px-2 py-1 text-xs">
             Connected
           </Badge>
         </div>
         
-        <div className="space-y-[0.75rem]">
-          <div className="flex items-center justify-between p-[0.75rem] bg-faps-primary/5 rounded-lg border border-faps-primary/20">
+        <div className="flex items-center justify-between bg-muted/20 rounded-lg p-3">
+          <div className="flex items-center gap-3">
+            <img 
+              src={userProfile.profilePicture} 
+              alt="Profile"
+              className="w-8 h-8 rounded-full object-cover"
+            />
             <div>
-              <p className="text-[0.875rem] font-medium">Today's Actions</p>
-              <p className="text-[0.75rem] text-muted-foreground">Likes, retweets, replies</p>
-            </div>
-            <div className="text-right">
-              <p className="text-[1.25rem] font-bold text-faps-primary">12</p>
-              <p className="text-[0.75rem] text-faps-primary">+240 FAPS</p>
+              <p className="font-medium text-sm">{userProfile.username}</p>
+              <div className="flex items-center gap-2">
+                <Badge className="bg-faps-warning/20 text-faps-warning border-faps-warning/50 text-xs px-2 py-0.5">
+                  {userProfile.twitterScore}/1000
+                </Badge>
+              </div>
             </div>
           </div>
           
-          <div className="flex items-center justify-between p-[0.75rem] bg-muted/30 rounded-lg">
-            <div>
-              <p className="text-[0.875rem] font-medium">Weekly Streak</p>
-              <p className="text-[0.75rem] text-muted-foreground">Keep engaging daily</p>
-            </div>
-            <div className="text-right">
-              <p className="text-[1.25rem] font-bold text-faps-secondary">5</p>
-              <p className="text-[0.75rem] text-faps-secondary">days</p>
-            </div>
-          </div>
+          <Button 
+            variant="outline"
+            size="sm"
+            onClick={handleDisconnect}
+            className="text-xs px-2 py-1 h-auto"
+          >
+            Disconnect
+          </Button>
         </div>
       </div>
     </Card>
   );
 };
 
-// Heatmap Component - responsive with rem units
-const EngagementHeatmap = () => {
-  const generateHeatmapData = () => {
-    const days = 35;
-    const data = [];
-    
-    for (let i = 0; i < days; i++) {
-      const date = new Date();
-      date.setDate(date.getDate() - (days - 1 - i));
-      
-      data.push({
-        date: date.toISOString().split('T')[0],
-        count: Math.floor(Math.random() * 4),
-        day: date.getDay()
-      });
-    }
-    
-    return data;
-  };
-
-  const heatmapData = generateHeatmapData();
-  const weeks = [];
-  
-  for (let i = 0; i < heatmapData.length; i += 7) {
-    weeks.push(heatmapData.slice(i, i + 7));
-  }
-
-  const getIntensityClass = (count: number) => {
-    if (count === 0) return 'bg-muted';
-    if (count === 1) return 'bg-faps-primary/20';
-    if (count === 2) return 'bg-faps-primary/40';
-    if (count === 3) return 'bg-faps-primary/60';
-    return 'bg-faps-primary';
-  };
-
-  return (
-    <Card className="faps-card">
-      <div className="flex items-center justify-between mb-[1rem]">
-        <h3 className="text-[1.125rem] font-semibold">Engagement Activity</h3>
-        <div className="flex items-center gap-[0.5rem] text-[0.75rem] text-muted-foreground">
-          <span>Less</span>
-          <div className="flex gap-[0.125rem]">
-            <div className="w-[0.75rem] h-[0.75rem] rounded-sm bg-muted"></div>
-            <div className="w-[0.75rem] h-[0.75rem] rounded-sm bg-faps-primary/20"></div>
-            <div className="w-[0.75rem] h-[0.75rem] rounded-sm bg-faps-primary/40"></div>
-            <div className="w-[0.75rem] h-[0.75rem] rounded-sm bg-faps-primary/60"></div>
-            <div className="w-[0.75rem] h-[0.75rem] rounded-sm bg-faps-primary"></div>
-          </div>
-          <span>More</span>
-        </div>
-      </div>
-      
-      <div className="flex gap-[0.125rem] overflow-x-auto">
-        {weeks.map((week, weekIndex) => (
-          <div key={weekIndex} className="flex flex-col gap-[0.125rem]">
-            {week.map((day, dayIndex) => (
-              <div
-                key={day.date}
-                className={`heatmap-cell ${getIntensityClass(day.count)}`}
-                title={`${day.date}: ${day.count} actions`}
-              />
-            ))}
-          </div>
-        ))}
-      </div>
-      
-      <div className="mt-[1rem] pt-[1rem] border-t border-border">
-        <div className="grid grid-cols-2 gap-[1rem] text-center">
-          <div>
-            <p className="text-[1.125rem] font-bold text-faps-primary">156</p>
-            <p className="text-[0.75rem] text-muted-foreground">Total actions last 35 days</p>
-          </div>
-          <div>
-            <p className="text-[1.125rem] font-bold text-faps-secondary">23</p>
-            <p className="text-[0.75rem] text-muted-foreground">Most active day</p>
-          </div>
-        </div>
-      </div>
-    </Card>
-  );
+// Mock data for the dashboard
+const mockData = {
+  totalEarnings: 2871.70,
+  dailyEarnings: 0.00,
+  weeklyEarnings: 0.00,
+  userRank: 3,
+  currentStreak: 7,
+  chartData: [
+    { date: '8 Jun', earnings: 0 },
+    { date: '10 Jun', earnings: 170 },
+    { date: '12 Jun', earnings: 95 },
+    { date: '14 Jun', earnings: 0 },
+    { date: '16 Jun', earnings: 0 },
+    { date: '18 Jun', earnings: 0 },
+    { date: '20 Jun', earnings: 250 },
+    { date: '22 Jun', earnings: 0 },
+    { date: '24 Jun', earnings: 300 },
+    { date: '26 Jun', earnings: 0 },
+    { date: '28 Jun', earnings: 0 },
+    { date: '30 Jun', earnings: 0 },
+    { date: '2 Jul', earnings: 0 },
+  ],
+  sparklineData: [0, 170, 95, 0, 0, 0, 250, 0, 300, 0, 0, 0, 0],
+  totalEarningsData: [100, 120, 200, 180, 250, 300, 320]
 };
 
-// Main Dashboard Component - responsive container with rem units and mobile optimizations
+// Main Dashboard Component
 export const Dashboard = () => {
-  const [selectedTab, setSelectedTab] = useState("overview");
-  
-  // Mock data
-  const mockData = {
-    totalEarnings: 8420,
-    dailyEarnings: 124,
-    currentStreak: 12,
-    totalActions: 245,
-    chartData: [
-      { day: 'Mon', earnings: 45 },
-      { day: 'Tue', earnings: 78 },
-      { day: 'Wed', earnings: 62 },
-      { day: 'Thu', earnings: 89 },
-      { day: 'Fri', earnings: 124 },
-      { day: 'Sat', earnings: 95 },
-      { day: 'Sun', earnings: 67 },
-    ]
-  };
+  const [animatedEarnings, setAnimatedEarnings] = useState(0);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAnimatedEarnings(mockData.totalEarnings);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
-    <div className="w-full min-h-[100vh] bg-background">
-      {/* Mobile optimized container with proper spacing */}
-      <div className="max-w-[90rem] mx-auto p-[1rem] sm:p-[1.5rem] lg:p-[2rem] space-y-[1.5rem] lg:space-y-[2rem]">
-        {/* Header Section - responsive */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-[1rem]">
+    <div className="min-h-screen p-4 md:p-6">
+      <div className="max-w-7xl mx-auto space-y-6">
+        {/* Header */}
+        <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold faps-gradient-text">
-              FAPS Dashboard
-            </h1>
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-muted-foreground mt-[0.5rem]">
-              Track your engagement rewards and earnings
-            </p>
-          </div>
-          
-          <div className="flex items-center gap-[0.75rem] w-full sm:w-auto">
-            <Badge className="bg-faps-primary/20 text-faps-primary border-faps-primary/30 px-2 sm:px-3 py-1">
-              <Flame className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-              <span className="text-xs sm:text-sm">{mockData.currentStreak} day streak</span>
-            </Badge>
-            <Button variant="outline" size="sm" className="text-xs sm:text-sm px-2 sm:px-4">
-              <Share className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-              <span className="hidden sm:inline">Share Progress</span>
-              <span className="sm:hidden">Share</span>
-            </Button>
+            <h1 className="text-3xl font-bold faps-gradient-text">FAPs</h1>
           </div>
         </div>
 
-        {/* Stats Cards Grid - responsive with vw consideration */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[1rem] sm:gap-[1.5rem]">
-          {/* Total Earnings Card */}
-          <Card className="faps-card-glow">
-            <div className="flex items-center justify-between">
+        {/* Main Stats Cards - 4 cards */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+          <Card className="faps-card h-32">
+            <div className="flex flex-col justify-center h-full p-4">
               <div>
-                <p className="text-xs sm:text-sm md:text-base font-medium text-muted-foreground">Total Earnings</p>
-                <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-faps-primary animate-counter">
-                  {mockData.totalEarnings.toLocaleString()}
-                </p>
-                <p className="text-xs sm:text-sm text-muted-foreground">FAPS tokens</p>
-              </div>
-              <div className="p-2 sm:p-3 bg-faps-primary/10 rounded-full">
-                <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-faps-primary" />
-              </div>
-            </div>
-          </Card>
-
-          {/* Daily Earnings Card */}
-          <Card className="faps-card">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-xs sm:text-sm md:text-base font-medium text-muted-foreground">Today's Earnings</p>
-                <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-faps-secondary animate-counter">
-                  +{mockData.dailyEarnings}
-                </p>
-                <div className="flex items-center gap-1 mt-1">
-                  <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4 text-green-400" />
-                  <span className="text-xs sm:text-sm text-green-400">+12% from yesterday</span>
+                <p className="text-xs md:text-sm text-muted-foreground mb-2">Total Earnings</p>
+                <div className="flex items-center gap-2 mb-1">
+                  <p className="text-xl md:text-2xl font-bold text-white">
+                    {animatedEarnings.toFixed(2)}
+                  </p>
+                  <span className="text-sm md:text-base text-faps-primary font-medium">FAPS</span>
                 </div>
-              </div>
-              <div className="sparkline-container">
-                <SparklineChart data={[45, 52, 48, 61, 78, 95, 124]} />
+                <p className="text-xs text-muted-foreground">Your Rank: #{mockData.userRank}</p>
               </div>
             </div>
           </Card>
 
-          {/* Total Actions Card */}
-          <Card className="faps-card">
-            <div className="flex items-center justify-between">
+          <Card className="faps-card h-32">
+            <div className="flex flex-col justify-center h-full p-4">
               <div>
-                <p className="text-xs sm:text-sm md:text-base font-medium text-muted-foreground">Total Actions</p>
-                <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-foreground animate-counter">
-                  {mockData.totalActions}
-                </p>
-                <p className="text-xs sm:text-sm text-muted-foreground">engagements</p>
-              </div>
-              <div className="p-2 sm:p-3 bg-blue-500/10 rounded-full">
-                <Users className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-blue-400" />
+                <p className="text-xs md:text-sm text-muted-foreground mb-2">Daily Earnings</p>
+                <div className="flex items-center gap-2 mb-1">
+                  <p className="text-xl md:text-2xl font-bold text-white">
+                    {mockData.dailyEarnings.toFixed(2)}
+                  </p>
+                  <span className="text-sm md:text-base text-faps-primary font-medium">FAPS</span>
+                </div>
+                <p className="text-xs text-muted-foreground">+0.0% vs last day</p>
               </div>
             </div>
           </Card>
 
-          {/* Current Streak Card */}
-          <Card className="faps-card">
-            <div className="flex items-center justify-between">
+          <Card className="faps-card h-32">
+            <div className="flex flex-col justify-center h-full p-4">
               <div>
-                <p className="text-[0.875rem] font-medium text-muted-foreground">Current Streak</p>
-                <div className="flex items-end gap-[0.5rem]">
-                  <span className="text-[2rem] sm:text-[2.5rem] font-bold text-faps-warning animate-counter">
+                <p className="text-xs md:text-sm text-muted-foreground mb-2">Weekly Earnings</p>
+                <div className="flex items-center gap-2 mb-1">
+                  <p className="text-xl md:text-2xl font-bold text-white">
+                    {mockData.weeklyEarnings.toFixed(2)}
+                  </p>
+                  <span className="text-sm md:text-base text-faps-primary font-medium">FAPS</span>
+                </div>
+                <p className="text-xs text-muted-foreground">-100.0% vs last week</p>
+              </div>
+            </div>
+          </Card>
+
+          <Card className="faps-card h-32">
+            <div className="flex flex-col justify-center h-full p-4">
+              <div>
+                <p className="text-xs md:text-sm text-muted-foreground mb-2">Current Streak</p>
+                <div className="flex items-center gap-2 mb-1">
+                  <p className="text-xl md:text-2xl font-bold text-white">
                     {mockData.currentStreak}
-                  </span>
-                  <Flame className="w-[1.25rem] h-[1.5rem] sm:w-[1.5rem] sm:h-[1.5rem] text-faps-warning" />
-                  <span className="text-[0.875rem] sm:text-[1rem] text-faps-primary font-medium">days</span>
+                  </p>
+                  <Flame className="w-5 h-5 md:w-6 md:h-6 text-faps-warning" />
+                  <span className="text-sm md:text-base text-faps-primary font-medium">days</span>
                 </div>
-                <p className="text-[0.75rem] text-muted-foreground">in a row</p>
+                <p className="text-xs text-muted-foreground">in a row</p>
               </div>
             </div>
           </Card>
@@ -1284,46 +1211,40 @@ export const Dashboard = () => {
         {/* Achievement Badges */}
         <AchievementBadges totalEarnings={mockData.totalEarnings} streak={mockData.currentStreak} />
 
-        {/* Main Content Grid - responsive layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-[1.5rem]">
+        {/* Main Content Grid - Equal height for chart and activity feed */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Chart Section */}
           <div className="lg:col-span-2">
-            <Card className="faps-card h-full">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-[1rem] gap-[1rem]">
-                <h3 className="text-[1.125rem] font-semibold">Earnings Overview</h3>
-                <div className="flex items-center gap-[0.5rem]">
-                  <Button variant="outline" size="sm" className="text-[0.75rem] px-[0.75rem]">
-                    <Calendar className="w-[0.75rem] h-[0.75rem] mr-[0.25rem]" />
-                    Last 7 days
-                  </Button>
-                  <Button variant="outline" size="sm" className="text-[0.75rem] px-[0.75rem]">
-                    <ExternalLink className="w-[0.75rem] h-[0.75rem] mr-[0.25rem]" />
-                    Export
-                  </Button>
+            <Card className="faps-card h-96">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold">Daily Earnings, FAPS (Last 30 days)</h3>
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm">7D</Button>
+                  <Button variant="outline" size="sm" className="bg-faps-primary/20">30D</Button>
+                  <Button variant="outline" size="sm">90D</Button>
                 </div>
               </div>
-              
-              <div className="h-[20rem] sm:h-[25rem]">
+              <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={mockData.chartData}>
                     <XAxis 
-                      dataKey="day" 
+                      dataKey="date" 
                       axisLine={false}
                       tickLine={false}
-                      tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
+                      tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
                     />
                     <YAxis 
                       axisLine={false}
                       tickLine={false}
-                      tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
+                      tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
                     />
                     <Line 
                       type="monotone" 
                       dataKey="earnings" 
-                      stroke="hsl(var(--faps-primary))" 
-                      strokeWidth={3}
-                      dot={{ fill: 'hsl(var(--faps-primary))', strokeWidth: 2, r: 4 }}
-                      activeDot={{ r: 6, stroke: 'hsl(var(--faps-primary))', strokeWidth: 2, fill: 'hsl(var(--background))' }}
+                      stroke="hsl(var(--faps-chart))" 
+                      strokeWidth={2}
+                      dot={{ fill: 'hsl(var(--faps-chart))', strokeWidth: 2, r: 4 }}
+                      activeDot={{ r: 6, fill: 'hsl(var(--faps-primary))' }}
                     />
                   </LineChart>
                 </ResponsiveContainer>
@@ -1331,20 +1252,77 @@ export const Dashboard = () => {
             </Card>
           </div>
 
-          {/* Activity Feed */}
-          <div className="lg:col-span-1">
+          {/* Activity Feed - Matching height */}
+          <div className="h-96">
             <ActivityFeed />
           </div>
         </div>
 
-        {/* Bottom Grid - responsive layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-[1.5rem]">
-          {/* Top Posts */}
-          <TopPosts />
+        {/* Top Performing Posts */}
+        <TopPosts />
+
+        {/* Leaderboard */}
+        <Card className="faps-card">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold">Leaderboard</h3>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm">Weekly</Button>
+              <Button variant="outline" size="sm" className="bg-faps-primary/20">All time</Button>
+            </div>
+          </div>
           
-          {/* Engagement Heatmap */}
-          <EngagementHeatmap />
-        </div>
+          {/* Column Headers */}
+          <div className="grid grid-cols-12 gap-4 p-3 mb-2 text-sm font-medium text-muted-foreground border-b border-border">
+            <div className="col-span-2">Rank</div>
+            <div className="col-span-7">Username</div>
+            <div className="col-span-3 text-right">FAPS Count</div>
+          </div>
+          
+          <div className="space-y-3">
+            {[
+              { rank: 1, username: "CryptoKing", faps: 5420, avatar: "🚀" },
+              { rank: 2, username: "BlockchainBoss", faps: 4130, avatar: "⚡" },
+              { rank: 3, username: "DefiMaster", faps: 3890, avatar: "💎" },
+              { rank: 4, username: "FirmOrangutan3828", faps: 2871.70, avatar: "🦍", isCurrentUser: true },
+              { rank: 5, username: "TokenTrader", faps: 2156, avatar: "📈" },
+            ].map((user) => (
+              <div key={user.rank} className={`grid grid-cols-12 gap-4 items-center p-3 rounded-lg ${
+                user.isCurrentUser ? 'bg-faps-primary/20 border border-faps-primary/50' : 'bg-muted/30'
+              }`}>
+                <div className="col-span-2">
+                  <span className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-sm font-bold">
+                    #{user.rank}
+                  </span>
+                </div>
+                <div className="col-span-7">
+                  <div className="flex items-center gap-2">
+                    <span className="text-lg">{user.avatar}</span>
+                    <span className={user.isCurrentUser ? 'font-bold text-faps-primary' : ''}>
+                      {user.username}
+                    </span>
+                  </div>
+                </div>
+                <div className="col-span-3 text-right">
+                  <div className="flex items-center justify-end gap-2">
+                    <span className="font-bold">{user.faps}</span>
+                    <span className="text-sm text-muted-foreground">FAPS</span>
+                    {user.isCurrentUser && (
+                      <SocialShare 
+                        achievement="Ranked #4 in FAPS Leaderboard!" 
+                        userStats={{
+                          rank: user.rank,
+                          fapsCount: user.faps,
+                          username: user.username
+                        }}
+                        showPostOnX={true}
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
       </div>
     </div>
   );
