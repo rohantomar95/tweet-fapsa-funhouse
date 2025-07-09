@@ -1136,85 +1136,90 @@ export const Dashboard = () => {
   }, []);
 
   return (
-    <div className="min-h-screen" style={{ padding: "2rem 1rem" }}>
-      <div className="max-w-7xl mx-auto" style={{ gap: "2rem" }}>
-        {/* Header */}
-        <div className="flex items-center justify-between" style={{ marginBottom: "2rem" }}>
+    <div className="min-h-screen" style={{ padding: "1rem" }}>
+      <div className="max-w-7xl mx-auto">
+        {/* Header - Mobile Optimized */}
+        <div className="flex items-center justify-between" style={{ marginBottom: "1.5rem" }}>
           <div>
-            <h1 style={{ fontSize: "3rem" }} className="font-bold faps-gradient-text">FAPs</h1>
+            <h1 style={{ fontSize: "2.5rem", lineHeight: "1.1" }} className="font-bold faps-gradient-text">
+              FAPs
+            </h1>
+            <p style={{ fontSize: "1rem", marginTop: "0.25rem" }} className="text-muted-foreground">
+              Dashboard
+            </p>
           </div>
         </div>
 
-        {/* Main Stats Cards - Responsive Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" style={{ gap: "1.5rem", marginBottom: "2rem" }}>
+        {/* Main Stats Cards - Mobile First Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" style={{ gap: "1rem", marginBottom: "1.5rem" }}>
           {/* All cards with consistent sizing */}
-          <Card className="faps-card" style={{ height: "8rem", padding: "1.5rem" }}>
+          <Card className="faps-card" style={{ height: "6rem", padding: "1rem" }}>
             <div className="flex flex-col justify-center h-full">
               <div>
-                <p style={{ fontSize: "0.9rem", marginBottom: "0.5rem" }} className="text-muted-foreground">
+                <p style={{ fontSize: "0.8rem", marginBottom: "0.3rem" }} className="text-muted-foreground">
                   Total Earnings
                 </p>
-                <div className="flex items-center gap-2" style={{ marginBottom: "0.25rem" }}>
-                  <p style={{ fontSize: "1.8rem" }} className="font-bold text-white">
+                <div className="flex items-center gap-2" style={{ marginBottom: "0.2rem" }}>
+                  <p style={{ fontSize: "1.6rem", lineHeight: "1" }} className="font-bold text-white">
                     {animatedEarnings.toFixed(2)}
                   </p>
-                  <span style={{ fontSize: "0.9rem" }} className="text-faps-primary font-medium">FAPS</span>
+                  <span style={{ fontSize: "0.8rem" }} className="text-faps-primary font-medium">FAPS</span>
                 </div>
-                <p style={{ fontSize: "0.8rem" }} className="text-muted-foreground">
+                <p style={{ fontSize: "0.7rem" }} className="text-muted-foreground">
                   Your Rank: #{mockData.userRank}
                 </p>
               </div>
             </div>
           </Card>
 
-          <Card className="faps-card" style={{ height: "8rem", padding: "1.5rem" }}>
+          <Card className="faps-card" style={{ height: "6rem", padding: "1rem" }}>
             <div className="flex flex-col justify-center h-full">
               <div>
-                <p style={{ fontSize: "0.9rem", marginBottom: "0.5rem" }} className="text-muted-foreground">
+                <p style={{ fontSize: "0.8rem", marginBottom: "0.3rem" }} className="text-muted-foreground">
                   Daily Earnings
                 </p>
-                <div className="flex items-center gap-2" style={{ marginBottom: "0.25rem" }}>
-                  <p style={{ fontSize: "1.8rem" }} className="font-bold text-white">
+                <div className="flex items-center gap-2" style={{ marginBottom: "0.2rem" }}>
+                  <p style={{ fontSize: "1.6rem", lineHeight: "1" }} className="font-bold text-white">
                     {mockData.dailyEarnings.toFixed(2)}
                   </p>
-                  <span style={{ fontSize: "0.9rem" }} className="text-faps-primary font-medium">FAPS</span>
+                  <span style={{ fontSize: "0.8rem" }} className="text-faps-primary font-medium">FAPS</span>
                 </div>
-                <p style={{ fontSize: "0.8rem" }} className="text-muted-foreground">+0.0% vs last day</p>
+                <p style={{ fontSize: "0.7rem" }} className="text-muted-foreground">+0.0% vs last day</p>
               </div>
             </div>
           </Card>
 
-          <Card className="faps-card" style={{ height: "8rem", padding: "1.5rem" }}>
+          <Card className="faps-card" style={{ height: "6rem", padding: "1rem" }}>
             <div className="flex flex-col justify-center h-full">
               <div>
-                <p style={{ fontSize: "0.9rem", marginBottom: "0.5rem" }} className="text-muted-foreground">
+                <p style={{ fontSize: "0.8rem", marginBottom: "0.3rem" }} className="text-muted-foreground">
                   Weekly Earnings
                 </p>
-                <div className="flex items-center gap-2" style={{ marginBottom: "0.25rem" }}>
-                  <p style={{ fontSize: "1.8rem" }} className="font-bold text-white">
+                <div className="flex items-center gap-2" style={{ marginBottom: "0.2rem" }}>
+                  <p style={{ fontSize: "1.6rem", lineHeight: "1" }} className="font-bold text-white">
                     {mockData.weeklyEarnings.toFixed(2)}
                   </p>
-                  <span style={{ fontSize: "0.9rem" }} className="text-faps-primary font-medium">FAPS</span>
+                  <span style={{ fontSize: "0.8rem" }} className="text-faps-primary font-medium">FAPS</span>
                 </div>
-                <p style={{ fontSize: "0.8rem" }} className="text-muted-foreground">-100.0% vs last week</p>
+                <p style={{ fontSize: "0.7rem" }} className="text-muted-foreground">-100.0% vs last week</p>
               </div>
             </div>
           </Card>
 
-          <Card className="faps-card" style={{ height: "8rem", padding: "1.5rem" }}>
+          <Card className="faps-card" style={{ height: "6rem", padding: "1rem" }}>
             <div className="flex flex-col justify-center h-full">
               <div>
-                <p style={{ fontSize: "0.9rem", marginBottom: "0.5rem" }} className="text-muted-foreground">
+                <p style={{ fontSize: "0.8rem", marginBottom: "0.3rem" }} className="text-muted-foreground">
                   Current Streak
                 </p>
-                <div className="flex items-center gap-2" style={{ marginBottom: "0.25rem" }}>
-                  <p style={{ fontSize: "1.8rem" }} className="font-bold text-white">
+                <div className="flex items-center gap-2" style={{ marginBottom: "0.2rem" }}>
+                  <p style={{ fontSize: "1.6rem", lineHeight: "1" }} className="font-bold text-white">
                     {mockData.currentStreak}
                   </p>
-                  <Flame style={{ width: "1.2rem", height: "1.2rem" }} className="text-faps-warning" />
-                  <span style={{ fontSize: "0.9rem" }} className="text-faps-primary font-medium">days</span>
+                  <Flame style={{ width: "1rem", height: "1rem" }} className="text-faps-warning" />
+                  <span style={{ fontSize: "0.8rem" }} className="text-faps-primary font-medium">days</span>
                 </div>
-                <p style={{ fontSize: "0.8rem" }} className="text-muted-foreground">in a row</p>
+                <p style={{ fontSize: "0.7rem" }} className="text-muted-foreground">in a row</p>
               </div>
             </div>
           </Card>
@@ -1271,35 +1276,35 @@ export const Dashboard = () => {
             </Card>
           </div>
 
-          {/* Activity Feed - Matching height */}
-          <div style={{ height: "24rem" }}>
+          {/* Activity Feed */}
+          <div style={{ height: "18rem" }}>
             <ActivityFeed />
           </div>
         </div>
 
         {/* Top Performing Posts */}
-        <div style={{ marginBottom: "2rem" }}>
+        <div style={{ marginBottom: "1.5rem" }}>
           <TopPosts />
         </div>
 
         {/* Leaderboard */}
-        <Card className="faps-card">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold">Leaderboard</h3>
-            <div className="flex gap-2">
-              <Button variant="outline" size="sm">Weekly</Button>
-              <Button variant="outline" size="sm" className="bg-faps-primary/20">All time</Button>
+        <Card className="faps-card" style={{ padding: "1rem" }}>
+          <div className="flex items-center justify-between" style={{ marginBottom: "1rem" }}>
+            <h3 style={{ fontSize: "1.1rem" }} className="font-semibold">Leaderboard</h3>
+            <div className="flex gap-1">
+              <Button variant="outline" size="sm" style={{ fontSize: "0.7rem", padding: "0.3rem 0.6rem" }}>Weekly</Button>
+              <Button variant="outline" size="sm" style={{ fontSize: "0.7rem", padding: "0.3rem 0.6rem" }} className="bg-faps-primary/20">All time</Button>
             </div>
           </div>
           
-          {/* Column Headers */}
-          <div className="grid grid-cols-12 gap-4 p-3 mb-2 text-sm font-medium text-muted-foreground border-b border-border">
+          {/* Column Headers - Hidden on small screens */}
+          <div className="hidden sm:grid grid-cols-12 gap-4 p-3 mb-2 text-sm font-medium text-muted-foreground border-b border-border">
             <div className="col-span-2">Rank</div>
             <div className="col-span-7">Username</div>
             <div className="col-span-3 text-right">FAPS Count</div>
           </div>
           
-          <div className="space-y-3">
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
             {[
               { rank: 1, username: "CryptoKing", faps: 5420, avatar: "🚀" },
               { rank: 2, username: "BlockchainBoss", faps: 4130, avatar: "⚡" },
@@ -1307,23 +1312,60 @@ export const Dashboard = () => {
               { rank: 4, username: "FirmOrangutan3828", faps: 2871.70, avatar: "🦍", isCurrentUser: true },
               { rank: 5, username: "TokenTrader", faps: 2156, avatar: "📈" },
             ].map((user) => (
-              <div key={user.rank} className={`grid grid-cols-12 gap-4 items-center p-3 rounded-lg ${
-                user.isCurrentUser ? 'bg-faps-primary/20 border border-faps-primary/50' : 'bg-muted/30'
-              }`}>
-                <div className="col-span-2">
-                  <span className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-sm font-bold">
+              <div key={user.rank} className={`
+                flex items-center justify-between p-3 rounded-lg
+                sm:grid sm:grid-cols-12 sm:gap-4
+                ${user.isCurrentUser ? 'bg-faps-primary/20 border border-faps-primary/50' : 'bg-muted/30'}
+              `}>
+                {/* Mobile Layout */}
+                <div className="flex items-center gap-3 flex-1 sm:col-span-2">
+                  <span style={{ 
+                    width: "2rem", 
+                    height: "2rem", 
+                    borderRadius: "50%",
+                    fontSize: "0.8rem"
+                  }} className="bg-muted flex items-center justify-center font-bold">
                     #{user.rank}
                   </span>
                 </div>
-                <div className="col-span-7">
+                <div className="hidden sm:block sm:col-span-7">
                   <div className="flex items-center gap-2">
-                    <span className="text-lg">{user.avatar}</span>
+                    <span style={{ fontSize: "1.1rem" }}>{user.avatar}</span>
                     <span className={user.isCurrentUser ? 'font-bold text-faps-primary' : ''}>
                       {user.username}
                     </span>
                   </div>
                 </div>
-                <div className="col-span-3">
+                
+                {/* Mobile: Username + FAPS in right side */}
+                <div className="flex flex-col items-end sm:hidden flex-1">
+                  <div className="flex items-center gap-2">
+                    <span style={{ fontSize: "1.1rem" }}>{user.avatar}</span>
+                    <span style={{ fontSize: "0.9rem" }} className={user.isCurrentUser ? 'font-bold text-faps-primary' : ''}>
+                      {user.username}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span style={{ fontSize: "0.9rem" }} className="font-bold">{user.faps}</span>
+                    <span style={{ fontSize: "0.8rem" }} className="text-muted-foreground">FAPS</span>
+                    {user.isCurrentUser && (
+                      <div className="flex-shrink-0">
+                        <SocialShare 
+                          achievement="Ranked #4 in FAPS Leaderboard!" 
+                          userStats={{
+                            rank: user.rank,
+                            fapsCount: user.faps,
+                            username: user.username
+                          }}
+                          size="sm"
+                        />
+                      </div>
+                    )}
+                  </div>
+                </div>
+                
+                {/* Desktop: FAPS column */}
+                <div className="hidden sm:block sm:col-span-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <span className="font-bold">{user.faps}</span>
@@ -1342,11 +1384,11 @@ export const Dashboard = () => {
                         />
                       </div>
                     )}
-                   </div>
-                 </div>
-               </div>
-              ))}
-           </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </Card>
       </div>
     </div>
