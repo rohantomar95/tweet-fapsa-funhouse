@@ -697,7 +697,7 @@ const ActivityFeed = () => {
         <h3 className="text-lg font-semibold">Recent Activity</h3>
       </div>
       
-      <div className="space-y-3 flex-1 overflow-y-auto">
+      <div className="space-y-4 flex-1 overflow-y-auto pr-2">
         {activities.map((activity) => {
           const Icon = activity.icon;
           
@@ -1235,11 +1235,11 @@ export const Dashboard = () => {
           <AchievementBadges totalEarnings={mockData.totalEarnings} streak={mockData.currentStreak} />
         </div>
 
-        {/* Main Content Grid - Equal height for chart and activity feed */}
+        {/* Main Content Grid - Enhanced height for chart and activity feed */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Chart Section */}
           <div className="lg:col-span-2">
-            <Card className="faps-card h-96">
+            <Card className="faps-card h-[500px]">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold">Daily Earnings, FAPS (Last 30 days)</h3>
                 <div className="flex gap-2">
@@ -1248,7 +1248,7 @@ export const Dashboard = () => {
                   <Button variant="outline" size="sm">90D</Button>
                 </div>
               </div>
-              <div style={{ height: "16rem", padding: "0.5rem", overflow: "hidden" }}>
+              <div style={{ height: "400px", padding: "0.5rem", overflow: "hidden" }}>
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={mockData.chartData}>
                     <XAxis 
@@ -1276,8 +1276,8 @@ export const Dashboard = () => {
             </Card>
           </div>
 
-          {/* Activity Feed */}
-          <div style={{ height: "18rem" }}>
+          {/* Activity Feed - Increased height */}
+          <div style={{ height: "500px" }}>
             <ActivityFeed />
           </div>
         </div>
