@@ -1020,25 +1020,23 @@ const XAccountConnection = () => {
   if (!isConnected) {
     return (
       <Card className="faps-card">
-        <div className="p-4">
+        <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-faps-primary/10 rounded-lg flex items-center justify-center">
-                <TwitterIcon className="w-4 h-4 text-faps-primary" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-foreground">Engagement Rewards</h3>
-                <p className="text-xs text-muted-foreground">Connect and earn FAPS</p>
-              </div>
+            <div className="flex items-center gap-2">
+              <TwitterIcon />
+              <h3 className="text-lg font-semibold">Engagement Rewards</h3>
             </div>
-            
             <Button 
-              className="bg-faps-primary hover:bg-faps-primary/90 text-primary-foreground px-4 py-2 text-sm"
+              className="bg-faps-primary hover:bg-faps-secondary flex items-center gap-2"
               onClick={handleConnect}
             >
-              Connect <TwitterIcon className="w-3 h-3 ml-1" /> account
+              Connect <TwitterIcon className="w-4 h-4" /> account
             </Button>
           </div>
+          <p className="text-muted-foreground">
+            Connect your <TwitterIcon className="w-4 h-4 inline mx-1" /> account and earn FAPS for every like, comment, retweet, or tag — 
+            including when you mention us in your own posts.
+          </p>
         </div>
       </Card>
     );
@@ -1046,48 +1044,55 @@ const XAccountConnection = () => {
 
   return (
     <Card className="faps-card">
-      <div className="p-4">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-green-500/10 rounded-lg flex items-center justify-center">
-              <TwitterIcon className="w-4 h-4 text-green-400" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-foreground">Engagement Rewards</h3>
-              <p className="text-xs text-muted-foreground">Account connected</p>
-            </div>
-          </div>
-          
-          <Badge className="bg-green-500/20 text-green-400 border-green-500/30 px-2 py-1 text-xs">
-            Connected
-          </Badge>
+      <div className="space-y-4">
+        <div className="flex items-center gap-2">
+          <TwitterIcon />
+          <h3 className="text-lg font-semibold">Engagement Rewards</h3>
         </div>
         
-        <div className="flex items-center justify-between bg-muted/20 rounded-lg p-3">
-          <div className="flex items-center gap-3">
-            <img 
-              src={userProfile.profilePicture} 
-              alt="Profile"
-              className="w-8 h-8 rounded-full object-cover"
-            />
-            <div>
-              <p className="font-medium text-sm">{userProfile.username}</p>
-              <div className="flex items-center gap-2">
-                <Badge className="bg-faps-warning/20 text-faps-warning border-faps-warning/50 text-xs px-2 py-0.5">
-                  {userProfile.twitterScore}/1000
-                </Badge>
-              </div>
-            </div>
+        <div className="flex flex-col lg:flex-row lg:items-start gap-4">
+          <div className="flex-1">
+            <p className="text-muted-foreground">
+              Your <TwitterIcon className="w-4 h-4 inline mx-1" /> account is connected! Earn FAPS for every like, comment, retweet, or tag — 
+              including when you mention us in your own posts.
+            </p>
           </div>
           
-          <Button 
-            variant="outline"
-            size="sm"
-            onClick={handleDisconnect}
-            className="text-xs px-2 py-1 h-auto"
-          >
-            Disconnect
-          </Button>
+          <div className="flex-shrink-0">
+            <div className="flex items-center gap-4 p-4 bg-faps-primary/10 rounded-lg border border-faps-primary/30 min-w-fit relative">
+              <img 
+                src={userProfile.profilePicture} 
+                alt="Profile"
+                className="w-12 h-12 rounded-full"
+              />
+              <div className="pr-16">
+                <p className="font-semibold text-faps-primary">{userProfile.username}</p>
+                <div className="flex items-center gap-2 mt-1">
+                  <span className="text-sm text-muted-foreground">Twitter Score:</span>
+                  <Badge className="bg-faps-warning/20 text-faps-warning border-faps-warning/50">
+                    {userProfile.twitterScore}/1000
+                  </Badge>
+                  <div className="relative group">
+                    <button className="p-1 hover:bg-muted rounded-full transition-colors">
+                      <Info className="w-3 h-3 text-muted-foreground group-hover:text-foreground" />
+                    </button>
+                    <div className="absolute z-50 invisible group-hover:visible bg-popover border border-border text-popover-foreground p-3 rounded-md shadow-md text-xs max-w-xs -mt-20 -ml-32">
+                      Twitter score is assigned by Twitterscore.io based on engagement metrics. 
+                      FAPS are calculated based on Engagement and Twitter score of the user. Scores range from 1 to 1000.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <Button 
+                variant="outline"
+                size="sm"
+                onClick={handleDisconnect}
+                className="absolute top-2 right-2 text-xs px-2 py-1 h-auto"
+              >
+                Disconnect
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </Card>
