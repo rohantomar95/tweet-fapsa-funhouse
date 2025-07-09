@@ -117,28 +117,35 @@ All colors MUST be HSL.
 
 @layer base {
   html {
-    /* Mobile: use larger base size since viewport is small */
-    font-size: calc(2.5vw) !important;
+    /* Mobile: much larger base size for readability */
+    font-size: calc(4.5vw) !important;
+  }
+
+  /* Small tablet */
+  @media (min-width: 640px) {
+    html {
+      font-size: calc(3vw) !important;
+    }
   }
 
   /* Tablet */
   @media (min-width: 768px) {
     html {
-      font-size: calc(1.8vw) !important;
+      font-size: calc(2.2vw) !important;
     }
   }
 
   /* Desktop */
   @media (min-width: 1024px) {
     html {
-      font-size: calc(1.2vw) !important;
+      font-size: calc(1.6vw) !important;
     }
   }
 
   /* Large Desktop */
   @media (min-width: 1440px) {
     html {
-      font-size: calc(1vw) !important;
+      font-size: calc(1.2vw) !important;
     }
   }
 
