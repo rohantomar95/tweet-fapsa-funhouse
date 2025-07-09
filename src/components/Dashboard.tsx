@@ -1136,28 +1136,32 @@ export const Dashboard = () => {
   }, []);
 
   return (
-    <div className="min-h-screen p-4 md:p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
+    <div className="min-h-screen" style={{ padding: "2rem 1rem" }}>
+      <div className="max-w-7xl mx-auto" style={{ gap: "2rem" }}>
         {/* Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between" style={{ marginBottom: "2rem" }}>
           <div>
-            <h1 className="text-3xl font-bold faps-gradient-text">FAPs</h1>
+            <h1 style={{ fontSize: "3rem" }} className="font-bold faps-gradient-text">FAPs</h1>
           </div>
         </div>
 
-        {/* Main Stats Cards - 4 cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="faps-card h-32">
-            <div className="flex flex-col justify-center h-full p-4">
+        {/* Main Stats Cards - Responsive Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" style={{ gap: "1.5rem", marginBottom: "2rem" }}>
+          <Card className="faps-card" style={{ minHeight: "8rem", padding: "1.5rem" }}>
+            <div className="flex flex-col justify-center h-full">
               <div>
-                <p className="text-xs md:text-sm text-muted-foreground mb-2">Total Earnings</p>
-                <div className="flex items-center gap-2 mb-1">
-                  <p className="text-xl md:text-2xl font-bold text-white">
+                <p style={{ fontSize: "0.9rem", marginBottom: "0.5rem" }} className="text-muted-foreground">
+                  Total Earnings
+                </p>
+                <div className="flex items-center gap-2" style={{ marginBottom: "0.25rem" }}>
+                  <p style={{ fontSize: "2rem" }} className="font-bold text-white">
                     {animatedEarnings.toFixed(2)}
                   </p>
-                  <span className="text-sm md:text-base text-faps-primary font-medium">FAPS</span>
+                  <span style={{ fontSize: "1rem" }} className="text-faps-primary font-medium">FAPS</span>
                 </div>
-                <p className="text-xs text-muted-foreground">Your Rank: #{mockData.userRank}</p>
+                <p style={{ fontSize: "0.8rem" }} className="text-muted-foreground">
+                  Your Rank: #{mockData.userRank}
+                </p>
               </div>
             </div>
           </Card>
