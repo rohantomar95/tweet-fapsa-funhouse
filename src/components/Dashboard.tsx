@@ -1147,17 +1147,18 @@ export const Dashboard = () => {
 
         {/* Main Stats Cards - Responsive Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" style={{ gap: "1.5rem", marginBottom: "2rem" }}>
-          <Card className="faps-card" style={{ minHeight: "8rem", padding: "1.5rem" }}>
+          {/* All cards with consistent sizing */}
+          <Card className="faps-card" style={{ height: "8rem", padding: "1.5rem" }}>
             <div className="flex flex-col justify-center h-full">
               <div>
                 <p style={{ fontSize: "0.9rem", marginBottom: "0.5rem" }} className="text-muted-foreground">
                   Total Earnings
                 </p>
                 <div className="flex items-center gap-2" style={{ marginBottom: "0.25rem" }}>
-                  <p style={{ fontSize: "2rem" }} className="font-bold text-white">
+                  <p style={{ fontSize: "1.8rem" }} className="font-bold text-white">
                     {animatedEarnings.toFixed(2)}
                   </p>
-                  <span style={{ fontSize: "1rem" }} className="text-faps-primary font-medium">FAPS</span>
+                  <span style={{ fontSize: "0.9rem" }} className="text-faps-primary font-medium">FAPS</span>
                 </div>
                 <p style={{ fontSize: "0.8rem" }} className="text-muted-foreground">
                   Your Rank: #{mockData.userRank}
@@ -1166,58 +1167,68 @@ export const Dashboard = () => {
             </div>
           </Card>
 
-          <Card className="faps-card h-32">
-            <div className="flex flex-col justify-center h-full p-4">
+          <Card className="faps-card" style={{ height: "8rem", padding: "1.5rem" }}>
+            <div className="flex flex-col justify-center h-full">
               <div>
-                <p className="text-xs md:text-sm text-muted-foreground mb-2">Daily Earnings</p>
-                <div className="flex items-center gap-2 mb-1">
-                  <p className="text-xl md:text-2xl font-bold text-white">
+                <p style={{ fontSize: "0.9rem", marginBottom: "0.5rem" }} className="text-muted-foreground">
+                  Daily Earnings
+                </p>
+                <div className="flex items-center gap-2" style={{ marginBottom: "0.25rem" }}>
+                  <p style={{ fontSize: "1.8rem" }} className="font-bold text-white">
                     {mockData.dailyEarnings.toFixed(2)}
                   </p>
-                  <span className="text-sm md:text-base text-faps-primary font-medium">FAPS</span>
+                  <span style={{ fontSize: "0.9rem" }} className="text-faps-primary font-medium">FAPS</span>
                 </div>
-                <p className="text-xs text-muted-foreground">+0.0% vs last day</p>
+                <p style={{ fontSize: "0.8rem" }} className="text-muted-foreground">+0.0% vs last day</p>
               </div>
             </div>
           </Card>
 
-          <Card className="faps-card h-32">
-            <div className="flex flex-col justify-center h-full p-4">
+          <Card className="faps-card" style={{ height: "8rem", padding: "1.5rem" }}>
+            <div className="flex flex-col justify-center h-full">
               <div>
-                <p className="text-xs md:text-sm text-muted-foreground mb-2">Weekly Earnings</p>
-                <div className="flex items-center gap-2 mb-1">
-                  <p className="text-xl md:text-2xl font-bold text-white">
+                <p style={{ fontSize: "0.9rem", marginBottom: "0.5rem" }} className="text-muted-foreground">
+                  Weekly Earnings
+                </p>
+                <div className="flex items-center gap-2" style={{ marginBottom: "0.25rem" }}>
+                  <p style={{ fontSize: "1.8rem" }} className="font-bold text-white">
                     {mockData.weeklyEarnings.toFixed(2)}
                   </p>
-                  <span className="text-sm md:text-base text-faps-primary font-medium">FAPS</span>
+                  <span style={{ fontSize: "0.9rem" }} className="text-faps-primary font-medium">FAPS</span>
                 </div>
-                <p className="text-xs text-muted-foreground">-100.0% vs last week</p>
+                <p style={{ fontSize: "0.8rem" }} className="text-muted-foreground">-100.0% vs last week</p>
               </div>
             </div>
           </Card>
 
-          <Card className="faps-card h-32">
-            <div className="flex flex-col justify-center h-full p-4">
+          <Card className="faps-card" style={{ height: "8rem", padding: "1.5rem" }}>
+            <div className="flex flex-col justify-center h-full">
               <div>
-                <p className="text-xs md:text-sm text-muted-foreground mb-2">Current Streak</p>
-                <div className="flex items-center gap-2 mb-1">
-                  <p className="text-xl md:text-2xl font-bold text-white">
+                <p style={{ fontSize: "0.9rem", marginBottom: "0.5rem" }} className="text-muted-foreground">
+                  Current Streak
+                </p>
+                <div className="flex items-center gap-2" style={{ marginBottom: "0.25rem" }}>
+                  <p style={{ fontSize: "1.8rem" }} className="font-bold text-white">
                     {mockData.currentStreak}
                   </p>
-                  <Flame className="w-5 h-5 md:w-6 md:h-6 text-faps-warning" />
-                  <span className="text-sm md:text-base text-faps-primary font-medium">days</span>
+                  <Flame style={{ width: "1.2rem", height: "1.2rem" }} className="text-faps-warning" />
+                  <span style={{ fontSize: "0.9rem" }} className="text-faps-primary font-medium">days</span>
                 </div>
-                <p className="text-xs text-muted-foreground">in a row</p>
+                <p style={{ fontSize: "0.8rem" }} className="text-muted-foreground">in a row</p>
               </div>
             </div>
           </Card>
         </div>
 
         {/* Engagement Rewards Section */}
-        <XAccountConnection />
+        <div style={{ marginBottom: "2rem" }}>
+          <XAccountConnection />
+        </div>
 
         {/* Achievement Badges */}
-        <AchievementBadges totalEarnings={mockData.totalEarnings} streak={mockData.currentStreak} />
+        <div style={{ marginBottom: "2rem" }}>
+          <AchievementBadges totalEarnings={mockData.totalEarnings} streak={mockData.currentStreak} />
+        </div>
 
         {/* Main Content Grid - Equal height for chart and activity feed */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -1232,19 +1243,19 @@ export const Dashboard = () => {
                   <Button variant="outline" size="sm">90D</Button>
                 </div>
               </div>
-              <div className="h-64">
+              <div style={{ height: "16rem", padding: "0.5rem", overflow: "hidden" }}>
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={mockData.chartData}>
                     <XAxis 
                       dataKey="date" 
                       axisLine={false}
                       tickLine={false}
-                      tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
+                      tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: "0.8rem" }}
                     />
                     <YAxis 
                       axisLine={false}
                       tickLine={false}
-                      tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
+                      tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: "0.8rem" }}
                     />
                     <Line 
                       type="monotone" 
@@ -1261,13 +1272,15 @@ export const Dashboard = () => {
           </div>
 
           {/* Activity Feed - Matching height */}
-          <div className="h-96">
+          <div style={{ height: "24rem" }}>
             <ActivityFeed />
           </div>
         </div>
 
         {/* Top Performing Posts */}
-        <TopPosts />
+        <div style={{ marginBottom: "2rem" }}>
+          <TopPosts />
+        </div>
 
         {/* Leaderboard */}
         <Card className="faps-card">
@@ -1310,26 +1323,30 @@ export const Dashboard = () => {
                     </span>
                   </div>
                 </div>
-                <div className="col-span-3 text-right">
-                  <div className="flex items-center justify-end gap-2">
-                    <span className="font-bold">{user.faps}</span>
-                    <span className="text-sm text-muted-foreground">FAPS</span>
+                <div className="col-span-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold">{user.faps}</span>
+                      <span className="text-sm text-muted-foreground">FAPS</span>
+                    </div>
                     {user.isCurrentUser && (
-                      <SocialShare 
-                        achievement="Ranked #4 in FAPS Leaderboard!" 
-                        userStats={{
-                          rank: user.rank,
-                          fapsCount: user.faps,
-                          username: user.username
-                        }}
-                        showPostOnX={true}
-                      />
+                      <div className="flex-shrink-0">
+                        <SocialShare 
+                          achievement="Ranked #4 in FAPS Leaderboard!" 
+                          userStats={{
+                            rank: user.rank,
+                            fapsCount: user.faps,
+                            username: user.username
+                          }}
+                          size="sm"
+                        />
+                      </div>
                     )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+                   </div>
+                 </div>
+               </div>
+              ))}
+           </div>
         </Card>
       </div>
     </div>
